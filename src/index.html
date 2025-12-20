@@ -2,39 +2,104 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vanilla App Template</title>
-  <link rel="stylesheet" href="./css/styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VelvetSkin</title>
+  <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body>
+  <!-- Фоновое изображение -->
+  <div class="parallax-background">
+    <img class="parallax-img" src="./img/beautiful-girl-7387544.jpg" alt="Background">
+    <div class="overlay"></div>
+  </div>
+
+  <!-- Фиксированное меню -->
   <header class="header">
     <div class="container">
       <nav class="nav">
-        <!-- <a class="nav-logo" href="./index.html" aria-label="Site logo">
-        <svg class="nav-logo-icon" width="100" height="30">
-          <use href="{=$icon-path}"></use>
-        </svg>
-      </a> -->
+        <div class="nav-logo">
+          <a href="./index.html">
+            <svg class="logo" width="200" height="50" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+              <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
+                font-family="'Brush Script MT', cursive" font-size="100" fill="#000000">
+                VelvetSkin
+              </text>
+            </svg>
+          </a>
+        </div>
         <ul class="nav-list">
-          <li class="nav-item">
-            <a class="nav-link {=$highlight-act}" href="./gallery.html">Gallery</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {=$highlight-curr}" href="./form.html">Form</a>
-          </li>
+          <li><a class="nav-link" href="./gallery.html">Галерея</a></li>
+          <li><a class="nav-link" href="./form.html">Контакты</a></li>
+
         </ul>
       </nav>
     </div>
   </header>
 
-  <main>
-
+  <!-- Основной контент -->
+  <main class="main-content">
+    <div class="container">
+      <h1 class="hero-title">VelvetSkin — <span class="hero-title-span">профессиональная восковая эпиляция.</span></h1>
+      <h2 class="hero-after-title">Красота и гладкость вашей кожи без боли и раздражения.</h2>
+    </div>
+    <section class="aftor">
+      <div class="container aftor-container">
+        <img src="./img/2025-12-20 16.42.47-fotor-bg-remover-2025122016455.png" alt="author photo" class="author-photo">
+        <div class="author-info">
+          <h3 class="author-name">Александра Полищук</h3>
+          <p class="author-bio">Добро пожаловать в студию VelvetSkin! Мы предлагаем профессиональные услуги восковой
+            эпиляции для женщин и мужчин.
+            Используем только качественные материалы и современные техники, чтобы процедура была максимально комфортной
+            и
+            безопасной.</p>
+        </div>
+      </div>
+    </section>
+    <section class="benefits">
+      <div class="container">
+        <h2 class="benefits-title">Почему выбирают нас:</h2>
+        <ul class="benefits-list">
+          <li class="benefits-item">
+            <p class="benefits-text">Безопасные гипоаллергенные материалы</p>
+          </li>
+          <li class="benefits-item">
+            <p class="benefits-text">Опытные мастера с многолетним стажем</p>
+          </li>
+          <li class="benefits-item">
+            <p class="benefits-text">Индивидуальный подход к каждому клиенту</p>
+          </li>
+          <li class="benefits-item">
+            <p class="benefits-text">Чистота и уютная атмосфера</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="services">
+      <div class="container">
+        <h2 class="services-title">Наши услуги восковой эпиляции</h2>
+        <p class="services-after-title">Мы предлагаем полный спектр услуг по удалению нежелательных волос на лице и
+          теле.</p>
+        <ul class="services-list">
+          <li class="services-item">
+            <p class="services-text">Брови и лицо: коррекция бровей, верхняя губа, подбородок</p>
+          </li>
+          <li class="services-item">
+            <p class="services-text">Руки и ноги: руки полностью, ноги полностью или частично</p>
+          </li>
+          <li class="services-item">
+            <p class="services-text">Зона бикини: классическое, глубокое, бразильское</p>
+          </li>
+          <li class="services-item">
+            <p class="services-text">Спина и грудь: для мужчин и женщин</p>
+          </li>
+        </ul>
+      </div>
+    </section>
   </main>
 
-
+  <!-- Подключение JS -->
   <script type="module" src="./js/main-list.js"></script>
 </body>
 

@@ -1,3 +1,15 @@
+html {
+  scroll-behavior: smooth;
+}
+
+main {
+  scroll-snap-type: y mandatory;
+}
+
+section {
+  scroll-snap-align: start;
+}
+
 h1,
 h2,
 h3,
@@ -34,4 +46,25 @@ img {
 }
 body {
   font-family: 'Roboto', sans-serif;
+}
+
+/* ---------- Стили для контейнера ---------- */
+#hero {
+  background-image: url('../img/beautiful-girl-7387544.jpg');
+}
+
+#about-us {
+  background-image: url('../img/Bg_image.jpg');
+}
+
+#services {
+  background-image: url('../img/services-bg.jpg');
+}
+
+#prices {
+  background-image: url('../img/prices-bg.jpg');
+}
+
+#contacts {
+  background-image: url('../img/contacts-bg.jpg');
 }

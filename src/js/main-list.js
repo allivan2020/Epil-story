@@ -2,12 +2,29 @@ const menuBtn = document.querySelector('.menu-btn');
 const hiddenMenu = document.querySelector('.hiden-menu');
 const menuBtnClose = document.querySelector('.menu-btn-close');
 
-menuBtn.addEventListener('click', () => {
-  menuBtn.classList.toggle('active'); // превращаем кнопку в крестик
-  hiddenMenu.classList.toggle('is-open'); // открываем/закрываем overlay
+// Открытие/закрытие меню
+menuBtn.addEventListener('click', () => hiddenMenu.classList.toggle('is-open'));
+menuBtnClose.addEventListener('click', () =>
+  hiddenMenu.classList.remove('is-open')
+);
+
+// Плавный скролл по ссылкам
+const menuLinks = document.querySelectorAll('.menu-link');
+menuLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const targetId = link.getAttribute('href').substring(1);
+    document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+    hiddenMenu.classList.remove('is-open');
+  });
 });
 
-menuBtnClose.addEventListener('click', () => {
-  menuBtn.classList.remove('active'); // вернуть кнопку в исходное состояние
-  hiddenMenu.classList.remove('is-open'); // закрыть меню
+// Параллакс
+const parallaxSections = document.querySelectorAll('.parallax');
+window.addEventListener('scroll', () => {
+  parallaxSections.forEach(section => {
+    const speed = parseFloat(section.dataset.speed);
+    const offset = window.scrollY * speed;
+    section.style.backgroundPositionY = `${offset}px`;
+  });
 });

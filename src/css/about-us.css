@@ -1,0 +1,144 @@
+/* Сброс и базовые стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #2e2e2e;
+}
+
+/* ---------- Header ---------- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+}
+
+/* Кнопка меню */
+.menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #f7c6b6, #f4a08c);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.menu-btn span {
+  height: 2px;
+  width: 24px;
+  background: #7a4a3a;
+  border-radius: 2px;
+  transition: all 0.4s;
+}
+
+/* Overlay меню */
+.hiden-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 248, 244, 0.95);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hiden-menu.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hiden-menu .container a {
+  display: block;
+  font-size: 28px;
+  margin: 15px 0;
+  color: #7a4a3a;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.hiden-menu .container a:hover {
+  color: #f4a08c;
+}
+
+/* Меню десктоп */
+.menu-list {
+  display: flex;
+  gap: 30px;
+}
+
+.menu-list a {
+  color: #7a4a3a;
+  font-family: 'Great Vibes', cursive;
+  font-size: 22px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.menu-list a:hover {
+  color: #f4a08c;
+}
+
+/* ---------- Parallax секции ---------- */
+.parallax {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.parallax .container {
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 600px;
+}
+
+.parallax h1,
+.parallax h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.parallax p {
+  font-size: 20px;
+}
+
+/* ---------- Адаптив ---------- */
+@media (max-width: 768px) {
+  .menu-list {
+    display: none;
+  }
+  .parallax .container {
+    max-width: 90%;
+    padding: 20px;
+  }
+}

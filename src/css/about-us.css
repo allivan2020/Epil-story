@@ -114,7 +114,7 @@ body {
 }
 
 .parallax .container {
-  background: rgba(0, 0, 0, 0.3);
+  /* background: rgba(0, 0, 0, 0.3); */
   color: #fff;
   padding: 30px;
   border-radius: 12px;
@@ -124,7 +124,7 @@ body {
 .parallax h1,
 .parallax h2 {
   font-family: 'Great Vibes', cursive;
-  font-size: 48px;
+  font-size: 60px;
   margin-bottom: 15px;
 }
 

@@ -51,6 +51,8 @@ body {
 /* ---------- Стили для контейнера ---------- */
 #hero {
   background-image: url('../img/Bg_image.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 #about-us {

@@ -1,65 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VelvetSkin</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+
   <script type="module" crossorigin src="/Epil-story/index.js"></script>
-  <link rel="modulepreload" crossorigin href="/Epil-story/assets/vendor-DqfRU-su.js">
-  <link rel="stylesheet" crossorigin href="/Epil-story/assets/styles-DsDUx6VN.css">
+  <link rel="stylesheet" crossorigin href="/Epil-story/assets/index-DiDvIQsj.css">
+  <link rel="stylesheet" crossorigin href="/Epil-story/assets/styles-C8lZoF4R.css">
 </head>
 
 <body>
-  <!-- Фоновое изображение -->
-  <div class="parallax-background">
-    <img class="parallax-img" src="/Epil-story/assets/beautiful-girl-7387544-Dy5DPPaV.jpg" alt="Background">
-    <div class="overlay"></div>
-  </div>
-
   <!-- Фиксированное меню -->
   <header class="header">
     <div class="container">
-      <nav class="nav">
-        <div class="nav-logo">
-          <a href="./index.html">
-            <svg class="logo" width="200" height="50" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
-              <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
-                font-family="'Brush Script MT', cursive" font-size="100" fill="#000000">
-                VelvetSkin
-              </text>
-            </svg>
-          </a>
-        </div>
-        <ul class="nav-list">
-          <li><a class="nav-link" href="./gallery.html">Галерея</a></li>
-          <li><a class="nav-link" href="./form.html">Контакты</a></li>
+      <section class="hero">
+        <h1>Гладенька шкіра без болю</h1>
+        <p>Профессійна воскова депіляція для вашого комфорту та краси</p>
+        <button class="menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+        </button>
+      </section>
 
-        </ul>
-      </nav>
-    </div>
+      <!-- Overlay меню -->
+      <div class="hiden-menu">
+        <div class="container">
+          <button class="menu-btn-close" aria-label="Меню">
+            <span></span>
+            <span></span>
+          </button>
+          <ul class="hiden-menu-list">
+            <li><a href="#about-us" class="hiden-menu-link">Про нас</a></li>
+            <li><a href="#services" class="hiden-menu-link">Послуги</a></li>
+            <li><a href="#prices" class="hiden-menu-link">Ціни</a></li>
+            <li><a href="#contacts" class="hiden-menu-link">Контакти</a></li>
+          </ul>
+        </div>
+      </div>
+
+
+
   </header>
 
   <!-- Основной контент -->
   <main class="main-content">
-    <div class="container">
-      <h1 class="hero-title">VelvetSkin — <span class="hero-title-span">профессиональная восковая эпиляция.</span></h1>
-      <h2 class="hero-after-title">Красота и гладкость вашей кожи без боли и раздражения.</h2>
-    </div>
-    <section class="aftor">
-      <div class="container aftor-container">
-        <img src="/Epil-story/assets/2025-12-20%2016.42.47-fotor-bg-remover-2025122016455-BTX8EZmV.png" alt="author photo" class="author-photo">
-        <div class="author-info">
-          <h3 class="author-name">Александра Полищук</h3>
-          <p class="author-bio">Добро пожаловать в студию VelvetSkin! Мы предлагаем профессиональные услуги восковой
-            эпиляции для женщин и мужчин.
-            Используем только качественные материалы и современные техники, чтобы процедура была максимально комфортной
-            и
-            безопасной.</p>
-        </div>
+    <!-- <section class="hero">
+      <div class="parallax-background">
+        <img class="parallax-img" src="./img/beautiful-girl-7387544.jpg" alt="Background">
+        <div class="overlay"></div>
       </div>
-    </section>
-    <section class="benefits">
+
+      <div class="container">
+        <h1 class="hero-title">VelvetSkin — <span class="hero-title-span">профессиональная восковая эпиляция.</span></h1>
+        <h2 class="hero-after-title">Красота и гладкость вашей кожи без боли и раздражения.</h2>
+      </div>
+    </section> -->
+    <!-- <section class="benefits">
       <div class="container">
         <h2 class="benefits-title">Почему выбирают нас:</h2>
         <ul class="benefits-list">
@@ -77,8 +80,8 @@
           </li>
         </ul>
       </div>
-    </section>
-    <section class="services">
+    </section> -->
+    <!-- <section class="services">
       <div class="container">
         <h2 class="services-title">Наши услуги восковой эпиляции</h2>
         <p class="services-after-title">Мы предлагаем полный спектр услуг по удалению нежелательных волос на лице и
@@ -98,10 +101,65 @@
           </li>
         </ul>
       </div>
-    </section>
-  </main>
+    </section> -->
+    <!-- <section class="aftor">
+      <div class="container aftor-container">
+        <img src="./img/2025-12-20 16.42.47-fotor-bg-remover-2025122016455.png" alt="author photo" class="author-photo">
+        <div class="author-info">
+          <h3 class="author-name">Александра Полищук</h3>
+          <p class="author-bio">Добро пожаловать в студию VelvetSkin! Мы предлагаем профессиональные услуги восковой
+            эпиляции для женщин и мужчин.
+            Используем только качественные материалы и современные техники, чтобы процедура была максимально комфортной
+            и
+            безопасной.</p>
+        </div>
+      </div>
+    </section> -->
+    <!-- <section class="contacts">
+      <nav class="nav">
+        <ul class="social">
+          <li class="social-list-item">
+            <a href="https://www.instagram.com/velvet_skin_ukraine" target="_blank" class="social-link">
+              <svg class="social-icon">
+                <use href="./img/svg/symbol-defs.svg#icon-instagram"></use>
+              </svg>
+              Instagram
+            </a>
+          </li>
+      
+          <li class="social-list-item">
+            <a href="https://www.instagram.com/velvet_skin_ukraine" target="_blank" class="social-link">
+              <svg class="social-icon">
+                <use href="./img/svg/symbol-defs.svg#icon-telegram"></use>
+              </svg>
+              Telegram
+            </a>
+          </li>
+      
+          <li class="social-list-item">
+            <a href="mailto:aleks.sandra.po@gmail.com" target="_blank" class="social-link">
+              <svg class="social-icon">
+                <use href="./img/svg/symbol-defs.svg#icon-mail2"></use>
+              </svg>
+              Пошта
+            </a>
+          </li>
+      
+          <li class="social-list-item">
+            <a href="tel:+380971950698" target="_blank" class="social-link">
+              <svg class="social-icon">
+                <use href="./img/svg/symbol-defs.svg#icon-phone"></use>
+              </svg>
+              Телефон
+            </a>
+          </li>
+      
+        </ul>
+      </nav>
+    </section> -->
+    <!-- </main> -->
 
-  <!-- Подключение JS -->
+    <!-- Подключение JS -->
 </body>
 
 </html>

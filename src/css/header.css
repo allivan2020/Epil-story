@@ -13,7 +13,6 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 20px;
   box-sizing: border-box;
 }
 
@@ -25,111 +24,30 @@
 }
 
 .hero p {
-  font-size: 20px;
+  font-size: 18px;
   color: #2e2e2e;
   margin-bottom: 60px;
 }
 
-/* Заголовки */
+/* ---------- Заголовки и текст ---------- */
 h1 {
   font-family: 'Great Vibes', cursive;
-  color: #7a4a3a;
   font-weight: 700;
+  color: #7a4a3a;
 }
 
-/* Основной текст */
 body,
-p,
-a {
+a, p{
   font-family: 'Poppins', system-ui, sans-serif;
   color: #2e2e2e;
 }
 
-/* Ссылки в меню */
-.hiden-menu-link {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  color: #7a4a3a;
-  transition: color 0.3s ease;
-}
-
-.hiden-menu-link:hover {
-  color: #f4a08c;
-}
-
-/* ---------- Кнопка меню ---------- */
-.menu-btn,
-.menu-btn-close {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #f7c6b6, #f4a08c);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 6px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.5s ease; /* только фон, кнопка не дергается */
-  position: relative;
-}
-
-.menu-btn span {
-  width: 24px;
-  height: 2px;
-  background: #7a4a3a;
-  border-radius: 2px;
-  transition:
-    transform 0.4s ease,
-    opacity 0.4s ease;
-}
-
-/* Анимация крестика */
-.menu-btn.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.menu-btn.active span:nth-child(2) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-
-.menu-btn-close {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #f7c6b6, #f4a08c);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 6px;
-  border: none;
-  cursor: pointer;
-}
-
-.menu-btn-close span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-  width: 24px;
-  height: 2px;
-  background: #7a4a3a;
-  border-radius: 2px;
-}
-
-.menu-btn-close span:nth-child(2) {
-  transform: rotate(-45deg) translate(5px, -5px);
-  width: 24px;
-  height: 2px;
-  background: #7a4a3a;
-  border-radius: 2px;
-}
-
-/* ---------- Overlay меню ---------- */
+/* ---------- Мобильное overlay меню ---------- */
 .hiden-menu {
   position: fixed;
   inset: 0;
-  background: rgba(255, 248, 244, 0.9);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 248, 244, 0.95);
+  backdrop-filter: blur(10px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -172,10 +90,11 @@ a {
 
 .hiden-menu-link {
   font-size: 26px;
-  color: #7a4a3a;
   font-weight: 500;
+  color: #7a4a3a;
   position: relative;
   transition: color 0.3s ease;
+  text-decoration: none;
 }
 
 .hiden-menu-link:hover {
@@ -190,7 +109,7 @@ a {
   width: 0;
   height: 2px;
   background: #f4a08c;
-  transition: 0.3s ease;
+  transition: width 0.3s ease;
   transform: translateX(-50%);
 }
 
@@ -198,4 +117,149 @@ a {
   width: 60%;
 }
 
-/* ---------- Адаптив ---------- */
+/* ---------- Кнопка гамбургер ---------- */
+.menu-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f7c6b6, #f4a08c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.5s ease;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1100;
+}
+
+.menu-btn span {
+  width: 24px;
+  height: 2px;
+  background: #7a4a3a;
+  border-radius: 2px;
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+}
+
+.menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-btn.active span:nth-child(2) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.menu-btn-close {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.menu-btn-close span {
+  width: 24px;
+  height: 2px;
+  background: #7a4a3a;
+  border-radius: 2px;
+}
+
+.menu-btn-close span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.menu-btn-close span:nth-child(2) {
+  transform: rotate(-45deg);
+}
+
+/* ---------- Десктопное меню ---------- */
+.menu-list {
+  display: none; /* скрыто на мобильных */
+  list-style: none;
+  gap: 32px;
+  flex-direction: row;
+}
+
+@media (max-width: 767px) {
+  .hero h1,
+  .hero p {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px; /* чтобы текст не прилипал к краям */
+  }
+
+  .hero h1 {
+    font-size: 48px;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 22px;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Скрываем мобильное меню и кнопку */
+  .hiden-menu,
+  .menu-btn {
+    display: none;
+  }
+
+  /* Горизонтальное закрепленное меню сверху */
+  .menu-list {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    padding: 20px 40px;
+    background: rgba(255, 248, 244, 0.95);
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  
+  }
+
+  .menu-list a {
+    font-family: 'Great Vibes', cursive;
+    font-size: 25px;
+    color: #7a4a3a;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .menu-list a:hover {
+    color: #f4a08c;
+  }
+}
+
+/* ---------- Адаптив текст hero ---------- */
+@media (max-width: 1200px) {
+  .hero h1 {
+    font-size: 80px;
+    max-width: 800px;
+  }
+
+  .hero p {
+    margin-bottom: 40px;
+  }
+}

@@ -9,164 +9,83 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600&display=swap"
     rel="stylesheet">
-
-
   <script type="module" crossorigin src="/Epil-story/index.js"></script>
-  <link rel="stylesheet" crossorigin href="/Epil-story/assets/styles-BOctjZbY.css">
+  <link rel="stylesheet" crossorigin href="/Epil-story/assets/styles-vaQ9wcz8.css">
 </head>
 
 <body>
+
   <!-- Фиксированное меню -->
   <header class="header">
-    <section class="hero">
-      <div class="container">
-        <h1>Гладенька шкіра без болю</h1>
-        <p>Профессійна воскова депіляція для вашого комфорту та краси</p>
-        <button class="menu-btn" aria-label="Меню">
-          <span></span>
-          <span></span>
-        </button>
-        <ul class="menu-list">
-          <li><a href="#about-us" class="hiden-menu-link">Про нас</a></li>
-          <li><a href="#services" class="hiden-menu-link">Послуги</a></li>
-          <li><a href="#prices" class="hiden-menu-link">Ціни</a></li>
-          <li><a href="#contacts" class="hiden-menu-link">Контакти</a></li>
-      </div>
-      </ul>
+    <button class="menu-btn" aria-label="Меню">
+      <span></span>
+      <span></span>
+    </button>
 
-    </section>
+    <nav class="menu-list">
+      <a href="#hero" class="menu-link">Головна</a>
+      <a href="#about-us" class="menu-link">Про нас</a>
+      <a href="#services" class="menu-link">Послуги</a>
+      <a href="#prices" class="menu-link">Ціни</a>
+      <a href="#contacts" class="menu-link">Контакти</a>
+    </nav>
 
-    <!-- Overlay меню -->
+    <!-- Overlay меню для мобильных -->
     <div class="hiden-menu">
+      <button class="menu-btn-close" aria-label="Закрити меню">
+        <span></span>
+        <span></span>
+      </button>
       <div class="container">
-        <button class="menu-btn-close" aria-label="Меню">
-          <span></span>
-          <span></span>
-        </button>
-        <ul class="hiden-menu-list">
-          <li><a href="#about-us" class="hiden-menu-link">Про нас</a></li>
-          <li><a href="#services" class="hiden-menu-link">Послуги</a></li>
-          <li><a href="#prices" class="hiden-menu-link">Ціни</a></li>
-          <li><a href="#contacts" class="hiden-menu-link">Контакти</a></li>
-        </ul>
+        <a href="#hero" class="menu-link">Головна</a>
+        <a href="#about-us" class="menu-link">Про нас</a>
+        <a href="#services" class="menu-link">Послуги</a>
+        <a href="#prices" class="menu-link">Ціни</a>
+        <a href="#contacts" class="menu-link">Контакти</a>
       </div>
     </div>
-
-
-
   </header>
 
-  <!-- Основной контент -->
-  <main class="main-content">
-    <!-- <section class="hero">
-      <div class="parallax-background">
-        <img class="parallax-img" src="./img/beautiful-girl-7387544.jpg" alt="Background">
-        <div class="overlay"></div>
+  <!-- Секции с параллаксом -->
+  <main>
+    <section id="hero" class="parallax" data-speed="0.3">
+      <div class="container">
+        <h1>Гладенька шкіра без болю</h1>
+        <p>Професійна воскова депіляція для вашого комфорту та краси</p>
       </div>
+    </section>
 
+    <section id="about-us" class="parallax" data-speed="0.2">
       <div class="container">
-        <h1 class="hero-title">VelvetSkin — <span class="hero-title-span">профессиональная восковая эпиляция.</span></h1>
-        <h2 class="hero-after-title">Красота и гладкость вашей кожи без боли и раздражения.</h2>
+        <img src="/Epil-story/assets/about-us-aftor-CzBhS29d.jpg" alt="Автор фото" class="about-us-photo">
+        <h2>Про нас</h2>
+        <p>VelvetSkin - студія професійної воскової депіляції. Ми пропонуємо безпечні послуги для жінок та чоловіків.
+          Наші майстри мають багаторічний досвід та використовують тільки гіпоалергенні матеріали.</p>
       </div>
-    </section> -->
-    <!-- <section class="benefits">
-      <div class="container">
-        <h2 class="benefits-title">Почему выбирают нас:</h2>
-        <ul class="benefits-list">
-          <li class="benefits-item">
-            <p class="benefits-text">Безопасные гипоаллергенные материалы</p>
-          </li>
-          <li class="benefits-item">
-            <p class="benefits-text">Опытные мастера с многолетним стажем</p>
-          </li>
-          <li class="benefits-item">
-            <p class="benefits-text">Индивидуальный подход к каждому клиенту</p>
-          </li>
-          <li class="benefits-item">
-            <p class="benefits-text">Чистота и уютная атмосфера</p>
-          </li>
-        </ul>
-      </div>
-    </section> -->
-    <!-- <section class="services">
-      <div class="container">
-        <h2 class="services-title">Наши услуги восковой эпиляции</h2>
-        <p class="services-after-title">Мы предлагаем полный спектр услуг по удалению нежелательных волос на лице и
-          теле.</p>
-        <ul class="services-list">
-          <li class="services-item">
-            <p class="services-text">Брови и лицо: коррекция бровей, верхняя губа, подбородок</p>
-          </li>
-          <li class="services-item">
-            <p class="services-text">Руки и ноги: руки полностью, ноги полностью или частично</p>
-          </li>
-          <li class="services-item">
-            <p class="services-text">Зона бикини: классическое, глубокое, бразильское</p>
-          </li>
-          <li class="services-item">
-            <p class="services-text">Спина и грудь: для мужчин и женщин</p>
-          </li>
-        </ul>
-      </div>
-    </section> -->
-    <!-- <section class="aftor">
-      <div class="container aftor-container">
-        <img src="./img/2025-12-20 16.42.47-fotor-bg-remover-2025122016455.png" alt="author photo" class="author-photo">
-        <div class="author-info">
-          <h3 class="author-name">Александра Полищук</h3>
-          <p class="author-bio">Добро пожаловать в студию VelvetSkin! Мы предлагаем профессиональные услуги восковой
-            эпиляции для женщин и мужчин.
-            Используем только качественные материалы и современные техники, чтобы процедура была максимально комфортной
-            и
-            безопасной.</p>
-        </div>
-      </div>
-    </section> -->
-    <!-- <section class="contacts">
-      <nav class="nav">
-        <ul class="social">
-          <li class="social-list-item">
-            <a href="https://www.instagram.com/velvet_skin_ukraine" target="_blank" class="social-link">
-              <svg class="social-icon">
-                <use href="./img/svg/symbol-defs.svg#icon-instagram"></use>
-              </svg>
-              Instagram
-            </a>
-          </li>
-      
-          <li class="social-list-item">
-            <a href="https://www.instagram.com/velvet_skin_ukraine" target="_blank" class="social-link">
-              <svg class="social-icon">
-                <use href="./img/svg/symbol-defs.svg#icon-telegram"></use>
-              </svg>
-              Telegram
-            </a>
-          </li>
-      
-          <li class="social-list-item">
-            <a href="mailto:aleks.sandra.po@gmail.com" target="_blank" class="social-link">
-              <svg class="social-icon">
-                <use href="./img/svg/symbol-defs.svg#icon-mail2"></use>
-              </svg>
-              Пошта
-            </a>
-          </li>
-      
-          <li class="social-list-item">
-            <a href="tel:+380971950698" target="_blank" class="social-link">
-              <svg class="social-icon">
-                <use href="./img/svg/symbol-defs.svg#icon-phone"></use>
-              </svg>
-              Телефон
-            </a>
-          </li>
-      
-        </ul>
-      </nav>
-    </section> -->
-    <!-- </main> -->
+    </section>
 
-    <!-- Подключение JS -->
+    <section id="services" class="parallax" data-speed="0.15">
+      <div class="container">
+        <h2>Послуги</h2>
+        <p>Брови, обличчя, руки, ноги, зона бікіні. Індивідуальний підхід до кожного клієнта.</p>
+      </div>
+    </section>
+
+    <section id="prices" class="parallax" data-speed="0.1">
+      <div class="container">
+        <h2>Ціни</h2>
+        <p>Наші ціни доступні та прозорі. Для детальної інформації звертайтесь до нас.</p>
+      </div>
+    </section>
+
+    <section id="contacts" class="parallax" data-speed="0.05">
+      <div class="container">
+        <h2>Контакти</h2>
+        <p>Email: info@velvetskin.com<br>Телефон: +380971950698</p>
+      </div>
+    </section>
+  </main>
+
 </body>
 
 </html>

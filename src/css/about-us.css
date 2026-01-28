@@ -1,18 +1,38 @@
-/* Сброс и базовые стили */
+/* ================= Reset & Base ================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 body {
   font-family: 'Poppins', sans-serif;
   color: #2e2e2e;
+  background: #fff;
 }
 
-/* ---------- Header ---------- */
+/* Заголовки */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Great Vibes', cursive;
+  color: #7a4a3a;
+}
+p,
+a {
+  font-family: 'Poppins', sans-serif;
+  color: #2e2e2e;
+  text-decoration: none;
+}
+
+/* ================= Header ================= */
 .header {
   position: fixed;
   top: 0;
@@ -23,83 +43,105 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
+  background: rgba(255, 248, 244, 0.9);
 }
 
-/* Кнопка меню */
+/* ---------- Кнопка гамбургер ---------- */
 .menu-btn {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #f7c6b6, #f4a08c);
-  border: none;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
+  background: linear-gradient(135deg, #f7c6b6, #f4a08c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 6px;
+  border: none;
   cursor: pointer;
   z-index: 1100;
+  transition: background 0.5s ease;
 }
-
 .menu-btn span {
-  height: 2px;
   width: 24px;
+  height: 2px;
   background: #7a4a3a;
   border-radius: 2px;
   transition: all 0.4s;
 }
+.menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.menu-btn.active span:nth-child(2) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
 
-/* Overlay меню */
+/* ---------- Overlay меню ---------- */
 .hiden-menu {
   position: fixed;
   inset: 0;
   background: rgba(255, 248, 244, 0.95);
   backdrop-filter: blur(10px);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: all 0.4s;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
+  z-index: 1000;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
-
 .hiden-menu.is-open {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
 }
-
-.hiden-menu .container a {
+.hiden-menu a {
   display: block;
-  font-size: 28px;
+  font-size: 26px;
+  color: #7a4a3a;
   margin: 15px 0;
-  color: #7a4a3a;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
-
-.hiden-menu .container a:hover {
+.hiden-menu a:hover {
   color: #f4a08c;
 }
 
-/* Меню десктоп */
+/* ---------- Десктопное меню ---------- */
 .menu-list {
-  display: flex;
-  gap: 30px;
+  display: none;
+}
+@media (min-width: 768px) {
+  .menu-list {
+    display: flex;
+    gap: 32px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    padding: 20px 40px;
+    background: rgba(255, 248, 244, 0.95);
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  .menu-list a {
+    font-family: 'Great Vibes', cursive;
+    font-size: 25px;
+    color: #7a4a3a;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .menu-list a:hover {
+    color: #f4a08c;
+  }
 }
 
-.menu-list a {
-  color: #7a4a3a;
-  font-family: 'Great Vibes', cursive;
-  font-size: 22px;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.menu-list a:hover {
-  color: #f4a08c;
-}
-
-/* ---------- Parallax секции ---------- */
+/* ================= Parallax Sections ================= */
 .parallax {
   position: relative;
   width: 100%;
@@ -114,16 +156,15 @@ body {
 }
 
 .parallax .container {
-  /* background: rgba(0, 0, 0, 0.3); */
-  color: #fff;
   padding: 30px;
-  border-radius: 12px;
   max-width: 600px;
+  border-radius: 12px;
+  color: #fff;
+  /* background: rgba(0, 0, 0, 0.3); */
 }
 
 .parallax h1,
 .parallax h2 {
-  font-family: 'Great Vibes', cursive;
   font-size: 60px;
   margin-bottom: 15px;
 }
@@ -132,13 +173,89 @@ body {
   font-size: 20px;
 }
 
-/* ---------- Адаптив ---------- */
+/* ---------- Фоны секций ---------- */
+#hero {
+  background-image: url('../img/Bg_image.jpg');
+}
+#about-us {
+  background-image: url('../img/beautiful-girl-7387544.jpg');
+}
+#services {
+  background-image: url('../img/services-bg.jpg');
+}
+#prices {
+  background-image: url('../img/prices-bg.jpg');
+}
+#contacts {
+  background-image: url('../img/contacts-bg.jpg');
+}
+
+/* ================= Hero Section ================= */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #fefcf9, #fffdfd);
+  background-size: cover;
+  background-position: center;
+}
+.hero h1 {
+  font-size: 80px;
+  font-weight: 500;
+  color: #7a4a3a;
+  margin-bottom: 15px;
+}
+.hero p {
+  font-size: 18px;
+  color: #2e2e2e;
+  margin-bottom: 60px;
+}
+
+/* ================= Адаптив ================= */
+@media (max-width: 1200px) {
+  .hero h1 {
+    font-size: 80px;
+    max-width: 800px;
+  }
+  .hero p {
+    margin-bottom: 40px;
+  }
+}
+
 @media (max-width: 768px) {
+  /* Меню */
   .menu-list {
     display: none;
+  }
+
+  /* Параллакс */
+  .parallax {
+    background-attachment: scroll;
+    background-size: cover;
+    background-position: center;
   }
   .parallax .container {
     max-width: 90%;
     padding: 20px;
+  }
+  .parallax h1,
+  .parallax h2 {
+    font-size: 36px;
+  }
+  .parallax p {
+    font-size: 16px;
+  }
+
+  /* Hero */
+  .hero h1 {
+    font-size: 48px;
+  }
+  .hero p {
+    font-size: 22px;
   }
 }

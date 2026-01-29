@@ -42,7 +42,6 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 30px;
   background: rgba(255, 248, 244, 0.9);
 }
 
@@ -61,6 +60,7 @@ a {
   cursor: pointer;
   z-index: 1100;
   transition: background 0.5s ease;
+  margin-left: 20px;
 }
 .menu-btn span {
   width: 24px;
@@ -114,6 +114,8 @@ a {
 /* ---------- Десктопное меню ---------- */
 .menu-list {
   display: none;
+  height: 60px;
+  padding: 0 20px;
 }
 @media (min-width: 768px) {
   .menu-list {
@@ -123,7 +125,6 @@ a {
     top: 0;
     right: 0;
     width: 100%;
-    padding: 20px 40px;
     background: rgba(255, 248, 244, 0.95);
     justify-content: flex-end;
     align-items: center;
@@ -136,8 +137,43 @@ a {
     text-decoration: none;
     transition: color 0.3s ease;
   }
-  .menu-list a:hover {
+  .menu-list a:hover,
+  .menu-list a:focus {
     color: #f4a08c;
+  }
+
+  .menu-link {
+    position: relative;
+    color: #7a4a3a;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .menu-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px; /* расстояние от текста */
+    width: 0;
+    height: 2px;
+    background-color: #f4a08c;
+    transition: width 0.3s ease;
+  }
+
+  /* Hover и focus */
+  .menu-link:hover::after,
+  .menu-link:focus::after {
+    width: 100%;
+  }
+
+  /* Активный пункт */
+  .menu-link.active {
+    color: #f4a08c;
+    font-weight: 600;
+  }
+
+  .menu-link.active::after {
+    width: 100%;
   }
 }
 

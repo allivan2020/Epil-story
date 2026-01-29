@@ -49,18 +49,18 @@ body {
 }
 
 /* ---------- Стили для контейнера ---------- */
-#hero {
+/* #hero {
   background-image: url('../img/Bg_image.jpg');
   background-size: cover;
-  background-position: bottom;
-}
-
-/* #about-us {
-  background-image: url('../img/beautiful-girl-7387544.jpg');
+  background-position: center;
 } */
 
 #about-us {
   background-image: url('../img/beautiful-girl-7387544.jpg');
+}
+
+#about-us {
+  background-image: url('../img/Bg-aftor.jpg');
   background-size: cover;
   background-position: center;
   position: relative;

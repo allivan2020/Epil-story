@@ -1,0 +1,62 @@
+/* ===== Hero Section ===== */
+#hero {
+  position: relative;
+  background: url('../img/Bg_image.jpg') center/cover no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Полупрозрачный фильтр */
+/* #hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 248, 244, 0);
+  z-index: 0; /* ниже текста */
+
+#hero .container {
+  position: relative;
+  z-index: 1; /* поверх ::after */
+  padding: 0 20px; /* немного отступа на мобильных */
+  max-width: 900px;
+}
+
+/* Заголовок */
+#hero h1 {
+  font-size: 50px; /* mobile-first */
+  font-weight: 500;
+  color: #7a4a3a;
+  margin-bottom: 15px;
+}
+
+/* Параграф */
+#hero p {
+  font-size: 18px;
+  color: #2e2e2e;
+  margin-bottom: 30px;
+}
+
+/* ===== Tablet ===== */
+@media (min-width: 768px) {
+  #hero h1 {
+    font-size: 60px;
+  }
+  #hero p {
+    font-size: 20px;
+  }
+}
+
+/* ===== Desktop ===== */
+@media (min-width: 1200px) {
+  #hero h1 {
+    font-size: 80px;
+  }
+  #hero p {
+    font-size: 22px;
+  }
+}

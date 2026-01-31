@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -18,6 +24,8 @@ h5,
 h6,
 p {
   margin: 0;
+  font-family: 'Great Vibes', cursive;
+  color: #7a4a3a;
 }
 
 p:last-child {
@@ -45,48 +53,14 @@ img {
   height: auto;
 }
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  color: #2e2e2e;
+  background: #fff;
 }
 
-/* ---------- Стили для контейнера ---------- */
-/* #hero {
-  background-image: url('../img/Bg_image.jpg');
-  background-size: cover;
-  background-position: center;
-} */
-
-#about-us {
-  background-image: url('../img/beautiful-girl-7387544.jpg');
-}
-
-#about-us {
-  background-image: url('../img/Bg-aftor.jpg');
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-
-#about-us::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 248, 244, 0.5); /* мягкий тёплый слой */
-  z-index: 0;
-}
-
-#about-us .container {
-  position: relative;
-  z-index: 1;
-}
-
-#services {
-  background-image: url('../img/services-bg.jpg');
-}
-
-#prices {
-  background-image: url('../img/prices-bg.jpg');
-}
-
-#contacts {
-  background-image: url('../img/contacts-bg.jpg');
+p,
+a {
+  font-family: 'Poppins', sans-serif;
+  color: #2e2e2e;
+  text-decoration: none;
 }

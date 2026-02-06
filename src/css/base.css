@@ -1,2 +1,21 @@
+html {
+  scroll-behavior: smooth;
+}
 
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #fff8f4;
+  color: #2e2e2e;
+  line-height: 1.5;
+}
 
+h1,
+h2,
+h3 {
+  font-family: 'Great Vibes', cursive;
+  color: #7a4a3a;
+}
+
+section {
+  scroll-margin-top: 70px;
+}

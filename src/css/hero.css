@@ -1,62 +1,33 @@
-/* ===== Hero Section ===== */
-#hero {
-  position: relative;
-  background: url('../img/Bg_image.jpg') center/cover no-repeat;
+.hero {
+  position: relative; /* Обязательно для позиционирования слоев */
   height: 100vh;
+  background: url('../img/Bg_image.jpg') center/cover no-repeat;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  overflow: hidden;
+  padding-top: 60px;
 }
 
-/* Полупрозрачный фильтр */
-/* #hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 248, 244, 0);
-  z-index: 0; /* ниже текста */
-
-#hero .container {
+.hero .container {
   position: relative;
-  z-index: 1; /* поверх ::after */
-  padding: 0 20px; /* немного отступа на мобильных */
-  max-width: 900px;
+  z-index: 2; /* Текст на слое номер 2 — ОН БУДЕТ ПОВЕРХ МУТНОСТИ */
 }
 
-/* Заголовок */
-#hero h1 {
-  font-size: 50px; /* mobile-first */
-  font-weight: 500;
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
   color: #7a4a3a;
-  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
-/* Параграф */
-#hero p {
+.hero p {
   font-size: 18px;
   color: #2e2e2e;
-  margin-bottom: 30px;
 }
 
-/* ===== Tablet ===== */
-@media (min-width: 768px) {
-  #hero h1 {
-    font-size: 60px;
-  }
-  #hero p {
-    font-size: 20px;
-  }
-}
-
-/* ===== Desktop ===== */
-@media (min-width: 1200px) {
-  #hero h1 {
-    font-size: 80px;
-  }
-  #hero p {
-    font-size: 22px;
+@media screen and (min-width: 768px) {
+  .hero h1 {
+    font-size: 64px;
   }
 }

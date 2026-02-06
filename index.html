@@ -4,44 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VelvetSkin</title>
-
-  <!-- Google Fonts -->
+  <title>VelvetSkin — Депіляція</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" crossorigin href="/Epil-story/assets/styles-CEp240cN.css">
+  <link rel="stylesheet" crossorigin href="/Epil-story/assets/styles-DklFLmip.css">
 </head>
 
 <body>
 
-  <!-- Фиксированное меню -->
   <header class="header">
-    <button class="menu-btn" aria-label="Меню">
-      <span></span>
-      <span></span>
-    </button>
+    <div class="container header-container">
+      <a href="#hero" class="logo">VelvetSkin</a>
 
-    <nav class="menu-list">
-      <a href="#hero" class="menu-link">Головна</a>
-      <a href="#about-us" class="menu-link">Про нас</a>
-      <a href="#story" class="menu-link">Послуги</a>
-      <a href="#prices" class="menu-link">Ціни</a>
-      <a href="#contacts" class="menu-link">Контакти</a>
-    </nav>
-
-    <!-- Overlay меню для мобильных -->
-    <div class="hiden-menu">
-      <div class="container">
+      <nav class="menu-list">
         <a href="#hero" class="menu-link">Головна</a>
         <a href="#about-us" class="menu-link">Про нас</a>
-        <a href="#story" class="menu-link">Послуги</a>
-        <a href="#prices" class="menu-link">Ціни</a>
+        <a href="#prices" class="menu-link">Послуги та ціни</a>
         <a href="#contacts" class="menu-link">Контакти</a>
-      </div>
+      </nav>
+
+      <button class="menu-btn" aria-label="Відкрити меню" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="hidden-menu">
+      <nav class="mobile-menu-nav">
+        <a href="#hero" class="menu-link">Головна</a>
+        <a href="#about-us" class="menu-link">Про нас</a>
+        <a href="#prices" class="menu-link">Послуги та ціни</a>
+        <a href="#contacts" class="menu-link">Контакти</a>
+      </nav>
     </div>
   </header>
 
-  <!-- Секции с параллаксом -->
   <main>
     <section id="hero" class="parallax hero" data-speed="0.3">
       <div class="container">
@@ -50,83 +47,66 @@
       </div>
     </section>
 
-    <section id="about-us" class="parallax" data-speed="0.2">
-      <div class="container">
-        <img src="/Epil-story/assets/about-us-aftor-jQxTcagM.jpg" alt="Автор фото" class="about-us-photo" width="300" height="400">
+    <section id="about-us" class="about-us">
+      <div class="container about-container">
+        <img src="/Epil-story/assets/about-us-aftor-jQxTcagM.jpg" alt="Майстер депіляції" class="about-us-photo" width="300" height="400">
         <div class="text-content">
           <h2>Про нас</h2>
-          <p>VelvetSkin - студія професійної воскової депіляції. Ми пропонуємо безпечні послуги для жінок та чоловіків.
-            Наші майстри мають багаторічний досвід та використовують тільки гіпоалергенні матеріали.</p>
+          <p>VelvetSkin — студія професійної воскової депіляції. Ми пропонуємо безпечні послуги для жінок та чоловіків.
+          </p>
         </div>
       </div>
     </section>
 
-    <section class="story" id="story">
-      <div class="story-header">
-        <h2>Вартість послуг</h2>
-      </div>
+    <section id="prices" class="story">
+      <div class="story-bg-blob blob-1"></div>
+      <div class="story-bg-blob blob-2"></div>
+      <div class="story-bg-circle"></div>
+      <div class="story-sticky-wrapper">
+        <div class="story-header">
+          <h2>Вартість послуг</h2>
+        </div>
 
-      <div class="story-scenes">
-        <article class="story-item">
-          <figure class="story-img">
-            <img src="/Epil-story/assets/Story-girl-BXmZH9ru.jpg" alt="Зображення жінки">
-          </figure>
+        <div class="story-content">
+          <article class="story-card card-1">
+            <div class="card-image">
+              <img src="/Epil-story/assets/Story-girl-BXmZH9ru.jpg" alt="Жіноча депіляція">
+            </div>
+            <div class="card-info">
+              <h3>Жінки</h3>
+              <ul class="story-list">
+                <li>Глибоке бікіні — 500</li>
+                <li>Пахви — 150</li>
+                <li>Ноги повністю — 550</li>
+              </ul>
+            </div>
+          </article>
 
-          <div class="story-text">
-            <h3>Жінки</h3>
-            <ul class="story-list">
-              <li>Глибоке бікіні 500</li>
-              <li>Класичне бікіні 350</li>
-              <li>Ноги повністю 550</li>
-              <li>Ноги до колін 350</li>
-              <li>Руки повністю 400</li>
-              <li>Руки до ліктя 250</li>
-              <li>Пахви 150</li>
-              <li>Сідниці 250</li>
-              <li>Поперек 200</li>
-              <li>Живіт 200</li>
-              <li>Обличчя повністю 250</li>
-              <li>Ніс 100</li>
-              <li>Корекція брів 100</li>
-              <li>Міжбрівка 50</li>
-              <li>Вусики 150</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="story-item">
-          <figure class="story-img">
-            <img src="/Epil-story/assets/Story-man-TblZuIdB.jpg" alt="Зображення чоловіка">
-          </figure>
-
-          <div class="story-text">
-            <h3>Чоловіки</h3>
-            <ul class="story-list">
-              <li>Глибоке бікіні повністю 800</li>
-              <li>Глибоке бікіні частково 650</li>
-              <li>Пахви 200</li>
-              <li>Груди 400</li>
-              <li>Сідниці 300</li>
-              <li>Спина повністю 600</li>
-              <li>Корекція бороди 300</li>
-              <li>Потилиця 150</li>
-              <li>Ніс 100</li>
-              <li>Вуха 100</li>
-              <li>Міжбрівка 50</li>
-            </ul>
-          </div>
-        </article>
+          <article class="story-card card-2">
+            <div class="card-image">
+              <img src="/Epil-story/assets/Story-man-TblZuIdB.jpg" alt="Чоловіча депіляція">
+            </div>
+            <div class="card-info">
+              <h3>Чоловіки</h3>
+              <ul class="story-list">
+                <li>Глибоке бікіні — 800</li>
+                <li>Спина повністю — 600</li>
+                <li>Груди — 400</li>
+              </ul>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
-
-    <section id="contacts" class="parallax" data-speed="0.05">
+    <section id="contacts" class="contacts">
       <div class="container">
         <h2>Контакти</h2>
         <p>Email: info@velvetskin.com<br>Телефон: +380971950698</p>
       </div>
     </section>
   </main>
+
   <script src="./js/main-list.js"></script>
 </body>
 

@@ -1,25 +1,109 @@
-/* ---------- Фоны секций ---------- */
-
-#about-us {
-  background: url('../img/Bg-aftor.jpg') center/cover no-repeat;
+.about-section {
+  padding: 120px 0;
+  background-color: #fdf2f0; /* Твой основной фон */
+  overflow: hidden;
 }
 
-#about-us::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 248, 244, 0.5);
-  z-index: 0;
-}
-
-/* ================= About-us ================= */
-#about-us .container {
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
-  flex-direction: row;
-  gap: 20px;
   align-items: center;
+  gap: 100px;
+  padding: 0 20px;
+}
+
+/* Стили для фото */
+.about-images {
+  flex: 1;
+  position: relative;
+  display: flex;
   justify-content: center;
 }
-.text-content {
-  width: 400px;
+
+.img-main {
+  width: 80%;
+  height: 550px;
+  object-fit: cover;
+  border-radius: 150px 150px 0 0; /* Арочный стиль — выглядит очень дорого */
+  box-shadow: 0 30px 60px rgba(74, 58, 53, 0.1);
+  z-index: 2;
+}
+
+.img-sub {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  width: 200px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 8px solid #fff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+}
+
+/* Стили для текста */
+.about-content {
+  flex: 1;
+}
+
+.about-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #a68b81;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.about-title {
+  font-family: 'Great Vibes', cursive; /* Или твой Serif шрифт */
+  font-size: 58px;
+  color: #4a3a35;
+  line-height: 1.1;
+  margin-bottom: 35px;
+  text-transform: none; /* Для курсива лучше не использовать uppercase */
+}
+
+.about-description {
+  border-left: 2px solid #e9d5ca; /* Тонкая линия-акцент */
+  padding-left: 30px;
+  margin-bottom: 40px;
+}
+
+.about-description p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #6d5d58;
+  margin-bottom: 20px;
+}
+
+/* Мини-фишки с цифрами */
+.about-features {
+  display: flex;
+  gap: 40px;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-num {
+  font-size: 32px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  color: #e9d5ca;
+  margin-bottom: 5px;
+}
+
+.feature-item p {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #4a3a35;
+  font-weight: 600;
 }

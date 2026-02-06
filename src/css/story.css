@@ -1,12 +1,12 @@
 /* Базовая секция */
 .story {
   position: relative;
-  height: 500vh; /* Увеличили высоту для длинного скролла */
+  height: 350vh; /* Оптимально для 3-х карточек */
   background-color: #fdf2f0;
   scroll-margin-top: 60px;
 }
 
-/* Фиксированный контейнер (sticky должен работать идеально) */
+/* Фиксированный контейнер */
 .story-sticky-wrapper {
   position: sticky;
   top: 0;
@@ -19,52 +19,44 @@
   overflow: hidden;
 }
 
-/* Заголовок (возвращаем шрифт и фиксируем) */
+/* Главный заголовок секции */
 .story-header {
   margin-bottom: 30px;
   z-index: 5;
 }
 
 .story-header h2 {
-  font-family: 'Poppins', sans-serif; /* Проверь, что шрифт подключен в HTML */
+  font-family: 'Poppins', cursive; /* Установил шрифт как в меню */
   font-size: 42px;
   color: #4a3a35;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin: 0;
-  transition: opacity 0.4s ease;
 }
 
-/* Контейнер для карточек (теперь с четкими размерами) */
+/* Контейнер для карточек */
 .story-content {
   position: relative;
-  width: 95%; /* Было 90% */
-  max-width: 1000px; /* Увеличили с 800px до 1000px */
-  height: 600px; /* Увеличили высоту с 500px до 600px */
-  margin: 0 auto; /* Фиксированная высота, чтобы карточки не прыгали */
+  width: 95%;
+  max-width: 1000px;
+  height: 600px;
+  margin: 0 auto;
 }
 
-/* Карточки (теперь накладываются идеально) */
+/* Карточки */
 .story-card {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  /* Оставляем старую логику анимации */
+  inset: 0; /* Короткая запись для top, left, width, height */
   opacity: 0;
   visibility: hidden;
   transform: translateY(40px) scale(0.95);
   transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-
-  background: white;
-  border-radius: 40px; /* Сделаем углы чуть более скругленными для больших карточек */
+  border-radius: 40px;
   overflow: hidden;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  background: transparent;
 }
 
-/* Активное состояние */
 .story-card.active {
   opacity: 1;
   visibility: visible;
@@ -72,43 +64,99 @@
   z-index: 10;
 }
 
-/* Картинки и инфо (чтобы не расползалось) */
+/* Изображения */
 .card-image {
   position: absolute;
   inset: 0;
+  z-index: 1;
 }
 
 .card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.6);
+  transition: transform 2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+.story-card.active .card-image img {
+  transform: scale(1.1);
+}
+
+/* Текстовый блок (Центровщик) */
 .card-info {
   position: relative;
   z-index: 2;
-  padding: 40px;
-  color: white;
-  text-align: center;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
 }
 
-/* Фон (пятна теперь точно сзади) */
-.story-bg-blob {
-  position: absolute;
-  z-index: -1;
-  pointer-events: none;
+/* Общие стили для стеклянных плашек */
+.card-info h3,
+.story-list {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  max-width: 85%;
 }
+
+/* Стили заголовка внутри карточки */
 .card-info h3 {
-  font-size: 48px; /* Было 42px */
-  margin-bottom: 25px;
+  font-family: 'Poppins', sans-serif; /* Шрифт меню */
+  font-size: 28px; /* Сделал чуть меньше, чтобы не "кричал" */
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #4a3a35;
+  padding: 15px 35px;
+  margin-bottom: 20px;
+}
+
+/* Стили списка */
+.story-list {
+  list-style: none;
+  padding: 25px 45px !important;
+  margin: 0;
 }
 
 .story-list li {
-  font-size: 24px; /* Было 20px */
-  margin-bottom: 15px;
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.story-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Фон (Блобы) */
+.story-bg-blob {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  filter: blur(140px);
+  z-index: -1;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.blob-1 {
+  background: #f7d7cd;
+  top: 5%;
+  left: -200px;
+}
+.blob-2 {
+  background: #e9d5ca;
+  bottom: 10%;
+  right: -200px;
 }

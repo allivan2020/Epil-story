@@ -13,118 +13,174 @@
 <body>
 
   <header class="header">
-    <div class="container header-container">
-      <a href="#hero" class="logo">VelvetSkin</a>
+    <div class="header-glass-wrapper">
+      <div class="container header-container">
+        <a href="#hero" class="logo">Velvet<span>Skin</span></a>
 
-      <nav class="menu-list">
-        <a href="#hero" class="menu-link">Головна</a>
-        <a href="#about-us" class="menu-link">Про нас</a>
-        <a href="#prices" class="menu-link">Послуги та ціни</a>
-        <a href="#contacts" class="menu-link">Контакти</a>
-      </nav>
+        <nav class="menu-list" aria-label="Головне меню">
+          <a href="#hero" class="menu-link">Головна</a>
+          <a href="#about" class="menu-link">Про нас</a>
+          <a href="#story" class="menu-link">Послуги</a>
+          <a href="#contacts" class="menu-link">Контакти</a>
+        </nav>
 
-      <button class="menu-btn" aria-label="Відкрити меню" aria-expanded="false">
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-
-    <div class="hidden-menu">
-      <nav class="mobile-menu-nav">
-        <a href="#hero" class="menu-link">Головна</a>
-        <a href="#about-us" class="menu-link">Про нас</a>
-        <a href="#prices" class="menu-link">Послуги та ціни</a>
-        <a href="#contacts" class="menu-link">Контакти</a>
-      </nav>
+        <button class="menu-btn" aria-label="Відкрити меню">
+          <span class="btn-line"></span>
+          <span class="btn-line"></span>
+        </button>
+      </div>
     </div>
   </header>
 
   <main>
-    <section id="hero" class="parallax hero" data-speed="0.3">
-      <div class="container">
-        <h1>Гладенька шкіра без болю</h1>
-        <p>Професійна воскова депіляція для вашого комфорту та краси</p>
+
+    <section id="hero" class="hero">
+      <div class="hero-container">
+        <article class="hero-content">
+          <p class="hero-tagline">Студія воскової епіляції</p>
+          <h1 class="hero-title">Твоя шкіра — <br><span>чисте мистецтво</span></h1>
+          <p class="hero-text">Відчуй преміальний догляд та ідеальну гладкість, на яку ти заслуговуєш.</p>
+
+          <nav class="hero-actions" aria-label="Головні дії">
+            <a href="#booking" class="btn-primary">Записатися</a>
+            <a href="#services" class="btn-secondary">Наші послуги</a>
+          </nav>
+        </article>
+
+        <figure class="hero-visual">
+          <div class="hero-img-wrapper">
+            <img src="./img/Bg_image.jpg" alt="Естетичний вигляд гладкої шкіри після процедури" class="hero-main-img">
+            <figcaption class="hero-glass-badge">
+              Premium Quality
+            </figcaption>
+          </div>
+        </figure>
+      </div>
+
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <div class="mouse"></div>
+        <span>Scroll</span>
       </div>
     </section>
 
-    <section class="about-section">
+    <section id="about" class="about-section">
       <div class="about-container">
-        <div class="about-images">
-          <div class="about-img-blob"></div> <img src="./img/about-us-aftor.jpg" alt="Мастер за работой"
-            class="img-main">
-          <img src="./img/Сертификат-1.jpg" alt="Интерьер" class="img-sub">
-        </div>
+        <figure class="about-images">
+          <div class="about-img-blob" aria-hidden="true"></div>
+          <img src="./img/about-us-aftor.jpg" alt="Процес лазерної епіляції в нашій студії" class="img-main">
+          <img src="./img/Bg-aftor.jpg" alt="Інтер'єр нашої затишної студії" class="img-sub">
+        </figure>
 
-        <div class="about-content">
-          <span class="about-subtitle">Естетична косметологія</span>
-          <h2 class="about-title">Професійний догляд <br> за вашою шкірою</h2>
+        <article class="about-content">
+          <header>
+            <p class="about-subtitle">Естетична косметологія</p>
+            <h2 class="about-title">Професійний догляд <br> за вашою шкірою</h2>
+          </header>
 
           <div class="about-description">
-            <p>Ми віримо, що краса — це не лише зовнішній вигляд, а й внутрішнє відчуття впевненості. Наша студія
-              поєднує
-              інноваційні технології та індивідуальний підхід.</p>
-            <p>Кожна процедура — це ритуал турботи про себе, виконаний з любов'ю та професіоналізмом.</p>
+            <p>Ми віримо, що краса — це не лише зовнішній вигляд, а й внутрішнє відчуття впевненості.</p>
+            <p>Кожна процедура — це ритуал турботи про себе, виконаний з професіоналізмом.</p>
           </div>
 
-          <div class="about-features">
-            <div class="feature-item">
-              <span class="feature-num">01</span>
-              <p>Сертифіковані майстри</p>
-            </div>
-            <div class="feature-item">
-              <span class="feature-num">02</span>
-              <p>Преміальна косметика</p>
-            </div>
-          </div>
-        </div>
+          <ul class="about-features">
+            <li class="feature-item">
+              <strong class="feature-num">01</strong>
+              <span>Сертифіковані майстри</span>
+            </li>
+            <li class="feature-item">
+              <strong class="feature-num">02</strong>
+              <span>Преміальна косметика</span>
+            </li>
+          </ul>
+        </article>
       </div>
     </section>
 
-    <section id="prices" class="story">
-      <div class="story-bg-blob blob-1"></div>
-      <div class="story-bg-blob blob-2"></div>
-      <div class="story-bg-circle"></div>
+    <section id="story" class="story">
       <div class="story-sticky-wrapper">
-        <div class="story-header">
-          <h2>Вартість послуг</h2>
-        </div>
+        <header class="story-header">
+          <h2>Наші послуги та ціни</h2>
+        </header>
 
         <div class="story-content">
-          <article class="story-card card-1">
-            <div class="card-image">
-              <img src="./img/Story-girl.jpg" alt="Жіноча депіляція">
-            </div>
-            <div class="card-info">
-              <h3>Жінки</h3>
-              <ul class="story-list">
-                <li>Глибоке бікіні — 500</li>
-                <li>Пахви — 150</li>
-                <li>Ноги повністю — 550</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="story-card card-2">
-            <div class="card-image">
-              <img src="./img/Story-man.jpg" alt="Чоловіча депіляція">
-            </div>
+          <article class="story-card card-1 active">
+            <figure class="card-image">
+              <img src="./img/Тело_м.jpg" alt="Послуги для чоловіків">
+            </figure>
             <div class="card-info">
               <h3>Чоловіки</h3>
               <ul class="story-list">
                 <li>Глибоке бікіні — 800</li>
                 <li>Спина повністю — 600</li>
                 <li>Груди — 400</li>
+                <li>Пахви — 200</li>
+                <li>Живіт — 400</li>
+                <li>Поперек — 200</li>
+                <li>Сідниці — 300</li>
+                <li>Спина повністю — 600</li>
+                <li>Корекція бороди — 300</li>
+                <li>Потилиця — 150</li>
+                <li>Ніс — 100</li>
+                <li>Вуха — 100</li>
+                <li>Міжбрівка — 50</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="story-card card-2">
+            <figure class="card-image">
+              <img src="./img/Story-girl.jpg" alt="Послуги для жінок">
+            </figure>
+            <div class="card-info">
+              <h3>Жінки</h3>
+              <ul class="story-list">
+                <li>Глибоке бікіні — 500</li>
+                <li>Класичне бікіні — 350</li>
+                <li>Ноги повністю/ до колін — 550/350</li>
+                <li>Руки повністю/ до ліктя — 400/250</li>
+                <li>Пахви — 150</li>
+                <li>Сідниці — 250</li>
+                <li>Поперек — 200</li>
+                <li>Живіт — 200</li>
+                <li>Ніс — 100</li>
+                <li>Корекція брів — 100</li>
+                <li>Міжбрівка — 50</li>
+                <li>Вусики — 150</li>
+                <li>Обличчя повністю — 250</li>
               </ul>
             </div>
           </article>
         </div>
+
+        <div class="story-bg-blobs" aria-hidden="true">
+          <div class="story-bg-blob blob-1"></div>
+          <div class="story-bg-blob blob-2"></div>
+        </div>
       </div>
     </section>
 
-    <section id="contacts" class="contacts">
-      <div class="container">
-        <h2>Контакти</h2>
-        <p>Email: info@velvetskin.com<br>Телефон: +380971950698</p>
+    <section id="gallery" class="vibe-section">
+      <div class="vibe-header">
+        <p class="vibe-subtitle">Естетика результату</p>
+        <h2 class="vibe-title">Moodboard</h2>
+      </div>
+
+      <div class="vibe-grid">
+        <div class="vibe-item item-1">
+          <img src="./img/Bg-aftor.jpg" alt="Aesthetic skin">
+        </div>
+        <div class="vibe-item item-2">
+          <img src="./img/Bg-aftor.jpg" alt="Soft silk">
+        </div>
+        <div class="vibe-item item-3">
+          <img src="./img/Bg-aftor.jpg" alt="Interior detail">
+        </div>
+        <div class="vibe-item item-4">
+          <img src="./img/Bg-aftor.jpg" alt="Laser process">
+        </div>
+        <div class="vibe-item item-5">
+          <img src="./img/Bg-aftor.jpg" alt="Beauty ritual">
+        </div>
       </div>
     </section>
   </main>

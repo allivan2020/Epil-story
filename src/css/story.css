@@ -3,7 +3,7 @@
   position: relative;
   height: 350vh; /* Оптимально для 3-х карточек */
   background-color: #fdf2f0;
-  scroll-margin-top: 60px;
+  scroll-margin-top: 100px;
 }
 
 /* Фиксированный контейнер */
@@ -21,8 +21,10 @@
 
 /* Главный заголовок секции */
 .story-header {
+  margin-top: 80px; /* Добавляем отступ, чтобы не прятался под шапку */
   margin-bottom: 30px;
   z-index: 5;
+  transition: opacity 0.5s ease; /* Плавное исчезновение */
 }
 
 .story-header h2 {
@@ -35,11 +37,12 @@
 }
 
 /* Контейнер для карточек */
+
 .story-content {
   position: relative;
   width: 95%;
   max-width: 1000px;
-  height: 600px;
+  height: 75vh; /* Карточка теперь занимает 75% высоты экрана */
   margin: 0 auto;
 }
 
@@ -55,6 +58,7 @@
   overflow: hidden;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
   background: transparent;
+  z-index: 1;
 }
 
 .story-card.active {
@@ -90,10 +94,24 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* Центрируем содержимое, если его мало, и разрешаем рост, если много */
+  justify-content: flex-start;
   align-items: center;
-  text-align: center;
-  padding: 40px;
+  padding: 60px 30px; /* Увеличили верхний и нижний padding */
+
+  /* Включаем прокрутку */
+  touch-action: pan-y; /* Для мобилок */
+  overflow-y: hidden !important;
+  scrollbar-width: none; /* Скрываем скролл для Firefox */
+  -ms-overflow-style: none; /* Скрываем скролл для IE/Edge */
+}
+
+.story-card.active .card-info {
+  overflow-y: auto !important;
+}
+
+.card-info::-webkit-scrollbar {
+  display: none; /* Скрываем скролл для Chrome/Safari */
 }
 
 /* Общие стили для стеклянных плашек */
@@ -118,20 +136,26 @@
   color: #4a3a35;
   padding: 15px 35px;
   margin-bottom: 20px;
+  margin-bottom: 30px;
+  flex-shrink: 0;
 }
 
 /* Стили списка */
 .story-list {
   list-style: none;
-  padding: 25px 45px !important;
+  padding: 0 !important; /* Убираем лишние паддинги, так как они теперь у родителя */
   margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Расстояние между позициями прайса */
 }
 
 .story-list li {
-  font-size: 22px;
-  color: #333;
-  margin-bottom: 12px;
-  font-weight: 500;
+  font-size: 18px; /* Немного уменьшим для лучшей читаемости длинных списков */
+  line-height: 1.4;
+  white-space: nowrap; /* Чтобы цена не переносилась отдельно от названия */
 }
 
 .story-list li:last-child {
@@ -159,4 +183,57 @@
   background: #e9d5ca;
   bottom: 10%;
   right: -200px;
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.8;
+}
+
+.hero-scroll-indicator span {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #4a3a35;
+}
+
+.mouse {
+  width: 20px;
+  height: 35px;
+  border: 1.5px solid #4a3a35;
+  border-radius: 20px;
+  position: relative;
+}
+
+/* Анимированное колесико */
+.mouse::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 2px;
+  height: 5px;
+  background: #4a3a35;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  animation: scroll-wheel 2s infinite;
+}
+
+@keyframes scroll-wheel {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(15px);
+  }
 }

@@ -1,0 +1,96 @@
+.vibe-section {
+  padding: 100px 5%;
+  background-color: #fdf2f0;
+  overflow: hidden;
+}
+
+.vibe-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.vibe-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 54px;
+  color: #a68b81;
+}
+
+.vibe-grid {
+  position: relative;
+  height: 800px; /* Фиксированная высота для абсолютного позиционирования внутри */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vibe-item {
+  position: absolute;
+  background: white;
+  padding: 10px 10px 30px 10px; /* Белые поля как у поларроида */
+  box-shadow: 0 15px 35px rgba(74, 58, 53, 0.1);
+  transition: all 0.5s ease;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.vibe-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Позиционируем каждое фото "хаотично" */
+.item-1 {
+  width: 250px;
+  top: 0;
+  left: 5%;
+  transform: rotate(-5deg);
+  z-index: 2;
+}
+.item-2 {
+  width: 300px;
+  top: 100px;
+  right: 10%;
+  transform: rotate(3deg);
+}
+.item-3 {
+  width: 200px;
+  bottom: 50px;
+  left: 15%;
+  transform: rotate(7deg);
+  z-index: 3;
+}
+.item-4 {
+  width: 280px;
+  top: 350px;
+  left: 40%;
+  transform: rotate(-2deg);
+}
+.item-5 {
+  width: 220px;
+  bottom: 100px;
+  right: 20%;
+  transform: rotate(-8deg);
+}
+
+/* Эффект при наведении — фото "всплывает" */
+.vibe-item:hover {
+  transform: rotate(0deg) scale(1.1);
+  z-index: 10;
+  box-shadow: 0 25px 50px rgba(74, 58, 53, 0.2);
+}
+
+@media (max-width: 768px) {
+  .vibe-grid {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  .vibe-item {
+    position: static;
+    width: 45%;
+    transform: none !important;
+  }
+}

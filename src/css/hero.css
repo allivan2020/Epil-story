@@ -136,6 +136,14 @@
 
 /* Эффект наслоения для мобильной версии */
 @media (max-width: 768px) {
+  .hero {
+    height: auto !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px; /* Чтобы не залезло под шапку */
+  }
+
   .hero-visual {
     height: 50vh; /* На мобилке картинка сверху на пол-экрана */
     clip-path: polygon(
@@ -144,6 +152,16 @@
       100% 90%,
       0% 100%
     ); /* Красивый косой срез */
+  }
+  .hero-scroll-indicator {
+    bottom: 20px; /* Фиксируем расстояние от низа */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* На мобилках лучше вообще скрыть надпись Scroll, оставив только мышку */
+  .hero-scroll-indicator span {
+    display: none;
   }
 }
 

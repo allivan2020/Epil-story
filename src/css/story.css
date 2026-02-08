@@ -1,10 +1,10 @@
 /* Базовая секция */
-.story {
+/* .story {
   position: relative;
-  height: 350vh; /* Оптимально для 3-х карточек */
+  height: 350vh;
   background-color: #fdf2f0;
   scroll-margin-top: 100px;
-}
+} */
 
 /* Фиксированный контейнер */
 .story-sticky-wrapper {
@@ -235,5 +235,63 @@
   100% {
     opacity: 0;
     transform: translateX(-50%) translateY(15px);
+  }
+}
+
+@media (max-width: 1023px) {
+  /* Фиксируем высоту секции, чтобы следующая не наезжала */
+  .story {
+    height: 100vh !important;
+    position: relative;
+    overflow: hidden; /* Важно: сама секция не должна расти */
+  }
+
+  .story-sticky-wrapper {
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Горизонтальный контейнер */
+  .story-content {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important; /* Запрещаем вертикальный скролл здесь */
+    scroll-snap-type: x mandatory;
+    gap: 15px !important;
+    padding: 20px !important;
+    height: 70vh !important; /* Ограничиваем высоту карточек */
+    touch-action: pan-x; /* Разрешаем только горизонтальный свайп для переключения */
+  }
+
+  .story-card {
+    flex: 0 0 88% !important;
+    scroll-snap-align: center;
+    position: relative !important;
+    opacity: 1 !important;
+    display: flex;
+    flex-direction: column; /* Вертикальный стек внутри */
+    background: transparent;
+  }
+
+  /* Исправление скролла ТЕКСТА */
+  .card-info {
+    flex: 1; /* Занимает всё место */
+    overflow-y: auto !important; /* ВКЛЮЧАЕМ вертикальный скролл текста */
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch; /* Плавность для iPhone */
+    touch-action: pan-y; /* Разрешаем только вертикальный свайп внутри текста */
+    padding: 30px 20px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Убедимся, что список не обрезается */
+  .story-list {
+    width: 100%;
+    margin-bottom: 20px;
   }
 }

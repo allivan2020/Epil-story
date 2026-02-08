@@ -1,3 +1,109 @@
-#contacts {
-  background: url('../img/contacts-bg.jpg') center/cover no-repeat;
+.contacts {
+  padding: 100px 0;
+  background-color: #fdf2f0;
+}
+
+.contacts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.contacts-subtitle {
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+  color: #a68b81;
+  margin-bottom: 15px;
+}
+
+.contacts-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 52px;
+  color: #4a3a35;
+  margin-bottom: 40px;
+}
+
+.contact-item {
+  margin-bottom: 25px;
+}
+
+.contact-label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #a68b81;
+  margin-bottom: 5px;
+}
+
+.contact-item p,
+.contact-item a {
+  font-size: 20px;
+  color: #4a3a35;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Стилизация карты */
+.contacts-map-wrapper {
+  position: relative;
+  height: 500px; /* Здесь задай нужную тебе высоту всей секции карты */
+  width: 100%;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(74, 58, 53, 0.1);
+  background-color: #eee; /* Временный фон, чтобы видеть границы */
+}
+
+.contacts-map-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  /* Твои фильтры для эстетики */
+  filter: grayscale(0.2) sepia(0.2) contrast(0.9);
+}
+
+.map-container iframe {
+  /* Трюк: подгоняем карту под цвета сайта */
+  filter: grayscale(0.3) sepia(0.2) hue-rotate(-15deg) contrast(0.9);
+  transition: filter 0.5s ease;
+}
+
+.map-container iframe:hover {
+  filter: none; /* Карта становится цветной при наведении */
+}
+
+/* Соцсети */
+.contacts-socials {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+}
+
+.social-link {
+  padding: 10px 25px;
+  border: 1px solid #a68b81;
+  border-radius: 30px;
+  color: #a68b81;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: #a68b81;
+  color: white;
+}
+
+@media (max-width: 992px) {
+  .contacts-container {
+    grid-template-columns: 1fr;
+  }
+  .contacts-map-wrapper {
+    height: 350px;
+  }
 }

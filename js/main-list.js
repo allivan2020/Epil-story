@@ -17,32 +17,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!storySection || !card1 || !card2) return;
 
-    // Если мобилка — сбрасываем все стили анимации
-    if (window.innerWidth < 1024) {
-      [card1, card2].forEach(card => {
-        card.style.opacity = '1';
-        card.style.visibility = 'visible';
-        card.style.transform = 'none';
-        card.style.position = 'relative'; // Возвращаем в поток
-      });
-      return;
-    }
+    // --- ДЕСКТОП (Оставляем как было) ---
+    if (window.innerWidth >= 1024) {
+      const rect = storySection.getBoundingClientRect();
+      const scrolled = -rect.top;
+      const totalDistance = storySection.offsetHeight - window.innerHeight;
+      let progress = scrolled / totalDistance;
 
-    // Логика для десктопа (оставляем твою "дорогую" анимацию)
-    const rect = storySection.getBoundingClientRect();
-    const scrolled = -rect.top;
-    const totalDistance = storySection.offsetHeight - window.innerHeight;
-    let progress = scrolled / totalDistance;
-
-    if (progress >= 0 && progress <= 1) {
-      if (progress <= 0.5) {
-        card1.classList.add('active');
-        card2.classList.remove('active');
-      } else {
-        card1.classList.remove('active');
-        card2.classList.add('active');
+      if (progress >= 0 && progress <= 1) {
+        if (progress <= 0.5) {
+          card1.classList.add('active');
+          card2.classList.remove('active');
+        } else {
+          card1.classList.remove('active');
+          card2.classList.add('active');
+        }
       }
     }
+  }
+
+  // --- МОБИЛЬНАЯ АНИМАЦИЯ (Датчик появления) ---
+  if (window.innerWidth < 1024) {
+    const observerOptions = {
+      threshold: 0.2, // Карточка начнет проявляться, когда покажется на 20%
+    };
+
+    const storyObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.story-card').forEach(card => {
+      storyObserver.observe(card);
+    });
   }
 
   const storyScroll = document.querySelector('.story-content');

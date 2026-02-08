@@ -239,59 +239,77 @@
 }
 
 @media (max-width: 1023px) {
-  /* Фиксируем высоту секции, чтобы следующая не наезжала */
+  /* Даем секции расти по высоте, чтобы вместить две карточки */
   .story {
-    height: 100vh !important;
-    position: relative;
-    overflow: hidden; /* Важно: сама секция не должна расти */
+    height: auto !important;
+    padding-bottom: 50px;
   }
 
+  /* Отключаем фиксацию на весь экран */
   .story-sticky-wrapper {
-    height: 100% !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
   }
 
-  /* Горизонтальный контейнер */
+  /* Убираем горизонтальный скролл, выстраиваем в колонну */
   .story-content {
     display: flex !important;
-    flex-direction: row !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important; /* Запрещаем вертикальный скролл здесь */
-    scroll-snap-type: x mandatory;
-    gap: 15px !important;
-    padding: 20px !important;
-    height: 70vh !important; /* Ограничиваем высоту карточек */
-    touch-action: pan-x; /* Разрешаем только горизонтальный свайп для переключения */
+    flex-direction: column !important;
+    gap: 40px !important; /* Большой элегантный отступ */
+    height: auto !important;
+    width: 90%;
+    overflow: visible !important;
+    padding: 20px 0 !important;
   }
 
+  /* Карточки становятся обычными блоками */
   .story-card {
-    flex: 0 0 88% !important;
-    scroll-snap-align: center;
     position: relative !important;
+    flex: none !important;
+    width: 100% !important;
+    height: 600px !important; /* Фиксированная высота для красоты */
     opacity: 1 !important;
-    display: flex;
-    flex-direction: column; /* Вертикальный стек внутри */
-    background: transparent;
-  }
-
-  /* Исправление скролла ТЕКСТА */
-  .card-info {
-    flex: 1; /* Занимает всё место */
-    overflow-y: auto !important; /* ВКЛЮЧАЕМ вертикальный скролл текста */
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch; /* Плавность для iPhone */
-    touch-action: pan-y; /* Разрешаем только вертикальный свайп внутри текста */
-    padding: 30px 20px !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* Убедимся, что список не обрезается */
-  .story-list {
-    width: 100%;
+    visibility: visible !important;
+    transform: none !important;
     margin-bottom: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Чтобы текст внутри карточки скроллился, если его много */
+  .card-info {
+    height: 100%;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    background: rgba(0, 0, 0, 0.3); /* Затемнение, чтобы текст читался лучше */
+  }
+
+  /* Скрываем точки на мобилках, они больше не нужны */
+  .story-dots {
+    display: none !important;
+  }
+
+  /* Подправляем заголовок, чтобы не "лип" к верху */
+  .story-header {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .story-header h2 {
+    font-size: 32px;
+  }
+
+  /* Начальное состояние: чуть ниже и прозрачные */
+  .story-card {
+    opacity: 0 !important;
+    transform: translateY(50px) scale(0.9) !important;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    visibility: visible !important; /* На мобилках они всегда видимы для логики */
+  }
+
+  /* Состояние, когда карточка в поле зрения */
+  .story-card.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
   }
 }

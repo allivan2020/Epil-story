@@ -1,78 +1,45 @@
-:root {
-  --header-height: 90px;
-  --bg-color: #fff8f4;
-  --accent-brown: #7a4a3a;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
 html {
   scroll-behavior: smooth;
-  /* Отступ для корректного скролла к якорям */
   scroll-padding-top: var(--header-height);
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-main);
   background-color: var(--bg-color);
   color: #2e2e2e;
-  line-height: 1.6; /* Чуть увеличил для легкости чтения */
+  line-height: 1.6;
 }
 
 h1,
 h2,
 h3 {
-  font-family: 'Great Vibes', cursive;
-  color: var(--accent-brown);
-}
-
-section {
-  scroll-margin-top: var(--header-height);
-}
-
-/* Мобильные фиксы */
-@media (max-width: 768px) {
-  /* Центрируем иконку мышки */
-  .hero-scroll-indicator {
-    bottom: 30px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-  }
-
-  .hero-scroll-indicator span {
-    display: none;
-  }
-
-  /* Исправление контейнера с фото в "О нас" */
-  .about-container {
-    display: flex;
-    flex-direction: column;
-    gap: 40px; /* Увеличил отступ, чтобы не было тесно */
-  }
-
-  .about-images {
-    position: relative;
-    height: 400px !important; /* Увеличил высоту для мобильных */
-    width: 100% !important;
-  }
-
-  .img-main,
-  .img-sub {
-    object-fit: cover !important; /* Масштабирует фото без искажений */
-    border-radius: 8px; /* Опционально: мягкие углы */
-  }
-
-  .img-main {
-    width: 100% !important;
-    height: 100% !important;
-  }
-
-  .img-sub {
-    position: absolute;
-    width: 60% !important;
-    height: 60% !important;
-    right: 0 !important;
-    bottom: -20px !important;
-    /* Белая рамка создаст эффект наслоения фото друг на друга */
-    border: 6px solid var(--bg-color);
-    z-index: 2;
-  }
+  font-family: var(--font-accent);
+  color: var(--accent-color);
 }

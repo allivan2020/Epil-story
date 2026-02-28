@@ -1,15 +1,13 @@
-/* Базовое состояние шапки */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 30px 0; /* В начале шапка высокая и свободная */
+  padding: 30px 0;
   z-index: 1000;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Стеклянная подложка (появится при скролле) */
 .header-glass-wrapper {
   max-width: 100%;
   margin: 0 auto;
@@ -18,46 +16,43 @@
   border-radius: 0;
 }
 
-/* Состояние при скролле вниз (Header Scrolled) */
 .header.header-scrolled {
   padding: 15px 0;
 }
 
 .header.header-scrolled .header-glass-wrapper {
-  max-width: 90%; /* Превращается в парящий остров */
+  max-width: 90%;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50px; /* Округлая современная форма */
-  box-shadow: 0 10px 30px rgba(74, 58, 53, 0.1);
+  border-radius: 50px;
+  box-shadow: var(--shadow);
   padding: 10px 25px;
 }
 
-/* Логотип */
 .logo {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-main);
   font-weight: 600;
   font-size: 24px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #4a3a35;
+  color: var(--text-main);
   text-decoration: none;
 }
 
 .logo span {
   font-weight: 300;
-  color: #a68b81;
+  color: var(--accent-color);
 }
 
-/* Ссылки меню */
 .menu-link {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-main);
   font-size: 13px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: #4a3a35;
+  color: var(--text-main);
   margin: 0 20px;
   text-decoration: none;
   position: relative;
@@ -68,9 +63,8 @@
 .menu-link:focus {
   color: #9c5e4b;
   text-shadow: 0 0 15px rgba(166, 139, 129, 0.3);
-  transition: text-shadow 0.4s ease;
 }
-/* Элегантное подчеркивание при ховере */
+
 .menu-link::after {
   content: '';
   position: absolute;
@@ -78,7 +72,7 @@
   left: 50%;
   width: 0;
   height: 1px;
-  background: #a68b81;
+  background: var(--accent-color);
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }
@@ -87,16 +81,11 @@
   width: 100%;
 }
 
-.logo:hover {
-  text-shadow: 0 0 15px rgba(166, 139, 129, 0.3);
-  transition: text-shadow 0.4s ease;
-}
-/* Бургер-кнопка (минимализм) */
 .menu-btn {
   background: none;
   border: none;
   cursor: pointer;
-  display: none; /* Скрыта на десктопе */
+  display: none;
   flex-direction: column;
   gap: 6px;
 }
@@ -104,7 +93,7 @@
 .btn-line {
   width: 25px;
   height: 2px;
-  background: #4a3a35;
+  background: var(--text-main);
   transition: 0.3s;
 }
 

@@ -6,14 +6,12 @@
   margin-right: auto;
 }
 
-/* Планшет */
 @media screen and (min-width: 768px) {
   .container {
     max-width: 768px;
   }
 }
 
-/* Десктоп */
 @media screen and (min-width: 1200px) {
   .container {
     max-width: 1200px;

@@ -1,3 +1,4 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import { glob } from 'glob';
 import injectHTML from 'vite-plugin-html-inject';
@@ -10,10 +11,12 @@ export default defineConfig(({ command }) => {
       [command === 'serve' ? 'global' : '_global']: {},
     },
     root: 'src',
+    // vite.config.js (часть с исправлением)
     build: {
       sourcemap: true,
       rollupOptions: {
-        input: glob.sync('./src/*.html'),
+        // ИСПРАВЛЕНИЕ ТУТ: Убрали 'src/' из пути, так как root уже установлен на 'src'
+        input: glob.sync('./*.html'),
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {

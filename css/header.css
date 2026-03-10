@@ -105,3 +105,57 @@
     display: flex;
   }
 }
+@media (max-width: 992px) {
+  /* Меню на весь экран с эффектом матового стекла */
+  .menu-list {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(246, 244, 240, 0.85); /* Нюдовый полупрозрачный фон */
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Большие отступы между пунктами */
+    z-index: 999;
+
+    /* Плавное появление */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Состояние открытого меню */
+  .menu-list.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Увеличиваем ссылки для мобильного экрана */
+  .menu-list .menu-link {
+    font-size: 24px;
+    letter-spacing: 3px;
+    margin: 0;
+  }
+
+  /* Кнопка бургера (поверх меню) */
+  .menu-btn {
+    display: flex;
+    position: relative;
+    z-index: 1000;
+  }
+
+  /* Анимация: бургер превращается в крестик (у тебя 2 линии) */
+  .menu-btn.is-active .btn-line:nth-child(1) {
+    transform: translateY(4px) rotate(45deg);
+  }
+  .menu-btn.is-active .btn-line:nth-child(2) {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+}

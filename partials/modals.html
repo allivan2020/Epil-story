@@ -1,0 +1,34 @@
+<dialog id="booking-modal" class="modal-window">
+    <button class="modal-close" aria-label="Закрити">&times;</button>
+    <div class="modal-content">
+        <h3>Записатися на візит</h3>
+        <p>Залиште контакти, і ми підберемо ідеальний час у Запоріжжі</p>
+
+        <form id="booking-form" method="dialog">
+            <div class="input-group">
+                <input type="text" placeholder="Ваше ім'я" required>
+            </div>
+            <div class="input-group">
+                <input type="tel" placeholder="+38 (0__) ___ __ __" required>
+            </div>
+            <div class="input-group">
+                <select>
+                    <option value="" disabled selected>Оберіть послугу</option>
+                    <option value="wax">Воскова депіляція</option>
+                    <option value="sugar">Шугаринг</option>
+                    <option value="body">Догляд за тілом</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-submit">Надіслати</button>
+        </form>
+    </div>
+</dialog>
+
+<div id="photo-lightbox" class="lightbox">
+    <button class="lightbox-close" aria-label="Закрити">&times;</button>
+
+    <button class="lightbox-prev" aria-label="Попередня">❮</button>
+    <button class="lightbox-next" aria-label="Наступна">❯</button>
+
+    <img class="lightbox-content" id="lightbox-img" alt="Фото галереї">
+</div>

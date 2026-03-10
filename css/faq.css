@@ -1,0 +1,195 @@
+/* Переменные для премиального Glassmorphism (вынесли в :root) */
+:root {
+  --text-dark: #2c2c2c; /* Графитовый */
+  --text-muted: rgba(44, 44, 44, 0.75);
+  --glass-bg: rgba(255, 255, 255, 0.35); /* Полупрозрачный фон */
+  --glass-border: rgba(255, 255, 255, 0.6); /* Более яркая белая рамка */
+  --glass-shadow: 0 12px 48px rgba(0, 0, 0, 0.08); /* Мягкая тень */
+}
+
+/* 1. Секция: Позиционирование и Фон */
+.faq-section {
+  position: relative;
+  padding: 100px 20px;
+  /* Неоднородный фон, как в примере (можно заменить на картинку с блюром) */
+  background: url(/img/Фон-стори.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background: linear-gradient(135deg, #f6f4f0 0%, #eaddcf 50%, #f6f4f0 100%); */
+  display: flex;
+  justify-content: center;
+  overflow: hidden; /* Скрываем вылезающие блобы */
+}
+
+/* Визуальные элементы фона для эффекта стекла */
+.faq-background-visual {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.visual-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px); /* Сильное размытие фона */
+  opacity: 0.6;
+}
+
+.visual-blob-1 {
+  width: 300px;
+  height: 300px;
+  top: 10%;
+  right: -5%;
+  background: radial-gradient(#e1ccb9, rgba(255, 255, 255, 0));
+}
+
+.visual-blob-2 {
+  width: 400px;
+  height: 400px;
+  bottom: 0%;
+  left: -10%;
+  background: radial-gradient(#eaddcf, rgba(255, 255, 255, 0));
+}
+
+/* 2. Контейнер: Компактность и Сетка */
+.faq-container {
+  max-width: 580px; /* Сделали карточки компактнее */
+  width: 100%;
+  position: relative; /* Чтобы быть поверх блобов */
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-heading {
+  text-align: center;
+  color: var(--text-dark);
+  font-size: 36px;
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+
+/* 3. Обертка всего списка: Единый стеклянный эффект */
+.faq-glass-overlay {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%); /* Для Safari */
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+  padding: 8px 0; /* Внутренний отступ для списка */
+}
+
+/* 4. Карточка (Вопрос): Отделяем элементы */
+.faq-item {
+  border-bottom: 1px solid var(--glass-border);
+  transition: background 0.3s ease;
+}
+
+/* Убираем нижнюю рамку у последнего элемента */
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-item:hover {
+  background: rgba(255, 255, 255, 0.45); /* Легкий блик при наведении */
+}
+
+/* Состояние, когда аккордеон открыт */
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg); /* Плюсик превращается в крестик */
+}
+
+.faq-item[open] .faq-content-wrapper {
+  grid-template-rows: 1fr; /* Анимация высоты */
+}
+
+/* Запускаем анимацию прозрачности текста при открытии */
+.faq-item[open] .faq-content p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 5. Заголовок (Summary): Типографика и Иконка */
+.faq-title {
+  padding: 28px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-dark);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none; /* Убираем стандартный треугольник */
+  user-select: none;
+}
+
+.faq-title::-webkit-details-marker {
+  display: none; /* Убираем треугольник в старых браузерах */
+}
+
+.faq-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  color: var(--text-dark);
+}
+
+/* 6. Плавная многослойная анимация */
+.faq-content-wrapper {
+  display: grid;
+  grid-template-rows: 0fr; /* Начальное состояние: закрыто */
+  transition: grid-template-rows 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-content {
+  overflow: hidden;
+}
+
+.faq-content p {
+  padding: 0 28px 28px 28px;
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 16px;
+  /* Секрет плавного появления: Grid делает высоту, а transition здесь делает появление текста */
+  opacity: 0; /* Скрыт по умолчанию */
+  transform: translateY(-8px); /* Легкий сдвиг вверх */
+  transition:
+    opacity 0.4s ease 0.3s,
+    transform 0.4s ease 0.3s; /* Появляется с задержкой */
+}
+
+/* Адаптив: Мобильная версия */
+@media (max-width: 768px) {
+  .faq-section {
+    padding: 60px 16px;
+  }
+
+  .faq-heading {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .faq-glass-overlay {
+    border-radius: 20px;
+  }
+
+  .faq-title {
+    padding: 22px 20px;
+    font-size: 16px;
+  }
+
+  .faq-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .faq-content p {
+    padding: 0 20px 20px 20px;
+    font-size: 14px;
+  }
+}

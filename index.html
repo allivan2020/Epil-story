@@ -12,262 +12,27 @@
 
 <body>
 
-  <header class="header">
-    <div class="header-glass-wrapper">
-      <div class="container header-container">
-        <a href="#hero" class="logo">Velvet<span>Skin</span></a>
-
-        <nav class="menu-list" aria-label="Головне меню">
-          <a href="#hero" class="menu-link">Головна</a>
-          <a href="#about" class="menu-link">Про нас</a>
-          <a href="#story" class="menu-link">Послуги</a>
-          <a href="#contacts" class="menu-link">Контакти</a>
-        </nav>
-
-        <button class="menu-btn" aria-label="Відкрити меню">
-          <span class="btn-line"></span>
-          <span class="btn-line"></span>
-        </button>
-      </div>
-    </div>
-  </header>
+  <load src="./partials/header.html" />
 
   <main>
+    <load src="./partials/hero.html" />
 
-    <section id="hero" class="hero">
-      <div class="hero-container">
-        <article class="hero-content">
-          <p class="hero-tagline">Студія воскової депіляції</p>
-          <h1 class="hero-title">Твоя шкіра — <br><span>чисте мистецтво</span></h1>
-          <p class="hero-text">Відчуй преміальний догляд та ідеальну гладкість у Запоріжжі, на яку ти заслуговуєш.</p>
+    <load src="./partials/about.html" />
 
-          <nav class="hero-actions" aria-label="Головні дії">
-            <a href="#booking-modal" class="btn-primary">Записатися</a>
-            <!-- <a href="#story" class="btn-secondary">Наші послуги</a> -->
-          </nav>
-        </article>
+    <load src="./partials/story.html" />
 
-        <figure class="hero-visual">
-          <div class="hero-img-wrapper">
-            <img src="./img/Bg_image.jpg"
-              alt="Естетична депіляція в Запоріжжі — ідеально гладка шкіра в студії VelvetSkin" class="hero-main-img">
-            <figcaption class="hero-glass-badge">
-              Premium Quality
-            </figcaption>
-          </div>
-        </figure>
-      </div>
+    <load src="./partials/gallery.html" />
 
-      <div class="hero-scroll-indicator" aria-hidden="true">
-        <div class="mouse"></div>
-        <span>Scroll</span>
-      </div>
-    </section>
+    <load src="./partials/faq.html" />
 
-    <section id="about" class="about-section">
-      <div class="about-container">
-        <figure class="about-images">
-          <div class="about-img-blob" aria-hidden="true"></div>
-          <img src="./img/2026-02-08.jpg" alt="Професійна депіляція у Запоріжжі — майстри студії VelvetSkin за роботою"
-            class="img-main">
-          <img src="./img/Bg-aftor.jpg" alt="Сучасний кабінет депіляції в центрі Запоріжжя — комфорт та стерильність"
-            class="img-sub">
-        </figure>
-
-        <article class="about-content">
-          <header>
-            <p class="about-subtitle">Естетична косметологія</p>
-            <h2 class="about-title">Професійний догляд <br> за вашою шкірою</h2>
-          </header>
-
-          <div class="about-description">
-            <p>Ми віримо, що краса — це не лише зовнішній вигляд, а й внутрішнє відчуття впевненості.</p>
-            <p>Кожна процедура депіляції — це ритуал турботи про себе, виконаний з професіоналізмом.</p>
-          </div>
-
-          <ul class="about-features">
-            <li class="feature-item">
-              <strong class="feature-num">01</strong>
-              <span>Сертифіковані майстри</span>
-            </li>
-            <li class="feature-item">
-              <strong class="feature-num">02</strong>
-              <span>Преміальна косметика</span>
-            </li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section id="story" class="story">
-      <div class="story-sticky-wrapper">
-        <header class="story-header">
-          <h2>Наші послуги та ціни</h2>
-        </header>
-        <div class="story-dots" aria-hidden="true">
-          <span class="dot active"></span>
-          <span class="dot"></span>
-        </div>
-        <div class="story-content">
-          <article class="story-card card-1 active">
-            <figure class="card-image">
-              <img src="./img/Тело_м.jpg"
-                alt="Чоловіча депіляція Запоріжжя — комфортні процедури для спини, грудей та обличчя">
-            </figure>
-            <div class="card-info">
-              <h3>Чоловіки</h3>
-              <ul class="story-list">
-                <li>Глибоке бікіні — 800</li>
-                <li>Спина повністю — 600</li>
-                <li>Груди — 400</li>
-                <li>Пахви — 200</li>
-                <li>Живіт — 400</li>
-                <li>Поперек — 200</li>
-                <li>Сідниці — 300</li>
-                <li>Корекція бороди — 300</li>
-                <li>Ніс/Вуха — 100</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="story-card card-2">
-            <figure class="card-image">
-              <img src="./img/Story-girl.jpg"
-                alt="Жіноча депіляція у Запоріжжі — гладкі ніжки та зона бікіні без подразнень">
-            </figure>
-            <div class="card-info">
-              <h3>Жінки</h3>
-              <ul class="story-list">
-                <li>Глибоке бікіні — 500</li>
-                <li>Класичне бікіні — 350</li>
-                <li>Ноги повністю — 550</li>
-                <li>Руки повністю — 400</li>
-                <li>Пахви — 150</li>
-                <li>Сідниці — 250</li>
-                <li>Живіт — 200</li>
-                <li>Обличчя повністю — 250</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-
-        <div class="story-bg-blobs" aria-hidden="true">
-          <div class="story-bg-blob blob-1"></div>
-          <div class="story-bg-blob blob-2"></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="gallery" class="vibe-section">
-      <div class="vibe-header">
-        <p class="vibe-subtitle">Естетика результату</p>
-        <h2 class="vibe-title">Moodboard</h2>
-      </div>
-
-      <div class="vibe-grid">
-        <div class="vibe-item item-1">
-          <img src="./img/Bg-aftor.jpg" alt="Результат воскової депіляції — гладка шкіра, салон VelvetSkin Запоріжжя">
-        </div>
-        <div class="vibe-item item-2">
-          <img src="./img/Bg-aftor.jpg" alt="Текстура гладкої шкіри після депіляції — VelvetSkin Запоріжжя">
-        </div>
-        <div class="vibe-item item-3">
-          <img src="./img/Bg-aftor.jpg" alt="Естетика та догляд: кабінет депіляції Запоріжжя">
-        </div>
-        <div class="vibe-item item-4">
-          <img src="./img/Bg-aftor.jpg" alt="Професійне видалення волосся — воскова депіляція VelvetSkin">
-        </div>
-        <div class="vibe-item item-5">
-          <img src="./img/Bg-aftor.jpg" alt="Краща депіляція в Запоріжжі — відгуки та результат">
-        </div>
-      </div>
-    </section>
-
-    <section id="contacts" class="contacts">
-      <div class="container contacts-container">
-        <div class="contacts-info">
-          <p class="contacts-subtitle">Зв'яжіться з нами</p>
-          <h2 class="contacts-title">Ваша краса чекає</h2>
-
-          <div class="contact-item">
-            <span class="contact-label">Адреса:</span>
-            <p>Запоріжжя, вул. Естетична (центр), 12</p>
-          </div>
-
-          <div class="contact-item">
-            <span class="contact-label">Телефон:</span>
-            <a href="tel:+380000000000">+38 (000) 000 00 00</a>
-          </div>
-
-          <div class="contact-item">
-            <span class="contact-label">Графік:</span>
-            <p>Пн-Нд: 09:00 — 21:00</p>
-          </div>
-
-          <div class="contacts-socials">
-            <a href="https://www.instagram.com/sandy_waxing/" class="social-link" target="_blank"
-              rel="noopener noreferrer">Instagram</a>
-            <a href="https://t.me/sandy_waxing/" class="social-link" target="_blank"
-              rel="noopener noreferrer">Telegram</a>
-          </div>
-        </div>
-
-        <div class="contacts-map-wrapper">
-          <div id="map" class="map-container">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.09034519587!2d35.155838976573165!3d47.82743917121097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dc60aab8b82aab%3A0x2095f293e4eef4c6!2z0LLRg9C7LiDQo9C60YDQsNGX0L3RgdGM0LrQsCwgNDMsINCX0LDQv9C-0YDRltC20LbRjywg0JfQsNC_0L7RgNGW0LfRjNC60LAg0L7QsdC70LDRgdGC0YwsIDY5MDAw!5e1!3m2!1sru!2sua!4v1770625196269!5m2!1sru!2sua"
-              width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-          </div>
-        </div>
-      </div>
-    </section>
+    <load src="./partials/contacts.html" />
   </main>
 
-  <footer class="footer">
-    <div class="container footer-container">
-      <div class="footer-logo">
-        <a href="#hero" class="logo">Velvet<span>Skin</span></a>
-        <p>© 2024 Всі права захищені. Запоріжжя</p>
-      </div>
+  <load src="./partials/footer.html" />
 
-      <div class="footer-copy">
-        <p>Зроблено з любов'ю до вашої шкіри</p>
-      </div>
-    </div>
-  </footer>
+  <load src="./partials/modals.html" />
 
-  <dialog id="booking-modal" class="modal-window">
-    <button class="modal-close" aria-label="Закрити">&times;</button>
-    <div class="modal-content">
-      <h3>Записатися на візит</h3>
-      <p>Залиште контакти, і ми підберемо ідеальний час у Запоріжжі</p>
-
-      <form id="booking-form" method="dialog">
-        <div class="input-group">
-          <input type="text" placeholder="Ваше ім'я" required>
-        </div>
-        <div class="input-group">
-          <input type="tel" placeholder="+38 (0__) ___ __ __" required>
-        </div>
-        <div class="input-group">
-          <select>
-            <option value="" disabled selected>Оберіть послугу</option>
-            <option value="wax">Воскова депіляція</option>
-            <option value="sugar">Шугаринг</option>
-            <option value="body">Догляд за тілом</option>
-          </select>
-        </div>
-        <button type="submit" class="btn-submit">Надіслати</button>
-      </form>
-    </div>
-  </dialog>
-
-  <div id="photo-lightbox" class="lightbox">
-    <span class="lightbox-close">&times;</span>
-    <img class="lightbox-content" id="lightbox-img">
-  </div>
-
-  <script src="js/main.js" type="module"></script>
+  <script src="./js/main.js" type="module"></script>
 </body>
 
 </html>

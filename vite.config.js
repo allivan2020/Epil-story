@@ -1,4 +1,3 @@
-// vite.config.js
 import { defineConfig } from 'vite';
 import { glob } from 'glob';
 import injectHTML from 'vite-plugin-html-inject';
@@ -10,12 +9,11 @@ export default defineConfig(({ command }) => {
     define: {
       [command === 'serve' ? 'global' : '_global']: {},
     },
-    root: 'src',
-    // vite.config.js (часть с исправлением)
+    // 1. ИСПРАВЛЕНИЕ: Убрали 'src'. Теперь корень — это папка, где лежит сам конфиг и index.html
+    root: './',
     build: {
       sourcemap: true,
       rollupOptions: {
-        // ИСПРАВЛЕНИЕ ТУТ: Убрали 'src/' из пути, так как root уже установлен на 'src'
         input: glob.sync('./*.html'),
         output: {
           manualChunks(id) {
@@ -37,12 +35,14 @@ export default defineConfig(({ command }) => {
           },
         },
       },
-      outDir: '../dist',
+      // 2. ИСПРАВЛЕНИЕ: Готовый проект будет собираться в папку dist в корне
+      outDir: './dist',
       emptyOutDir: true,
     },
     plugins: [
       injectHTML(),
-      FullReload(['./src/**/**.html']),
+      // 3. ИСПРАВЛЕНИЕ: Учим Vite следить за изменениями в твоей новой папке partials
+      FullReload(['./*.html', './partials/**/*.html']),
       SortCss({
         sort: 'mobile-first',
       }),

@@ -1,38 +1,64 @@
-export function initModalBooking() {
+export function initBookingForm() {
+  console.log('🛠 Функция initBookingForm запущенa'); // Лог 1
+
+  const bookingForm = document.getElementById('booking-form');
   const modal = document.getElementById('booking-modal');
-  const menuList = document.querySelector('.menu-list');
-  const menuBtn = document.querySelector('.menu-btn');
-  const openButtons = document.querySelectorAll(
-    'a[href="#booking-modal"], .btn-primary, .btn-secondary'
-  );
 
-  if (!modal) return;
+  if (!bookingForm) {
+    console.error("❌ ОШИБКА: Форма с id='booking-form' не найдена в HTML!");
+    return;
+  }
 
-  const openModal = e => {
+  console.log('✅ Форма найдена, вешаю обработчик событий'); // Лог 2
+
+  bookingForm.addEventListener('submit', async e => {
     e.preventDefault();
-    // Закрываем меню, если оно открыто
-    if (menuList?.classList.contains('is-open')) {
-      menuList.classList.remove('is-open');
-      menuBtn.classList.remove('is-active');
+    console.log('🚀 Кнопка нажата! Начинаю сбор данных...'); // Лог 3
+
+    const submitBtn = bookingForm.querySelector('.btn-submit');
+
+    // Проверка наличия полей (чтобы не упасть с ошибкой)
+    const nameField = bookingForm.querySelector('[name="name"]');
+    const phoneField = bookingForm.querySelector('[name="phone"]');
+    const serviceField = bookingForm.querySelector('[name="service"]');
+
+    if (!nameField || !phoneField) {
+      console.error(
+        '❌ ОШИБКА: Не найдены поля name или phone. Проверь атрибут name в HTML!'
+      );
+      return;
     }
-    modal.showModal();
-    document.body.style.overflow = 'hidden';
-  };
 
-  const closeModal = () => {
-    modal.close();
-    document.body.style.overflow = '';
-  };
+    const formData = {
+      name: nameField.value,
+      phone: phoneField.value,
+      message: `Послуга: ${serviceField ? serviceField.value : 'Не выбрана'}`,
+    };
 
-  openButtons.forEach(btn => btn.addEventListener('click', openModal));
+    console.log('отправляю данные:', formData); // Лог 4
 
-  modal.querySelector('.modal-close')?.addEventListener('click', closeModal);
+    try {
+      submitBtn.disabled = true;
+      const response = await fetch('/api/send-telegram', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-  modal.addEventListener('click', e => {
-    if (e.target === modal) closeModal();
-  });
+      console.log('Статус ответа сервера:', response.status); // Лог 5
 
-  modal.addEventListener('close', () => {
-    document.body.style.overflow = '';
+      if (response.ok) {
+        alert('Дякуємо! Заявка успішно відправлена.');
+        bookingForm.reset();
+        modal.close();
+      } else {
+        const errorData = await response.json();
+        console.error('Сервер вернул ошибку:', errorData);
+      }
+    } catch (error) {
+      console.error('🔥 КРИТИЧЕСКАЯ ОШИБКА при отправке:', error);
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
 }

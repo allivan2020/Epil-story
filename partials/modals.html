@@ -4,19 +4,19 @@
         <h3>Записатися на візит</h3>
         <p>Залиште контакти, і ми підберемо ідеальний час у Запоріжжі</p>
 
-        <form id="booking-form" method="dialog">
+        <form id="booking-form">
             <div class="input-group">
-                <input type="text" placeholder="Ваше ім'я" required>
+                <input type="text" name="name" placeholder="Ваше ім'я" required>
             </div>
             <div class="input-group">
-                <input type="tel" placeholder="+38 (0__) ___ __ __" required>
+                <input type="tel" name="phone" placeholder="+38 (0__) ___ __ __" required>
             </div>
             <div class="input-group">
-                <select>
+                <select name="service" required>
                     <option value="" disabled selected>Оберіть послугу</option>
-                    <option value="wax">Воскова депіляція</option>
-                    <option value="sugar">Шугаринг</option>
-                    <option value="body">Догляд за тілом</option>
+                    <option value="Воскова депіляція">Воскова депіляція</option>
+                    <option value="Шугаринг">Шугаринг</option>
+                    <option value="Догляд за тілом">Догляд за тілом</option>
                 </select>
             </div>
             <button type="submit" class="btn-submit">Надіслати</button>

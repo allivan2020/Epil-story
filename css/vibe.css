@@ -32,6 +32,19 @@
   z-index: 1;
 }
 
+/* .vibe-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+} */
+.vibe-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+.vibe-item picture,
 .vibe-item img {
   width: 100%;
   height: auto;
@@ -78,6 +91,7 @@
   box-shadow: 0 25px 50px rgba(74, 58, 53, 0.2);
 }
 
+/* --- МОБИЛЬНАЯ АДАПТАЦИЯ (ФИКС КООРДИНАТ) --- */
 @media (max-width: 768px) {
   .vibe-grid {
     display: block !important;
@@ -85,6 +99,7 @@
     height: 1400px;
     margin-top: 50px;
   }
+
   .vibe-item {
     position: absolute !important;
     border-radius: 12px;
@@ -92,17 +107,24 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
     background: var(--white);
     padding: 5px;
+    height: auto !important; /* Жестко запрещаем карточке тянуться по высоте */
   }
+
+  /* СБРАСЫВАЕМ bottom: auto И left/right: auto ГДЕ НУЖНО */
   .vibe-item.item-1 {
     width: 70%;
     top: 0;
     left: 5%;
+    bottom: auto;
+    right: auto;
     z-index: 1;
   }
   .vibe-item.item-2 {
     width: 55%;
     top: 220px;
     right: 5%;
+    left: auto;
+    bottom: auto;
     z-index: 2;
     transform: rotate(2deg);
   }
@@ -110,6 +132,9 @@
     width: 60%;
     top: 480px;
     left: 8%;
+    /* Вот он, виновник торжества! Отключаем десктопный bottom */
+    bottom: auto !important;
+    right: auto;
     z-index: 3;
     transform: rotate(-1deg);
   }
@@ -117,19 +142,30 @@
     width: 45%;
     top: 700px;
     right: 10%;
+    left: auto;
+    bottom: auto;
     z-index: 2;
   }
   .vibe-item.item-5 {
     width: 75%;
     top: 950px;
     left: 12.5%;
+    /* И второй виновник */
+    bottom: auto !important;
+    right: auto;
     z-index: 4;
     transform: rotate(1deg);
   }
+
+  .vibe-item picture {
+    display: contents;
+  }
+
   .vibe-item img {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
     display: block;
     border-radius: 8px;
+    object-fit: cover;
   }
 }

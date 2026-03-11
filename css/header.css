@@ -1,34 +1,63 @@
+/* --- ПЕРЕМЕННЫЕ ПАЛИТРЫ --- */
+:root {
+  --color-gold-metal: #d4af37;
+  --color-gold-metal-dark: #9a7d0a;
+  --color-gold-shimmer: #ffefba;
+  --text-main: #2c2c2c; /* Замени на свой основной цвет текста */
+  --accent-color: #d4af37;
+  --font-main: 'Poppins', sans-serif; /* Твой шрифт из index.html */
+  --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+/* --- ГЛАВНАЯ ЛОГИКА ХЕДЕРА --- */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 30px 0;
+  padding: 40px 0; /* Высокая шапка на старте */
   z-index: 1000;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header-glass-wrapper {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 10px 0;
+  width: 100%;
   transition: all 0.5s ease;
-  border-radius: 0;
+  border: 1px solid transparent; /* Чтобы не прыгало при появлении бордера */
 }
 
+/* --- СОСТОЯНИЕ ПРИ СКРОЛЛЕ (ЭФФЕКТ СТЕКЛА) --- */
 .header.header-scrolled {
   padding: 15px 0;
 }
 
 .header.header-scrolled .header-glass-wrapper {
   max-width: 90%;
+  margin: 0 auto;
+  padding: 10px 25px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50px;
   box-shadow: var(--shadow);
-  padding: 10px 25px;
+}
+
+/* --- КОНТЕЙНЕР И ПОЗИЦИОНИРОВАНИЕ --- */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Логотип и Бургер слева */
+.logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 150px;
 }
 
 .logo {
@@ -39,11 +68,20 @@
   text-transform: uppercase;
   color: var(--text-main);
   text-decoration: none;
+  line-height: 1;
 }
 
 .logo span {
   font-weight: 300;
   color: var(--accent-color);
+}
+
+/* --- ДЕСКТОПНОЕ МЕНЮ --- */
+.menu-list {
+  display: flex;
+  gap: 35px;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 .menu-link {
@@ -53,41 +91,25 @@
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--text-main);
-  margin: 0 20px;
   text-decoration: none;
   position: relative;
   transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
-.menu-link:hover,
-.menu-link:focus {
-  color: #9c5e4b;
-  text-shadow: 0 0 15px rgba(166, 139, 129, 0.3);
+.menu-link:hover {
+  color: var(--accent-color);
 }
 
-.menu-link::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  width: 0;
-  height: 1px;
-  background: var(--accent-color);
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-}
-
-.menu-link:hover::after {
-  width: 100%;
-}
-
+/* --- БУРГЕР --- */
 .menu-btn {
+  display: none; /* Прячем на десктопе */
   background: none;
   border: none;
   cursor: pointer;
-  display: none;
   flex-direction: column;
   gap: 6px;
+  padding: 0;
 }
 
 .btn-line {
@@ -97,65 +119,102 @@
   transition: 0.3s;
 }
 
-@media (max-width: 992px) {
-  .menu-list {
-    display: none;
-  }
-  .menu-btn {
-    display: flex;
-  }
+/* --- ПРАВАЯ ЧАСТЬ (КНОПКА) --- */
+.header-actions {
+  display: flex;
+  align-items: center;
 }
+
+/* --- КНОПКА APPLE-STYLE --- */
+.btn-book-header {
+  display: inline-block;
+  padding: 10px 24px;
+  border-radius: 50px;
+  background: linear-gradient(
+    160deg,
+    var(--color-gold-shimmer) 0%,
+    var(--color-gold-metal) 45%,
+    var(--color-gold-metal) 55%,
+    var(--color-gold-metal-dark) 100%
+  );
+  border: 1px solid #c49f2d;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-book-header:hover {
+  background: linear-gradient(
+    135deg,
+    var(--color-gold-shimmer) 0%,
+    var(--color-gold-metal) 100%
+  );
+  box-shadow:
+    0 4px 10px rgba(212, 175, 55, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.btn-book-header:active {
+  transform: translateY(1px);
+  background: linear-gradient(
+    135deg,
+    var(--color-gold-metal-dark) 0%,
+    var(--color-gold-metal) 100%
+  );
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- МОБИЛЬНАЯ АДАПТАЦИЯ (992px) --- */
 @media (max-width: 992px) {
-  /* Меню на весь экран с эффектом матового стекла */
+  .header {
+    padding: 25px 0;
+  }
+
   .menu-list {
+    display: none; /* Прячем десктопное меню */
+  }
+
+  .menu-btn {
+    display: flex; /* Показываем бургер под логотипом */
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .header.header-scrolled .header-glass-wrapper {
+    max-width: 95%;
+  }
+
+  /* Полноэкранное меню (Mobile) */
+  .menu-list.is-open {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(246, 244, 240, 0.85); /* Нюдовый полупрозрачный фон */
+    background: rgba(246, 244, 240, 0.98);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px; /* Большие отступы между пунктами */
-    z-index: 999;
-
-    /* Плавное появление */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-20px);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Состояние открытого меню */
-  .menu-list.is-open {
+    gap: 40px;
+    z-index: 2000;
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
   }
 
-  /* Увеличиваем ссылки для мобильного экрана */
-  .menu-list .menu-link {
+  .menu-list.is-open .menu-link {
     font-size: 24px;
-    letter-spacing: 3px;
-    margin: 0;
-  }
-
-  /* Кнопка бургера (поверх меню) */
-  .menu-btn {
-    display: flex;
-    position: relative;
-    z-index: 1000;
-  }
-
-  /* Анимация: бургер превращается в крестик (у тебя 2 линии) */
-  .menu-btn.is-active .btn-line:nth-child(1) {
-    transform: translateY(4px) rotate(45deg);
-  }
-  .menu-btn.is-active .btn-line:nth-child(2) {
-    transform: translateY(-4px) rotate(-45deg);
   }
 }

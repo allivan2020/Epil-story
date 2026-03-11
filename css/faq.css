@@ -1,24 +1,24 @@
-/* Переменные для премиального Glassmorphism (вынесли в :root) */
+/* Переменные для премиального Glassmorphism */
 :root {
-  --text-dark: #2c2c2c; /* Графитовый */
+  --text-dark: #2c2c2c;
   --text-muted: rgba(44, 44, 44, 0.75);
-  --glass-bg: rgba(255, 255, 255, 0.35); /* Полупрозрачный фон */
-  --glass-border: rgba(255, 255, 255, 0.6); /* Более яркая белая рамка */
-  --glass-shadow: 0 12px 48px rgba(0, 0, 0, 0.08); /* Мягкая тень */
+  --glass-bg: rgba(255, 255, 255, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
 }
 
 /* 1. Секция: Позиционирование и Фон */
 .faq-section {
   position: relative;
   padding: 100px 20px;
-  /* Неоднородный фон, как в примере (можно заменить на картинку с блюром) */
-  background: url(/img/Фон-стори.jpg);
+  /* Оптимизировали путь и формат фонового изображения */
+  background: url(../img/sandra-filipe-BGHSroDaw6Y-unsplash.webp);
   background-position: center;
+  background-size: cover; /* Добавил cover, чтобы фон всегда заполнял секцию */
   background-repeat: no-repeat;
-  /* background: linear-gradient(135deg, #f6f4f0 0%, #eaddcf 50%, #f6f4f0 100%); */
   display: flex;
   justify-content: center;
-  overflow: hidden; /* Скрываем вылезающие блобы */
+  overflow: hidden;
 }
 
 /* Визуальные элементы фона для эффекта стекла */
@@ -34,7 +34,7 @@
 .visual-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px); /* Сильное размытие фона */
+  filter: blur(80px);
   opacity: 0.6;
 }
 
@@ -54,11 +54,11 @@
   background: radial-gradient(#eaddcf, rgba(255, 255, 255, 0));
 }
 
-/* 2. Контейнер: Компактность и Сетка */
+/* 2. Контейнер */
 .faq-container {
-  max-width: 580px; /* Сделали карточки компактнее */
+  max-width: 580px;
   width: 100%;
-  position: relative; /* Чтобы быть поверх блобов */
+  position: relative;
   display: flex;
   flex-direction: column;
 }
@@ -66,55 +66,55 @@
 .faq-heading {
   text-align: center;
   color: var(--text-dark);
-  font-size: 36px;
-  font-weight: 500;
+  font-family: var(
+    --font-accent
+  ); /* Добавил твой акцентный шрифт, чтобы было в едином стиле */
+  font-size: 48px;
   margin-bottom: 40px;
 }
 
-/* 3. Обертка всего списка: Единый стеклянный эффект */
+/* 3. Обертка всего списка */
 .faq-glass-overlay {
   background: var(--glass-bg);
   backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%); /* Для Safari */
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
   border: 1px solid var(--glass-border);
   border-radius: 24px;
   box-shadow: var(--glass-shadow);
-  padding: 8px 0; /* Внутренний отступ для списка */
+  padding: 8px 0;
 }
 
-/* 4. Карточка (Вопрос): Отделяем элементы */
+/* 4. Карточка (Вопрос) */
 .faq-item {
   border-bottom: 1px solid var(--glass-border);
   transition: background 0.3s ease;
 }
 
-/* Убираем нижнюю рамку у последнего элемента */
 .faq-item:last-child {
   border-bottom: none;
 }
 
 .faq-item:hover {
-  background: rgba(255, 255, 255, 0.45); /* Легкий блик при наведении */
+  background: rgba(255, 255, 255, 0.45);
 }
 
-/* Состояние, когда аккордеон открыт */
 .faq-item[open] .faq-icon {
-  transform: rotate(45deg); /* Плюсик превращается в крестик */
+  transform: rotate(45deg);
 }
 
 .faq-item[open] .faq-content-wrapper {
-  grid-template-rows: 1fr; /* Анимация высоты */
+  grid-template-rows: 1fr;
 }
 
-/* Запускаем анимацию прозрачности текста при открытии */
 .faq-item[open] .faq-content p {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* 5. Заголовок (Summary): Типографика и Иконка */
+/* 5. Заголовок (Summary) */
 .faq-title {
   padding: 28px;
+  font-family: var(--font-main);
   font-size: 18px;
   font-weight: 500;
   color: var(--text-dark);
@@ -122,12 +122,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  list-style: none; /* Убираем стандартный треугольник */
+  list-style: none;
   user-select: none;
 }
 
 .faq-title::-webkit-details-marker {
-  display: none; /* Убираем треугольник в старых браузерах */
+  display: none;
 }
 
 .faq-icon {
@@ -138,10 +138,10 @@
   color: var(--text-dark);
 }
 
-/* 6. Плавная многослойная анимация */
+/* 6. Плавная анимация контента */
 .faq-content-wrapper {
   display: grid;
-  grid-template-rows: 0fr; /* Начальное состояние: закрыто */
+  grid-template-rows: 0fr;
   transition: grid-template-rows 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -150,27 +150,27 @@
 }
 
 .faq-content p {
+  font-family: var(--font-main);
   padding: 0 28px 28px 28px;
   margin: 0;
   color: var(--text-muted);
   line-height: 1.6;
   font-size: 16px;
-  /* Секрет плавного появления: Grid делает высоту, а transition здесь делает появление текста */
-  opacity: 0; /* Скрыт по умолчанию */
-  transform: translateY(-8px); /* Легкий сдвиг вверх */
+  opacity: 0;
+  transform: translateY(-8px);
   transition:
     opacity 0.4s ease 0.3s,
-    transform 0.4s ease 0.3s; /* Появляется с задержкой */
+    transform 0.4s ease 0.3s;
 }
 
-/* Адаптив: Мобильная версия */
+/* --- АДАПТИВ: МОБИЛЬНАЯ ВЕРСИЯ --- */
 @media (max-width: 768px) {
   .faq-section {
     padding: 60px 16px;
   }
 
   .faq-heading {
-    font-size: 28px;
+    font-size: 38px;
     margin-bottom: 30px;
   }
 

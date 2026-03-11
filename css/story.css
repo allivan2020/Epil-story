@@ -65,11 +65,24 @@
   z-index: 1;
 }
 
+/* .card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 2s cubic-bezier(0.2, 0.8, 0.2, 1);
+} */
 .card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Фикс для тега picture, чтобы не ломалась анимация зума */
+.card-image .pic-safe-wrapper {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .story-card.active .card-image img {

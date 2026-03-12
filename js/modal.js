@@ -49,11 +49,9 @@ export function initBookingForm() {
     const submitBtn = bookingForm.querySelector('.btn-submit');
     const originalBtnText = submitBtn.textContent;
 
-    // СОБИРАЕМ ДАННЫЕ (с токеном капчи!)
     const formData = {
       name: bookingForm.querySelector('[name="name"]').value,
       phone: bookingForm.querySelector('[name="phone"]').value,
-      // ВОТ ЭТА СТРОЧКА — ГЛАВНАЯ! Она забирает токен из виджета
       captcha: bookingForm.querySelector('[name="cf-turnstile-response"]')
         ?.value,
       message: `Послуга: ${bookingForm.querySelector('[name="service"]')?.value || 'Не обрана'}`,
@@ -70,7 +68,6 @@ export function initBookingForm() {
       });
 
       if (response.ok) {
-        // УСПЕХ
         bookingForm.style.display = 'none';
 
         const successHtml = `
@@ -92,7 +89,6 @@ export function initBookingForm() {
               document.getElementById('success-message')?.remove();
               submitBtn.disabled = false;
               submitBtn.textContent = originalBtnText;
-              // Перезагружаем капчу для следующего раза (если нужно)
               if (window.turnstile) window.turnstile.reset();
             }, 500);
           });

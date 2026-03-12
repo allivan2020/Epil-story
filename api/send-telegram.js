@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 <b>✨ Нова заявка: VelvetSkin ✨</b>
 
 <b>👤 Ім'я:</b> ${name}
-<b>📞 Телефон:</b> ${phone}
+<b>📞 Телефон:</b> <a href="tel:${cleanPhone}">${phone}</a>
 <b>💆‍♀️ Послуга:</b> ${message}
     `.trim();
 
@@ -49,16 +49,21 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           chat_id: chatId,
           text: telegramText,
-          parse_mode: 'HTML', // Переключили на HTML
+          parse_mode: 'HTML',
           reply_markup: {
             inline_keyboard: [
-              [{ text: '📞 Зателефонувати', url: `tel:${cleanPhone}` }],
               [
                 {
                   text: '💬 Viber',
                   url: `viber://chat?number=%2B${digitsOnly}`,
                 },
                 { text: '📱 WhatsApp', url: `https://wa.me/${digitsOnly}` },
+              ],
+              [
+                {
+                  text: '✈️ Написати в Telegram',
+                  url: `https://t.me/+${digitsOnly}`,
+                },
               ],
             ],
           },

@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
 Sitemap: https://epil-story-u7zl.vercel.app/sitemap.xml

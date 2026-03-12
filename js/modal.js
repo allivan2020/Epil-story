@@ -99,8 +99,15 @@ export function initBookingForm() {
     } catch (error) {
       console.error('Ошибка:', error);
       alert(`Помилка: ${error.message}. Спробуйте ще раз.`);
+
+      // РАЗБЛОКИРОВКА И СБРОС
       submitBtn.disabled = false;
       submitBtn.textContent = originalBtnText;
+
+      // Обязательно сбрасываем капчу при любой ошибке!
+      if (window.turnstile) {
+        window.turnstile.reset();
+      }
     }
   });
 }

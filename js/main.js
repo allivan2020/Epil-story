@@ -1,4 +1,6 @@
 // 1. Все импорты в начале файла
+import { inject } from '@vercel/analytics';
+inject();
 import { initHeaderScroll } from './header.js';
 import { initMobileMenu } from './menu.js';
 import { initStoryAnimations } from './story.js';

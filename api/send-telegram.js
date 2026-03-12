@@ -5,9 +5,6 @@ export default async function handler(req, res) {
 
   const { name, phone, message, captcha } = req.body;
 
-  // Лог для отладки (увидишь в панели Vercel Logs)
-  console.log('Получен токен капчи:', captcha ? 'Да (есть)' : 'Нет (пусто!)');
-
   try {
     // 1. ПРОВЕРКА КАПЧИ
     const verifyRes = await fetch(
@@ -15,7 +12,6 @@ export default async function handler(req, res) {
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        // Используем URLSearchParams для надёжной кодировки ключей
         body: new URLSearchParams({
           secret: process.env.TURNSTILE_SECRET_KEY,
           response: captcha,
@@ -24,28 +20,28 @@ export default async function handler(req, res) {
     );
 
     const verifyData = await verifyRes.json();
-    console.log('Ответ от Cloudflare:', verifyData);
 
     if (!verifyData.success) {
-      return res.status(400).json({
-        error: 'Капча не пройдена.',
-        details: verifyData['error-codes'],
-      });
+      return res.status(400).json({ error: 'Капча не пройдена.' });
     }
 
-    // 2. ОТПРАВКА В TELEGRAM (твой проверенный код)
+    // 2. ПОДГОТОВКА ДАННЫХ
     const botToken = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
+
+    // Очищаем номер: cleanPhone для ссылок tel:, digitsOnly для мессенджеров
     const cleanPhone = phone.replace(/[^\d+]/g, '');
+    const digitsOnly = phone.replace(/\D/g, '');
 
     const telegramText = `
 ✨ *Нова заявка: VelvetSkin* ✨
 
 👤 *Ім'я:* ${name}
-📞 *Телефон:* [${phone}](tel:${cleanPhone})
+📞 *Телефон:* ${phone}
 💆‍♀️ *Послуга:* ${message}
 `.trim();
 
+    // 3. ОТПРАВКА В TELEGRAM С КНОПКАМИ
     const telegramRes = await fetch(
       `https://api.telegram.org/bot${botToken}/sendMessage`,
       {
@@ -55,6 +51,15 @@ export default async function handler(req, res) {
           chat_id: chatId,
           text: telegramText,
           parse_mode: 'Markdown',
+          reply_markup: {
+            inline_keyboard: [
+              [{ text: '📞 Зателефонувати', url: `tel:${cleanPhone}` }],
+              [
+                { text: '💬 Viber', url: `viber://add?number=${digitsOnly}` },
+                { text: '📱 WhatsApp', url: `https://wa.me/${digitsOnly}` },
+              ],
+            ],
+          },
         }),
       }
     );
@@ -62,8 +67,6 @@ export default async function handler(req, res) {
     if (telegramRes.ok) {
       return res.status(200).json({ message: 'Success' });
     } else {
-      const tgError = await telegramRes.json();
-      console.error('Ошибка Telegram:', tgError);
       throw new Error('Telegram API error');
     }
   } catch (error) {

@@ -36,14 +36,15 @@ export default async function handler(req, res) {
     // 2. ОТПРАВКА В TELEGRAM (твой проверенный код)
     const botToken = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
+    const cleanPhone = phone.replace(/[^\d+]/g, '');
 
     const telegramText = `
 ✨ *Нова заявка: VelvetSkin* ✨
 
 👤 *Ім'я:* ${name}
-📞 *Телефон:* [${phone}](tel:${phone})
+📞 *Телефон:* [${phone}](tel:${cleanPhone})
 💆‍♀️ *Послуга:* ${message}
-    `.trim();
+`.trim();
 
     const telegramRes = await fetch(
       `https://api.telegram.org/bot${botToken}/sendMessage`,

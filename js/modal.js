@@ -1,4 +1,4 @@
-// 1. Функция открытия/закрытия модалки (ЕЁ СЕЙЧАС НЕ ВИДИТ БРАУЗЕР)
+// 1. Функция управления модальным окном
 export function initModalBooking() {
   const modal = document.getElementById('booking-modal');
   const menuList = document.querySelector('.menu-list');
@@ -26,17 +26,18 @@ export function initModalBooking() {
 
   openButtons.forEach(btn => btn.addEventListener('click', openModal));
   modal.querySelector('.modal-close')?.addEventListener('click', closeModal);
+
   modal.addEventListener('click', e => {
     if (e.target === modal) closeModal();
   });
+
   modal.addEventListener('close', () => {
     document.body.style.overflow = '';
   });
 }
 
-// 2. Твоя функция формы (с логами)
+// 2. Функция обработки формы и отправки в Telegram
 export function initBookingForm() {
-  console.log('🛠 Функция initBookingForm запущенa');
   const bookingForm = document.getElementById('booking-form');
   const modal = document.getElementById('booking-modal');
 
@@ -44,21 +45,20 @@ export function initBookingForm() {
 
   bookingForm.addEventListener('submit', async e => {
     e.preventDefault();
-    console.log('🚀 Кнопка нажата!');
 
     const submitBtn = bookingForm.querySelector('.btn-submit');
-    const nameField = bookingForm.querySelector('[name="name"]');
-    const phoneField = bookingForm.querySelector('[name="phone"]');
-    const serviceField = bookingForm.querySelector('[name="service"]');
+    const originalBtnText = submitBtn.textContent;
 
     const formData = {
-      name: nameField.value,
-      phone: phoneField.value,
-      message: `Послуга: ${serviceField ? serviceField.value : 'Не выбрана'}`,
+      name: bookingForm.querySelector('[name="name"]').value,
+      phone: bookingForm.querySelector('[name="phone"]').value,
+      message: `Послуга: ${bookingForm.querySelector('[name="service"]')?.value || 'Не обрана'}`,
     };
 
     try {
       submitBtn.disabled = true;
+      submitBtn.textContent = 'Надсилаємо...';
+
       const response = await fetch('/api/send-telegram', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -66,14 +66,39 @@ export function initBookingForm() {
       });
 
       if (response.ok) {
-        alert('Дякуємо! Заявка успішно відправлена.');
-        bookingForm.reset();
-        modal.close();
+        // Успех: скрываем форму и показываем сообщение
+        bookingForm.style.display = 'none';
+
+        const successHtml = `
+          <div id="success-message" style="text-align: center; padding: 40px 20px;">
+            <h2 style="color: #d4a373; margin-bottom: 15px;">Дякуємо, ${formData.name}!</h2>
+            <p style="font-size: 18px; margin-bottom: 25px;">Ваша заявка успішно надіслана. <br> Ми зателефонуємо вам найближчим часом.</p>
+            <button type="button" class="btn-primary" id="close-success">Зрозуміло</button>
+          </div>
+        `;
+        bookingForm.insertAdjacentHTML('afterend', successHtml);
+
+        document
+          .getElementById('close-success')
+          .addEventListener('click', () => {
+            modal.close();
+            // Возвращаем форму в исходное состояние для следующего раза
+            setTimeout(() => {
+              bookingForm.reset();
+              bookingForm.style.display = 'block';
+              document.getElementById('success-message')?.remove();
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalBtnText;
+            }, 500);
+          });
+      } else {
+        throw new Error('Server error');
       }
     } catch (error) {
       console.error('Ошибка:', error);
-    } finally {
+      alert('Помилка при відправці. Перевірте інтернет або спробуйте ще раз.');
       submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
     }
   });
 }

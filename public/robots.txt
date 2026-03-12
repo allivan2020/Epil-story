@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://epil-story-u7zl.vercel.app/sitemap.xml

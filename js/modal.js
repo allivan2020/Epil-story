@@ -49,9 +49,13 @@ export function initBookingForm() {
     const submitBtn = bookingForm.querySelector('.btn-submit');
     const originalBtnText = submitBtn.textContent;
 
+    // СОБИРАЕМ ДАННЫЕ (с токеном капчи!)
     const formData = {
       name: bookingForm.querySelector('[name="name"]').value,
       phone: bookingForm.querySelector('[name="phone"]').value,
+      // Cloudflare автоматически создает скрытое поле с этим именем
+      captcha: bookingForm.querySelector('[name="cf-turnstile-response"]')
+        ?.value,
       message: `Послуга: ${bookingForm.querySelector('[name="service"]')?.value || 'Не обрана'}`,
     };
 
@@ -66,7 +70,7 @@ export function initBookingForm() {
       });
 
       if (response.ok) {
-        // Успех: скрываем форму и показываем сообщение
+        // УСПЕХ
         bookingForm.style.display = 'none';
 
         const successHtml = `
@@ -82,21 +86,23 @@ export function initBookingForm() {
           .getElementById('close-success')
           .addEventListener('click', () => {
             modal.close();
-            // Возвращаем форму в исходное состояние для следующего раза
             setTimeout(() => {
               bookingForm.reset();
               bookingForm.style.display = 'block';
               document.getElementById('success-message')?.remove();
               submitBtn.disabled = false;
               submitBtn.textContent = originalBtnText;
+              // Перезагружаем капчу для следующего раза (если нужно)
+              if (window.turnstile) window.turnstile.reset();
             }, 500);
           });
       } else {
-        throw new Error('Server error');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Server error');
       }
     } catch (error) {
       console.error('Ошибка:', error);
-      alert('Помилка при відправці. Перевірте інтернет або спробуйте ще раз.');
+      alert(`Помилка: ${error.message}. Спробуйте ще раз.`);
       submitBtn.disabled = false;
       submitBtn.textContent = originalBtnText;
     }

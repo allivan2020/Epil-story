@@ -67,10 +67,23 @@ export default async function handler(req, res) {
           reply_markup: {
             inline_keyboard: [
               [
-                { text: '💬 Viber', url: `viber://chat?number=${digitsOnly}` },
-                { text: '📱 WhatsApp', url: `https://wa.me/${digitsOnly}` },
+                {
+                  text: '💬 Viber',
+                  // Заменяем прямой протокол на рабочую веб-ссылку
+                  url: `https://viber.click/${digitsOnly}`,
+                },
+                {
+                  text: '📱 WhatsApp',
+                  url: `https://wa.me/${digitsOnly}`,
+                },
               ],
-              [{ text: '✈️ Telegram', url: `https://t.me/${digitsOnly}` }],
+              [
+                {
+                  text: '✈️ Написати в Telegram',
+                  // Используем стандартную ссылку t.me без знака +
+                  url: `https://t.me/${digitsOnly}`,
+                },
+              ],
             ],
           },
         }),

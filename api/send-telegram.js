@@ -1,12 +1,11 @@
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
+  if (req.method !== 'POST')
     return res.status(405).json({ error: 'Method not allowed' });
-  }
 
   const { name, phone, message, captcha } = req.body;
 
   try {
-    // 1. ПРОВЕРКА КАПЧИ
+    // 1. ПЕРЕВІРКА КАПЧІ
     const verifyRes = await fetch(
       'https://challenges.cloudflare.com/turnstile/v0/siteverify',
       {
@@ -21,17 +20,19 @@ export default async function handler(req, res) {
 
     const verifyData = await verifyRes.json();
 
+    // Якщо капча каже "ні", ми не йдемо далі
     if (!verifyData.success) {
+      console.error('Cloudflare error:', verifyData);
       return res.status(400).json({ error: 'Капча не пройдена.' });
     }
 
-    // 2. ПОДГОТОВКА ДАННЫХ
+    // 2. ПІДГОТОВКА ДАНИХ (БЕЗ ПЕРЕВАЖЕННЯ)
     const botToken = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
 
-    // Очищаем номер: cleanPhone для ссылок tel:, digitsOnly для мессенджеров
-    const cleanPhone = phone.replace(/[^\d+]/g, '');
-    const digitsOnly = phone.replace(/\D/g, '');
+    // Чистимо номер для посилань
+    const cleanPhone = phone.replace(/[^\d+]/g, ''); // для tel:+380...
+    const digitsOnly = phone.replace(/\D/g, ''); // для Viber/WA
 
     const telegramText = `
 ✨ *Нова заявка: VelvetSkin* ✨
@@ -39,9 +40,9 @@ export default async function handler(req, res) {
 👤 *Ім'я:* ${name}
 📞 *Телефон:* ${phone}
 💆‍♀️ *Послуга:* ${message}
-`.trim();
+    `.trim();
 
-    // 3. ОТПРАВКА В TELEGRAM С КНОПКАМИ
+    // 3. ВІДПРАВКА В TELEGRAM
     const telegramRes = await fetch(
       `https://api.telegram.org/bot${botToken}/sendMessage`,
       {
@@ -64,13 +65,15 @@ export default async function handler(req, res) {
       }
     );
 
-    if (telegramRes.ok) {
-      return res.status(200).json({ message: 'Success' });
-    } else {
-      throw new Error('Telegram API error');
+    if (!telegramRes.ok) {
+      const errorData = await telegramRes.json();
+      console.error('Telegram API error:', errorData);
+      return res.status(502).json({ error: 'Помилка Telegram' });
     }
+
+    return res.status(200).json({ message: 'Success' });
   } catch (error) {
-    console.error('Global error:', error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Global Error:', error);
+    return res.status(500).json({ error: 'Внутрішня помилка сервера' });
   }
 }

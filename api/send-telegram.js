@@ -4,8 +4,28 @@ export default async function handler(req, res) {
 
   const { name, phone, message, captcha } = req.body;
 
+  const escapeHTML = str =>
+    str
+      ? String(str).replace(
+          /[&<>"']/g,
+          m =>
+            ({
+              '&': '&amp;',
+              '<': '&lt;',
+              '>': '&gt;',
+              '"': '&quot;',
+              "'": '&#39;',
+            })[m]
+        )
+      : '';
+
   try {
-    // 1. ПРОВЕРКА КАПЧИ (Cloudflare)
+    // Проверка наличия переменных (чтобы не гадать, почему 502)
+    if (!process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
+      throw new Error('Missing Telegram configuration in Vercel Env Variables');
+    }
+
+    // 1. Проверка капчи
     const verifyRes = await fetch(
       'https://challenges.cloudflare.com/turnstile/v0/siteverify',
       {
@@ -23,48 +43,34 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Капча не пройдена.' });
     }
 
-    // 2. ПОДГОТОВКА ДАННЫХ
-    const botToken = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
+    // 2. Подготовка данных
+    const digitsOnly = phone.replace(/\D/g, '');
+    const cleanPhone = phone.replace(/[^\d+]/g, '');
 
-    // Чистим номер: оставляем только цифры для кнопок
-    const cleanPhone = phone.replace(/[^\d+]/g, ''); // для tel:+380...
-    const digitsOnly = phone.replace(/\D/g, ''); // для мессенджеров
+    const telegramText = [
+      `<b>✨ Нова заявка: VelvetSkin ✨</b>`,
+      `\n<b>👤 Ім'я:</b> ${escapeHTML(name)}`,
+      `<b>📞 Телефон:</b> <a href="tel:${cleanPhone}">${escapeHTML(phone)}</a>`,
+      `<b>💆‍♀️ Послуга:</b> ${escapeHTML(message)}`,
+    ].join('\n');
 
-    // Текст в формате HTML (теперь не сломается от спецсимволов)
-    const telegramText = `
-<b>✨ Нова заявка: VelvetSkin ✨</b>
-
-<b>👤 Ім'я:</b> ${name}
-<b>📞 Телефон:</b> <a href="tel:${cleanPhone}">${phone}</a>
-<b>💆‍♀️ Послуга:</b> ${message}
-    `.trim();
-
-    // 3. ОТПРАВКА В TELEGRAM
+    // 3. Отправка
     const telegramRes = await fetch(
-      `https://api.telegram.org/bot${botToken}/sendMessage`,
+      `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          chat_id: chatId,
+          chat_id: process.env.TELEGRAM_CHAT_ID,
           text: telegramText,
           parse_mode: 'HTML',
           reply_markup: {
             inline_keyboard: [
               [
-                {
-                  text: '💬 Viber',
-                  url: `viber://chat?number=%2B${digitsOnly}`,
-                },
+                { text: '💬 Viber', url: `viber://chat?number=${digitsOnly}` },
                 { text: '📱 WhatsApp', url: `https://wa.me/${digitsOnly}` },
               ],
-              [
-                {
-                  text: '✈️ Написати в Telegram',
-                  url: `https://t.me/+${digitsOnly}`,
-                },
-              ],
+              [{ text: '✈️ Telegram', url: `https://t.me/${digitsOnly}` }],
             ],
           },
         }),
@@ -74,7 +80,7 @@ export default async function handler(req, res) {
     const result = await telegramRes.json();
 
     if (!telegramRes.ok) {
-      console.error('Telegram Error:', result);
+      console.error('Telegram API Error:', result);
       return res
         .status(502)
         .json({ error: 'Помилка Telegram', details: result.description });
@@ -82,7 +88,9 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ message: 'Success' });
   } catch (error) {
-    console.error('Global Error:', error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Server Error:', error.message);
+    return res
+      .status(500)
+      .json({ error: 'Internal Server Error', details: error.message });
   }
 }

@@ -53,7 +53,7 @@ export function initBookingForm() {
     const formData = {
       name: bookingForm.querySelector('[name="name"]').value,
       phone: bookingForm.querySelector('[name="phone"]').value,
-      // Cloudflare автоматически создает скрытое поле с этим именем
+      // ВОТ ЭТА СТРОЧКА — ГЛАВНАЯ! Она забирает токен из виджета
       captcha: bookingForm.querySelector('[name="cf-turnstile-response"]')
         ?.value,
       message: `Послуга: ${bookingForm.querySelector('[name="service"]')?.value || 'Не обрана'}`,

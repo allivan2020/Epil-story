@@ -1,0 +1,179 @@
+/* --- СЕКЦИЯ ОТЗЫВОВ --- */
+.reviews-section {
+  padding: 80px 0;
+  overflow: hidden; /* Важно, чтобы карусель не ломала верстку */
+}
+
+.reviews-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.reviews-subtitle {
+  color: var(--accent-color, #d4a373); /* Замени на свой акцентный цвет */
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.reviews-title {
+  font-size: 32px;
+  margin-top: 10px;
+}
+
+/* Нативная карусель с примагничиванием */
+.reviews-carousel {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding: 20px;
+  margin: 0 -20px; /* Компенсируем паддинг контейнера на мобилках */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  /* Скрываем скроллбар */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.reviews-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Карточка Apple Glassmorphism */
+.review-glass-card {
+  flex: 0 0 320px; /* Фиксированная ширина карточки */
+  scroll-snap-align: center; /* Магнит по центру */
+
+  /* Магическое стекло */
+  background: rgba(255, 255, 255, 0.08); /* Чуть белый полупрозрачный фон */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.review-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.reviewer-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.stars {
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+/* Кнопка "Оригинал" */
+.proof-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.proof-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.proof-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.review-text {
+  font-size: 15px;
+  line-height: 1.6;
+  flex-grow: 1; /* Чтобы дата всегда была внизу, если тексты разной длины */
+  margin-bottom: 20px;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.review-date {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+/* Адаптив для десктопа (показываем больше карточек) */
+@media (min-width: 768px) {
+  .review-glass-card {
+    flex: 0 0 350px;
+  }
+}
+
+/* Базовое состояние: карточка полупрозрачная и сильно размыта */
+.review-glass-card {
+  flex: 0 0 320px;
+  scroll-snap-align: center;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Плавный переход */
+
+  opacity: 0.6; /* Полупрозрачность */
+  filter: blur(4px) grayscale(20%); /* Размытие */
+  transform: scale(0.9); /* Чуть меньше в размере */
+}
+
+/* Состояние фокуса: когда карточка по центру */
+.review-glass-card.is-focused {
+  opacity: 1;
+  filter: blur(0) grayscale(0);
+  transform: scale(1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4); /* Подсвечиваем границы */
+}
+
+/* Контейнер для стрелок (добавь в reviews.html) */
+.reviews-nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.nav-btn {
+  /* Меняем прозрачность на более плотную */
+  background: rgba(0, 0, 0, 0.05);
+  /* Цвет иконок/текста делаем темным или акцентным (если фон светлый) */
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+
+  /* Чтобы кнопки всегда были поверх всего */
+  position: relative;
+  z-index: 10;
+}
+
+.nav-btn:hover {
+  background: var(--accent-color, #d4a373);
+  color: white;
+  border-color: var(--accent-color, #d4a373);
+  transform: translateY(-2px);
+}

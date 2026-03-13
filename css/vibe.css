@@ -12,7 +12,8 @@
 .vibe-title {
   font-family: var(--font-accent);
   font-size: 54px;
-  color: var(--accent-color);
+  color: var(--shadow);
+  /* color: var(--accent-color); */
 }
 
 .vibe-grid {
@@ -168,4 +169,7 @@
     border-radius: 8px;
     object-fit: cover;
   }
+}
+.vibe-sutitle {
+  color: var(--accent-color);
 }

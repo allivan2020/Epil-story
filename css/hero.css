@@ -121,7 +121,7 @@
   gap: 12px;
   opacity: 0.8;
   transition: all 0.3s ease;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
 }
 
 .mouse {

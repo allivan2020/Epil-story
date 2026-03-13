@@ -1,21 +1,24 @@
-// 1. Все импорты в начале файла
-import { inject } from '@vercel/analytics';
-inject();
-import { initHeaderScroll } from './header.js';
-import { initMobileMenu } from './menu.js';
-import { initStoryAnimations } from './story.js';
-import { initPhotoLightbox } from './lightbox.js';
-import { initReviews } from './reviews';
-// Подключаем и модалку, и форму из файла modal.js
-import { initModalBooking, initBookingForm } from './modal.js';
+// ---------- IMPORTS ----------
+import { inject } from '/node_modules/.vite/deps/@vercel_analytics.js?v=505bf972';
 
-// 2. Одна общая функция запуска
-document.addEventListener('DOMContentLoaded', () => {
-  initReviews();
+import { initHeaderScroll } from '/js/header.js';
+import { initMobileMenu } from '/js/menu.js';
+import { initStoryAnimations } from '/js/story.js';
+import { initPhotoLightbox } from '/js/lightbox.js';
+import { initReviews } from '/js/reviews.js';
+import { initModalBooking, initBookingForm } from '/js/modal.js';
+
+// ---------- APP INIT ----------
+function initApp() {
   initHeaderScroll();
   initMobileMenu();
   initModalBooking();
-  initBookingForm(); // Запускаем обработчик формы
+  initBookingForm();
   initStoryAnimations();
+  initReviews();
   initPhotoLightbox();
-});
+
+  inject();
+}
+
+document.addEventListener('DOMContentLoaded', initApp);

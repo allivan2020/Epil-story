@@ -1,5 +1,5 @@
 // ---------- IMPORTS ----------
-import { inject } from '/node_modules/.vite/deps/@vercel_analytics.js?v=505bf972';
+import { inject } from '@vercel/analytics';
 
 import { initHeaderScroll } from '/js/header.js';
 import { initMobileMenu } from '/js/menu.js';

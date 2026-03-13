@@ -2,13 +2,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST')
     return res.status(405).json({ error: 'Method not allowed' });
 
-  const { name = '', phone = '', message = '', captcha } = req.body;
+  const { name = '', phone = '', service = '', captcha } = req.body;
 
   if (!name.trim() || !phone.trim()) {
     return res.status(400).json({ error: "Ім'я та телефон обов'язкові." });
   }
 
-  if (name.length > 50 || phone.length > 20 || message.length > 500) {
+  if (name.length > 50 || phone.length > 20 || service.length > 500) {
     return res
       .status(400)
       .json({ error: 'Занадто довгі дані. Спробуйте коротше.' });
@@ -57,7 +57,7 @@ export default async function handler(req, res) {
       `<b>✨ Нова заявка: VelvetSkin ✨</b>`,
       `\n<b>👤 Ім'я:</b> ${escapeHTML(name)}`,
       `<b>📞 Телефон:</b> <a href="tel:${cleanPhone}">${escapeHTML(phone)}</a>`,
-      `<b>💆‍♀️ Послуга:</b> ${escapeHTML(message)}`,
+      `<b>💆‍♀️ Послуга:</b> ${escapeHTML(service)}`,
     ].join('\n');
 
     const telegramRes = await fetch(
@@ -71,7 +71,6 @@ export default async function handler(req, res) {
           parse_mode: 'HTML',
           reply_markup: {
             inline_keyboard: [
-              // Оставили только 100% работающую кнопку Telegram
               [
                 {
                   text: '✈️ Написати в Telegram',

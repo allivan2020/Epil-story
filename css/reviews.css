@@ -2,6 +2,11 @@
 .reviews-section {
   padding: 80px 0;
   overflow: hidden; /* Важно, чтобы карусель не ломала верстку */
+  /* background: url(../img/sandra-filipe-BGHSroDaw6Y-unsplash.webp); */
+  /* background-color: rgba(253, 241, 227, 0.769); */
+  background-position: center;
+  background-size: cover; /* Добавил cover, чтобы фон всегда заполнял секцию */
+  background-repeat: no-repeat;
 }
 
 .reviews-header {
@@ -176,4 +181,43 @@
   color: white;
   border-color: var(--accent-color, #d4a373);
   transform: translateY(-2px);
+}
+/* --- СЕКЦІЯ ВІДГУКІВ --- */
+.reviews-section {
+  position: relative; /* Обов'язково для позиціонування фону */
+  padding: 80px 0;
+  overflow: hidden; /* Ховаємо розмиті краї фону */
+  z-index: 1; /* Створюємо контекст накладання для контенту */
+
+  /* Прибираємо фон звідси, він переїжджает в ::before */
+  background: transparent;
+}
+
+/* Створюємо "скляний" шар поверх фону */
+.reviews-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  /* Використовуємо твою основну картинку */
+  background-image: url('../img/sandra-filipe-BGHSroDaw6Y-unsplash.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Ефект розмиття */
+  filter: blur(10px); /* Налаштуй силу під себе */
+
+  /* Масштабуємо, щоб прибрати білі "засвіти" блюру по краях */
+  transform: scale(1.1);
+
+  /* Шар фону — під контентом */
+  z-index: -1;
+
+  /* Додаємо легке затемнення, щоб контент краще читався */
+  background-color: rgba(179, 176, 176, 0.7);
+  background-blend-mode: overlay;
 }

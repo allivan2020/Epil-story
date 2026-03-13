@@ -54,7 +54,7 @@ export default async function handler(req, res) {
     }
 
     // 3. ПОДГОТОВКА ДАННЫХ
-    const digitsOnly = phone.replace(/\D/g, '');
+    // cleanPhone оставляет цифры и знак "+", что критически важно для ссылок!
     const cleanPhone = phone.replace(/[^\d+]/g, '');
 
     const telegramText = [
@@ -77,10 +77,10 @@ export default async function handler(req, res) {
           reply_markup: {
             inline_keyboard: [
               [
-                { text: '💬 Viber', url: `https://viber.click/${digitsOnly}` },
-                { text: '📱 WhatsApp', url: `https://wa.me/${digitsOnly}` },
+                // Используем cleanPhone (с плюсом)
+                { text: '💬 Viber', url: `https://viber.click/${cleanPhone}` },
+                { text: '✈️ Telegram', url: `https://t.me/${cleanPhone}` },
               ],
-              [{ text: '✈️ Telegram', url: `https://t.me/${digitsOnly}` }],
             ],
           },
         }),

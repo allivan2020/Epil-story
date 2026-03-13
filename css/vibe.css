@@ -1,3 +1,4 @@
+/* --- БАЗОВАЯ СЕКЦИЯ --- */
 .vibe-section {
   padding: 100px 5%;
   background-color: var(--bg-color);
@@ -13,163 +14,55 @@
   font-family: var(--font-accent);
   font-size: 54px;
   color: var(--shadow);
-  /* color: var(--accent-color); */
 }
 
+/* --- СЕТКА (Теперь её высоту считает JS) --- */
 .vibe-grid {
   position: relative;
-  height: 800px;
   max-width: 1200px;
   margin: 0 auto;
+  min-height: 600px; /* Чтобы секция не схлопывалась до загрузки JS */
 }
 
+/* --- КАРТОЧКА (Общий стиль для всех) --- */
 .vibe-item {
-  position: absolute;
+  position: absolute; /* Обязательно для работы скрипта */
   background: var(--white);
   padding: 10px 10px 30px 10px;
   box-shadow: var(--shadow);
-  transition: all 0.5s ease;
+  transition:
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.3s ease,
+    left 0.5s ease,
+    top 0.5s ease; /* Плавное перемещение при ресайзе */
   cursor: pointer;
-  z-index: 1;
+  width: 280px; /* Базовая ширина для десктопа */
 }
 
-/* .vibe-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-} */
-.vibe-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
 .vibe-item picture,
 .vibe-item img {
   width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
+  border-radius: 4px; /* Легкое закругление самих фото */
 }
 
-.item-1 {
-  width: 250px;
-  top: 0;
-  left: 5%;
-  transform: rotate(-5deg);
-  z-index: 2;
-}
-.item-2 {
-  width: 300px;
-  top: 100px;
-  right: 10%;
-  transform: rotate(3deg);
-}
-.item-3 {
-  width: 200px;
-  bottom: 50px;
-  left: 15%;
-  transform: rotate(7deg);
-  z-index: 3;
-}
-.item-4 {
-  width: 280px;
-  top: 350px;
-  left: 40%;
-  transform: rotate(-2deg);
-}
-.item-5 {
-  width: 220px;
-  bottom: 100px;
-  right: 20%;
-  transform: rotate(-8deg);
-}
-
+/* --- ЭФФЕКТ ПРИ НАВЕДЕНИИ --- */
 .vibe-item:hover {
-  transform: rotate(0deg) scale(1.1);
-  z-index: 10;
-  box-shadow: 0 25px 50px rgba(74, 58, 53, 0.2);
+  transform: rotate(0deg) scale(1.1) !important; /* !important чтобы перебить рандомный поворот от JS */
+  z-index: 100 !important;
+  box-shadow: 0 25px 50px rgba(74, 58, 53, 0.3);
 }
 
-/* --- МОБИЛЬНАЯ АДАПТАЦИЯ (ФИКС КООРДИНАТ) --- */
+/* --- АДАПТИВНОСТЬ --- */
 @media (max-width: 768px) {
-  .vibe-grid {
-    display: block !important;
-    position: relative;
-    height: 1400px;
-    margin-top: 50px;
-  }
-
   .vibe-item {
-    position: absolute !important;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-    background: var(--white);
-    padding: 5px;
-    height: auto !important; /* Жестко запрещаем карточке тянуться по высоте */
+    width: 160px; /* На мобилках делаем карточки меньше, чтобы помещались в 2 колонки */
+    padding: 5px 5px 20px 5px;
   }
 
-  /* СБРАСЫВАЕМ bottom: auto И left/right: auto ГДЕ НУЖНО */
-  .vibe-item.item-1 {
-    width: 70%;
-    top: 0;
-    left: 5%;
-    bottom: auto;
-    right: auto;
-    z-index: 1;
+  .vibe-title {
+    font-size: 38px;
   }
-  .vibe-item.item-2 {
-    width: 55%;
-    top: 220px;
-    right: 5%;
-    left: auto;
-    bottom: auto;
-    z-index: 2;
-    transform: rotate(2deg);
-  }
-  .vibe-item.item-3 {
-    width: 60%;
-    top: 480px;
-    left: 8%;
-    /* Вот он, виновник торжества! Отключаем десктопный bottom */
-    bottom: auto !important;
-    right: auto;
-    z-index: 3;
-    transform: rotate(-1deg);
-  }
-  .vibe-item.item-4 {
-    width: 45%;
-    top: 700px;
-    right: 10%;
-    left: auto;
-    bottom: auto;
-    z-index: 2;
-  }
-  .vibe-item.item-5 {
-    width: 75%;
-    top: 950px;
-    left: 12.5%;
-    /* И второй виновник */
-    bottom: auto !important;
-    right: auto;
-    z-index: 4;
-    transform: rotate(1deg);
-  }
-
-  .vibe-item picture {
-    display: contents;
-  }
-
-  .vibe-item img {
-    width: 100% !important;
-    height: auto !important;
-    display: block;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-}
-.vibe-sutitle {
-  color: var(--accent-color);
 }

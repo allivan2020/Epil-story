@@ -4,7 +4,6 @@ export default async function handler(req, res) {
 
   const { name = '', phone = '', message = '', captcha } = req.body;
 
-  // 1. СРАЗУ ВАЛИДАЦИЯ (До формирования чего-либо)
   if (!name.trim() || !phone.trim()) {
     return res.status(400).json({ error: "Ім'я та телефон обов'язкові." });
   }
@@ -35,7 +34,6 @@ export default async function handler(req, res) {
       throw new Error('Missing Telegram configuration');
     }
 
-    // 2. ПРОВЕРКА КАПЧИ
     const verifyRes = await fetch(
       'https://challenges.cloudflare.com/turnstile/v0/siteverify',
       {
@@ -53,8 +51,6 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Капча не пройдена.' });
     }
 
-    // 3. ПОДГОТОВКА ДАННЫХ
-    // cleanPhone оставляет цифры и знак "+", что критически важно для ссылок!
     const cleanPhone = phone.replace(/[^\d+]/g, '');
 
     const telegramText = [
@@ -64,7 +60,6 @@ export default async function handler(req, res) {
       `<b>💆‍♀️ Послуга:</b> ${escapeHTML(message)}`,
     ].join('\n');
 
-    // 4. ОТПРАВКА
     const telegramRes = await fetch(
       `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
       {
@@ -76,10 +71,12 @@ export default async function handler(req, res) {
           parse_mode: 'HTML',
           reply_markup: {
             inline_keyboard: [
+              // Оставили только 100% работающую кнопку Telegram
               [
-                // Используем cleanPhone (с плюсом)
-                { text: '💬 Viber', url: `https://viber.click/${cleanPhone}` },
-                { text: '✈️ Telegram', url: `https://t.me/${cleanPhone}` },
+                {
+                  text: '✈️ Написати в Telegram',
+                  url: `https://t.me/${cleanPhone}`,
+                },
               ],
             ],
           },

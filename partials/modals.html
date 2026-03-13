@@ -1,15 +1,15 @@
-<dialog id="booking-modal" class="modal-window">
-    <button class="modal-close" aria-label="Закрити">&times;</button>
+<dialog id="booking-modal" class="modal-window" aria-labelledby="booking-title">
+    <button class="modal-close" aria-label="Закрити">×</button>
     <div class="modal-content">
-        <h3>Записатися на візит</h3>
+        <h3 id="booking-title">Записатися на візит</h3>
         <p>Залиште контакти, і ми підберемо ідеальний час у Запоріжжі</p>
 
         <form id="booking-form">
             <div class="input-group">
-                <input type="text" name="name" placeholder="Ваше ім'я" required>
+                <input type="text" name="name" placeholder="Ваше ім'я" required autocomplete="name">
             </div>
             <div class="input-group">
-                <input type="tel" name="phone" placeholder="+38 (0__) ___ __ __" required>
+                <input type="tel" name="phone" placeholder="+38 (0__) ___ __ __" required autocomplete="tel">
             </div>
             <div class="input-group">
                 <select name="service" required>
@@ -25,11 +25,11 @@
     </div>
 </dialog>
 
-<div id="photo-lightbox" class="lightbox">
-    <button class="lightbox-close" aria-label="Закрити">&times;</button>
+<div id="photo-lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Перегляд зображення">
+    <button class="lightbox-close" aria-label="Закрити">×</button>
 
-    <button class="lightbox-prev" aria-label="Попередня">❮</button>
-    <button class="lightbox-next" aria-label="Наступна">❯</button>
+    <button class="lightbox-prev" aria-label="Попередня фотографія">❮</button>
+    <button class="lightbox-next" aria-label="Наступна фотографія">❯</button>
 
-    <img class="lightbox-content" id="lightbox-img" alt="Фото галереї">
+    <img class="lightbox-content" id="lightbox-img" alt="Фото галереї крупним планом">
 </div>

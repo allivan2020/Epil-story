@@ -52,6 +52,8 @@ export function initBookingForm() {
     const formData = {
       name: bookingForm.querySelector('[name="name"]').value,
       phone: bookingForm.querySelector('[name="phone"]').value,
+      service:
+        bookingForm.querySelector('[name="service"]')?.value || 'Не обрана',
       captcha: bookingForm.querySelector('[name="cf-turnstile-response"]')
         ?.value,
       message: `Послуга: ${bookingForm.querySelector('[name="service"]')?.value || 'Не обрана'}`,

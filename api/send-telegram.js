@@ -2,16 +2,11 @@ export default async function handler(req, res) {
   if (req.method !== 'POST')
     return res.status(405).json({ error: 'Method not allowed' });
 
+  // Достаем service, который теперь присылает фронтенд
   const { name = '', phone = '', service = '', captcha } = req.body;
 
   if (!name.trim() || !phone.trim()) {
     return res.status(400).json({ error: "Ім'я та телефон обов'язкові." });
-  }
-
-  if (name.length > 50 || phone.length > 20 || service.length > 500) {
-    return res
-      .status(400)
-      .json({ error: 'Занадто довгі дані. Спробуйте коротше.' });
   }
 
   const escapeHTML = str =>
@@ -34,6 +29,7 @@ export default async function handler(req, res) {
       throw new Error('Missing Telegram configuration');
     }
 
+    // ВОССТАНОВЛЕНО: Проверка капчи с передачей секретного ключа
     const verifyRes = await fetch(
       'https://challenges.cloudflare.com/turnstile/v0/siteverify',
       {
@@ -57,7 +53,7 @@ export default async function handler(req, res) {
       `<b>✨ Нова заявка: VelvetSkin ✨</b>`,
       `\n<b>👤 Ім'я:</b> ${escapeHTML(name)}`,
       `<b>📞 Телефон:</b> <a href="tel:${cleanPhone}">${escapeHTML(phone)}</a>`,
-      `<b>💆‍♀️ Послуга:</b> ${escapeHTML(service)}`,
+      `<b>💆‍♀️ Послуга:</b> ${escapeHTML(service)}`, // Теперь тут будут правильные данные
     ].join('\n');
 
     const telegramRes = await fetch(

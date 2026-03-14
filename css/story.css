@@ -1,56 +1,92 @@
-/* --- СЕКЦИЯ STORY (ОБНОВЛЕННАЯ) --- */
-
+/* ---------- СЕКЦИЯ STORY ---------- */
 .story-content {
   position: relative;
   width: 95%;
   max-width: 1100px;
-  min-height: 80vh;
   margin: 0 auto;
 }
 
-/* карточка */
+/* ---------- Карточка ---------- */
 .story-card {
   position: relative;
-  height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   pointer-events: none;
+  margin-bottom: 80px;
+  border-radius: 50px;
+  transition: transform 0.5s ease;
 }
 
 .story-card.active {
   pointer-events: auto;
 }
 
-/* изображение карточки */
+/* ---------- Картинка как фон с премиальной тенью ---------- */
 .card-image {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
+  border-radius: inherit;
+  overflow: hidden;
+
+  /* премиальная многослойная тень */
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.12),
+    0 16px 32px rgba(0, 0, 0, 0.18),
+    0 24px 48px rgba(0, 0, 0, 0.24);
+
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+  cursor: pointer;
 }
 
 .card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: inherit;
+  display: block;
+  transition: transform 0.5s ease;
 }
 
-/* блок с контентом */
-.card-info {
-  position: relative;
+/* overlay для читаемости текста */
+.card-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.15) 40%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
   z-index: 2;
+}
 
+/* ---------- Hover эффект — премиальный lift / магнит ---------- */
+.card-image:hover {
+  transform: scale(1.02) translateY(-6px);
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.16),
+    0 24px 48px rgba(0, 0, 0, 0.22),
+    0 36px 72px rgba(0, 0, 0, 0.28);
+}
+
+/* ---------- Контент поверх картинки ---------- */
+.card-info {
+  position: relative; /* над картинкой */
+  z-index: 3;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-
-  height: 100%;
+  gap: 24px;
   padding: 40px 20px;
   box-sizing: border-box;
-}
-
-/* на десктопе скролл внутри карточки — крайний случай */
-.story-card.active .card-info {
-  overflow-y: auto;
+  pointer-events: auto;
 }
 
 /* стеклянные плашки */
@@ -59,12 +95,9 @@
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 25px;
-
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-
   width: 100%;
   max-width: 900px;
 }
@@ -75,50 +108,66 @@
   font-size: 28px;
   font-weight: 600;
   text-transform: uppercase;
-
-  color: var(--text-main);
-
+  color: whitesmoke;
   padding: 12px 30px;
   margin-bottom: 20px;
-
-  flex-shrink: 0;
   width: fit-content;
+  letter-spacing: 0.08em;
 }
 
-/* две колонки */
+/* список услуг */
 .story-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px 60px;
-
   padding: 30px 40px;
   width: 100%;
-
   box-sizing: border-box;
+  max-width: 720px;
+  backdrop-filter: blur(16px);
 }
 
 .story-list li {
   font-size: 17px;
   line-height: 1.4;
-
-  white-space: normal;
-  width: 100%;
-
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
-  padding-bottom: 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.35);
+  padding-bottom: 6px;
+  color: whitesmoke;
 }
 
-/* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
+.story-list li span:last-child {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
 
+.story-list li:hover {
+  transform: translateX(4px);
+  transition: 0.3s;
+}
+
+/* ---------- Анимация карточек ---------- */
+.story-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+}
+
+.story-card.active,
+.story-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Мобильная адаптация ---------- */
 @media (max-width: 1023px) {
   .story-list {
     display: flex;
     flex-direction: column;
-
     padding: 20px;
     max-width: 100%;
   }
@@ -133,80 +182,45 @@
     justify-content: flex-start;
   }
 }
-
-/* затемнение изображения для читаемости текста */
-
-.card-image::after {
+/* ---------- Мягкая студийная тень ---------- */
+.card-image::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.25) 0%,
-    rgba(0, 0, 0, 0.15) 40%,
-    rgba(0, 0, 0, 0.35) 100%
-  );
-  z-index: 1;
-}
-
-/* контент выше затемнения */
-
-.card-info {
-  position: relative;
-  z-index: 2;
-}
-
-/* стеклянная карточка прайса */
-
-.story-list {
-  max-width: 720px;
-  backdrop-filter: blur(16px);
-}
-
-/* заголовок */
-
-.card-info h3 {
-  letter-spacing: 0.08em;
-  backdrop-filter: blur(16px);
-  color: whitesmoke;
-}
-
-/* аккуратнее линии прайса */
-
-.story-list li {
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.35);
-  padding-bottom: 6px;
-  color: whitesmoke;
-}
-
-/* цена визуально сильнее */
-
-.story-list li span:last-child {
-  font-weight: 600;
-  letter-spacing: 0.03em;
-}
-
-/* легкий hover эффект */
-
-.story-list li:hover {
-  transform: translateX(4px);
-  transition: 0.3s;
-}
-
-/* анимация карточек */
-
-.story-card {
-  opacity: 0;
-  transform: translateY(40px);
+  bottom: -20px; /* немного ниже контейнера */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.15);
+  filter: blur(24px);
+  z-index: 0;
+  pointer-events: none;
   transition:
-    opacity 0.9s ease,
-    transform 0.9s ease;
+    transform 0.5s ease,
+    opacity 0.5s ease;
 }
 
-/* когда карточка активна */
+.card-image:hover::before {
+  transform: translateX(-50%) scale(1.1) translateY(-6px);
+  opacity: 0.9;
+}
 
-.story-card.active,
-.story-card.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+/* Основная тень картинки (для глубины) */
+.card-image {
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.12),
+    0 16px 32px rgba(0, 0, 0, 0.18),
+    0 24px 48px rgba(0, 0, 0, 0.24);
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.card-image:hover {
+  transform: scale(1.02) translateY(-6px);
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.16),
+    0 24px 48px rgba(0, 0, 0, 0.22),
+    0 36px 72px rgba(0, 0, 0, 0.28);
 }

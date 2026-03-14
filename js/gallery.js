@@ -7,15 +7,15 @@ export function layoutGallery() {
   const isMobile = window.innerWidth <= 768;
   const containerWidth = grid.offsetWidth;
   const cols = isMobile ? 2 : 3;
-  const rows = Math.ceil(items.length / cols);
-
   const cellHeight = isMobile ? 240 : 380;
   const itemW = isMobile ? 140 : 280;
-
   const topOffset = isMobile ? 40 : 120;
-  const bottomBuffer = isMobile ? 50 : 80;
 
-  grid.style.height = `${rows * cellHeight + topOffset + bottomBuffer}px`;
+  const itemsData = [];
+  grid.style.height = `${Math.ceil(items.length / cols) * cellHeight + topOffset + 100}px`;
+
+  // Считаем позицию секции один раз
+  const sectionTop = section.getBoundingClientRect().top + window.scrollY;
 
   items.forEach((item, index) => {
     const row = Math.floor(index / cols);
@@ -25,43 +25,45 @@ export function layoutGallery() {
     const xPos =
       col * cellWidth + (cellWidth - itemW) / 2 + (Math.random() - 0.5) * 20;
     const yPos = row * cellHeight + topOffset + (Math.random() - 0.5) * 30;
-
     const rotate = (Math.random() - 0.5) * 10;
+    const depth = Math.random() * 0.12 + 0.04;
 
-    // Глубина параллакса. Чем больше разброс, тем сильнее разница в скорости
-    const depth = Math.random() * 0.15 + 0.05;
+    item.style.transform = `translate3d(${Math.round(xPos)}px, ${Math.round(yPos)}px, 0) rotate(${rotate}deg)`;
 
-    item.style.setProperty('--base-x', `${Math.round(xPos)}px`);
-    item.style.setProperty('--base-y', `${Math.round(yPos)}px`);
-    item.style.setProperty('--base-rotate', `${rotate}deg`);
-    item.style.setProperty('--depth', depth.toString());
+    itemsData.push({
+      el: item,
+      baseX: Math.round(xPos),
+      baseY: Math.round(yPos),
+      rotate: rotate,
+      depth: depth,
+    });
   });
 
-  // --- ПРАВКА: ТЕПЕРЬ ПАРАЛЛАКС РАБОТАЕТ ВЕЗДЕ, А НЕ ТОЛЬКО НА МОБИЛКЕ ---
-  const handleScroll = () => {
-    const rect = section.getBoundingClientRect();
-    const scrollDelta = window.innerHeight - rect.top;
+  // Флаг видимости секции
+  let isVisible = false;
+  const obs = new IntersectionObserver(
+    ([entry]) => (isVisible = entry.isIntersecting)
+  );
+  obs.observe(section);
 
-    if (scrollDelta < 0) {
-      items.forEach(item => item.style.setProperty('--scroll-offset', `0px`));
-      return;
+  const handleScroll = ({ scroll }) => {
+    if (!isVisible) return;
+
+    const vh = window.innerHeight;
+    const scrollDelta = scroll - sectionTop + vh;
+
+    if (scrollDelta < 0) return;
+
+    for (let i = 0; i < itemsData.length; i++) {
+      const item = itemsData[i];
+      const moveY = scrollDelta * item.depth;
+      // Используем translate3d для GPU ускорения
+      item.el.style.transform = `translate3d(${item.baseX}px, ${item.baseY + moveY}px, 0) rotate(${item.rotate}deg)`;
     }
-
-    items.forEach(item => {
-      const depth = parseFloat(item.style.getPropertyValue('--depth'));
-      // Множитель 0.6 делает движение мягким и приятным
-      const moveY = scrollDelta * (depth * 0.6);
-      item.style.setProperty('--scroll-offset', `${moveY}px`);
-    });
   };
 
-  // Если у нас подключен Lenis, вешаем на него для максимальной плавности
-  if (typeof lenis !== 'undefined') {
-    lenis.on('scroll', handleScroll);
-  } else {
-    // Резервный вариант, если Lenis вдруг не загрузился
-    window.addEventListener('scroll', handleScroll, { passive: true });
+  // Подключаемся к Lenis
+  if (window.lenis) {
+    window.lenis.on('scroll', handleScroll);
   }
-
-  handleScroll(); // Вызов при старте
 }

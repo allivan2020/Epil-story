@@ -1,17 +1,21 @@
-// ---------- IMPORTS ----------
-import { inject } from '@vercel/analytics';
-import { layoutGallery } from '/js/gallery.js';
-import { initVibeTitles } from '/js/animations.js';
-import { initHeaderScroll } from '/js/header.js';
-import { initMobileMenu } from '/js/menu.js';
-import { initStoryAnimations } from '/js/story.js';
-import { initPhotoLightbox } from '/js/lightbox.js';
-import { initReviews } from '/js/reviews.js';
-import { initModalBooking, initBookingForm } from '/js/modal.js';
-
 // ---------- APP INIT ----------
 function initApp() {
-  // 1. Стандартні ініціалізації
+  // 1. Инициализируем Lenis В ПЕРВУЮ ОЧЕРЕДЬ
+  window.lenis = new Lenis({
+    duration: 1.2,
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    smoothTouch: false, // На телефонах нативный скролл лучше
+    touchMultiplier: 1.5,
+  });
+
+  function raf(time) {
+    window.lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  // 2. Стандартные инициализации
   initHeaderScroll();
   initMobileMenu();
   initModalBooking();
@@ -21,55 +25,42 @@ function initApp() {
   initPhotoLightbox();
   inject();
   initVibeTitles();
-  // 3. Розставляємо картки Moodboard
+
+  // 3. Раставляем карточки (теперь lenis уже существует в window)
   layoutGallery();
 
-  // Инициализация плавного скролла Lenis
-  const lenis = new Lenis({
-    duration: 1.2, // Длительность скольжения (чем больше, тем плавнее)
-    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Формула смягчения
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    mouseMultiplier: 1,
-    smoothTouch: false, // На телефонах оставляем родной скролл (так привычнее)
-    touchMultiplier: 2,
-  });
-
-  // Петля анимации, чтобы скролл работал синхронно с частотой обновления монитора
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-
-  // Находим все картинки, которым нужен параллакс
+  // 4. Оптимизированный Параллакс для картинок .parallax-image
   const parallaxImages = document.querySelectorAll('.parallax-image');
 
-  // Вешаем слушатель прямо на событие скролла Lenis (это дает максимальную плавность)
-  lenis.on('scroll', e => {
-    parallaxImages.forEach(img => {
-      // Получаем контейнер картинки
-      const wrapper = img.parentElement;
-      const rect = wrapper.getBoundingClientRect();
+  // Кэшируем начальные позиции, чтобы не лезть в DOM при скролле
+  const imgData = Array.from(parallaxImages).map(img => ({
+    el: img,
+    parent: img.parentElement,
+    // Считаем позицию один раз
+    top: img.parentElement.getBoundingClientRect().top + window.scrollY,
+  }));
 
-      // Проверяем, виден ли элемент на экране
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        // Вычисляем процент прокрутки относительно этого элемента (от -1 до 1)
-        const progress =
-          (rect.top - window.innerHeight) / (window.innerHeight + rect.height);
-
-        // Сдвигаем картинку. Множитель 20 — это сила параллакса (в процентах)
-        const yMove = progress * 20;
-
-        // Применяем сдвиг
-        img.style.transform = `translate3d(0, ${yMove}%, 0)`;
-      }
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      entry.target.dataset.visible = entry.isIntersecting;
     });
   });
 
-  requestAnimationFrame(raf);
-}
+  imgData.forEach(data => observer.observe(data.parent));
 
-// ---------- EVENTS ----------
-document.addEventListener('DOMContentLoaded', initApp);
-window.addEventListener('resize', layoutGallery);
+  // Используем данные скролла из Lenis (аргумент e)
+  window.lenis.on('scroll', ({ scroll }) => {
+    const vh = window.innerHeight;
+
+    imgData.forEach(data => {
+      if (data.parent.dataset.visible === 'true') {
+        // Вычисляем прогресс без getBoundingClientRect
+        const relativeScroll = scroll - data.top + vh;
+        const totalDist = vh + data.parent.offsetHeight;
+        const progress = relativeScroll / totalDist - 1; // от -1 до 0
+
+        data.el.style.transform = `translate3d(0, ${progress * 20}%, 0)`;
+      }
+    });
+  });
+}

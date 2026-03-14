@@ -14,32 +14,9 @@
 @import './faq.css';
 @import './reviews.css';
 
-/* .decorative-line {
-  width: 150px;
-  height: 2px;
-  background: linear-gradient(to right, transparent, gold, transparent);
-  margin: 10px auto;
-  position: relative;
-}
-
-.decorative-line::before,
-.decorative-line::after {
-  content: '';
-  position: absolute;
-  top: -4px;
-  width: 10px;
-  height: 10px;
-  border: 2px solid gold;
-  border-radius: 50%;
-}
-
-.decorative-line::before {
-  left: 0;
-}
-.decorative-line::after {
-  right: 0;
-} */
-
+/* =========================================
+   ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ (DIVIDER)
+   ========================================= */
 .luxury-divider {
   display: flex;
   align-items: center;
@@ -61,25 +38,19 @@
   );
 }
 
-/* центральный декоративный элемент */
-
 .luxury-divider span::after {
   content: '';
   position: absolute;
   left: 50%;
   top: -6px;
   transform: translateX(-50%) rotate(45deg);
-
   width: 12px;
   height: 12px;
-
   background: linear-gradient(135deg, #f3d79b, #c89b3c);
   box-shadow:
     0 0 6px rgba(200, 155, 60, 0.6),
     0 0 12px rgba(200, 155, 60, 0.3);
 }
-
-/* маленькие точки по бокам */
 
 .luxury-divider span::before {
   content: '';
@@ -95,46 +66,33 @@
 }
 
 /* =========================================
-   ГЛОБАЛЬНЫЙ КОМПОНЕНТ ЗАГОЛОВКА
+   ГЛОБАЛЬНЫЙ КОМПОНЕНТ ЗАГОЛОВКА (VIBE)
    ========================================= */
 .vibe-title {
   font-family: var(--font-accent);
   font-size: var(--title-size, clamp(32px, 5vw, 56px));
   margin: var(--title-margin, 0 0 20px 0);
   font-weight: 300;
-  letter-spacing: normal; /* Убрали сжатие, пусть шрифт дышит */
   line-height: 1.2;
-  text-align: var(
-    --title-align,
-    center
-  ); /* Выравнивание тоже вынесли в переменную */
+  text-align: var(--title-align, center);
   color: var(--shadow);
-  text-wrap: balance; /* Браузер сам красиво распределит строки */
+  text-wrap: balance;
 }
 
-/* МАГИЯ №1: Контейнер для слова. Запрещаем разрыв слова на части! */
 .vibe-title .vibe-word {
   display: inline-block;
   white-space: nowrap;
 }
 
-/* МАГИЯ №2: Буква. Убрали боковые отступы, чтобы не ломать слово */
-/* МАГИЯ №2: Буква */
 .vibe-title .vibe-char {
   display: inline-block;
-
-  /* ПРАВКА: Раздуваем коробку буквы, чтобы дать место хвостикам и макушкам */
   padding: 0.4em 0.29em;
-
-  /* ПРАВКА: Стягиваем буквы обратно, чтобы расстояние между ними осталось нормальным */
   margin: -0.4em -0.25em;
-
   opacity: 0;
   filter: blur(10px);
   transform: translateY(20px);
   will-change: opacity, filter, transform;
 
-  /* Градиент */
   background: linear-gradient(120deg, #333 30%, #d4af37 50%, #333 70%);
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -148,7 +106,6 @@
     transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Показ текста */
 .vibe-title.revealed .vibe-char,
 .no-js .vibe-title .vibe-char {
   opacity: 1 !important;
@@ -156,9 +113,6 @@
   transform: translateY(0) !important;
 }
 
-/* =========================================
-   АНИМАЦИЯ ЗОЛОТОГО БЛИКА
-   ========================================= */
 @keyframes shine {
   0% {
     background-position: -200% center;
@@ -167,7 +121,7 @@
     background-position: 200% center;
   }
 }
-/*  */
+
 /* =========================================
    LENIS SMOOTH SCROLL (СИСТЕМНЫЕ СТИЛИ)
    ========================================= */
@@ -188,24 +142,42 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* parallax */
-/* Рамка-контейнер */
-.img-parallax-wrapper {
+/* =========================================
+   ПАРАЛЛАКС И ОПТИМИЗАЦИЯ (GPU)
+   ========================================= */
+
+/* Контейнеры параллакса */
+.img-parallax-wrapper,
+.vibe-grid,
+.parallax-wrapper-class {
   position: relative;
-  width: 100%;
-  height: 700px; /* Любая твоя высота */
-  overflow: hidden; /* Обязательно! Обрезает вылезающую картинку */
-  border-radius: 20px;
-  /* Удаляем transition: transform, так как двигать будем через JS плавно */
+  overflow: hidden;
+  contain: paint; /* Критично для производительности Android */
 }
 
-/* Сама картинка */
+.img-parallax-wrapper {
+  height: 700px;
+  border-radius: 20px;
+}
+
+/* Элементы, которые двигаются (Картинки и карточки) */
+.parallax-image,
+.vibe-item {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+
+  /* Плавный переход для сглаживания JS-расчетов */
+  transition: transform 0.1s ease-out;
+}
+
+/* Специфично для картинок в обертках */
 .img-parallax-wrapper img.parallax-image {
   position: absolute;
-  top: -15%; /* Сдвигаем вверх с запасом */
+  top: -15%; /* Запас для движения */
   left: 0;
   width: 100%;
-  height: 100%;
-  /* object-fit: cover; */
-  will-change: transform; /* Подсказка для видеокарты */
+  height: 130%; /* Делаем чуть выше контейнера, чтобы было куда двигать */
+  object-fit: cover;
 }

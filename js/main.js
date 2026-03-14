@@ -1,66 +1,77 @@
-// ---------- APP INIT ----------
-function initApp() {
-  // 1. Инициализируем Lenis В ПЕРВУЮ ОЧЕРЕДЬ
-  window.lenis = new Lenis({
-    duration: 1.2,
-    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-    smoothTouch: false, // На телефонах нативный скролл лучше
-    touchMultiplier: 1.5,
-  });
+// ВЕРХ ФАЙЛА main.js
+import { inject } from '@vercel/analytics';
+import { layoutGallery } from '/js/gallery.js'; // Добавили точку перед слешем
+import { initVibeTitles } from '/js/animations.js';
+import { initHeaderScroll } from '/js/header.js';
+import { initMobileMenu } from '/js/menu.js';
+import { initStoryAnimations } from '/js/story.js';
+import { initPhotoLightbox } from '/js/lightbox.js';
+import { initReviews } from '/js/reviews.js';
+import { initModalBooking, initBookingForm } from '/js/modal.js';
 
-  function raf(time) {
-    window.lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
+// Дальше идет ваш код initApp...
 
-  // 2. Стандартные инициализации
-  initHeaderScroll();
-  initMobileMenu();
-  initModalBooking();
-  initBookingForm();
-  initStoryAnimations();
-  initReviews();
-  initPhotoLightbox();
-  inject();
-  initVibeTitles();
+// ---------- БЕЗОПАСНЫЙ ЗАПУСК ----------
 
-  // 3. Раставляем карточки (теперь lenis уже существует в window)
-  layoutGallery();
+async function initApp() {
+  console.log('🚀 Инициализация началась...');
 
-  // 4. Оптимизированный Параллакс для картинок .parallax-image
-  const parallaxImages = document.querySelectorAll('.parallax-image');
+  // ФУНКЦИЯ-СПАСАТЕЛЬ: Если JS упадет, эта функция покажет скрытые блоки через 2 секунды
+  const backupReveal = setTimeout(() => {
+    document
+      .querySelectorAll(
+        '.vibe-title, .vibe-item, .story-section, .reviews-section'
+      )
+      .forEach(el => (el.style.opacity = '1'));
+    console.warn(
+      '⚠️ Анимации не запустились вовремя, применен принудительный показ элементов.'
+    );
+  }, 2000);
 
-  // Кэшируем начальные позиции, чтобы не лезть в DOM при скролле
-  const imgData = Array.from(parallaxImages).map(img => ({
-    el: img,
-    parent: img.parentElement,
-    // Считаем позицию один раз
-    top: img.parentElement.getBoundingClientRect().top + window.scrollY,
-  }));
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      entry.target.dataset.visible = entry.isIntersecting;
-    });
-  });
-
-  imgData.forEach(data => observer.observe(data.parent));
-
-  // Используем данные скролла из Lenis (аргумент e)
-  window.lenis.on('scroll', ({ scroll }) => {
-    const vh = window.innerHeight;
-
-    imgData.forEach(data => {
-      if (data.parent.dataset.visible === 'true') {
-        // Вычисляем прогресс без getBoundingClientRect
-        const relativeScroll = scroll - data.top + vh;
-        const totalDist = vh + data.parent.offsetHeight;
-        const progress = relativeScroll / totalDist - 1; // от -1 до 0
-
-        data.el.style.transform = `translate3d(0, ${progress * 20}%, 0)`;
+  // 1. Инициализация Lenis
+  try {
+    if (typeof Lenis !== 'undefined') {
+      window.lenis = new Lenis({
+        duration: 1.2,
+        smoothWheel: true,
+        smoothTouch: false,
+      });
+      function raf(time) {
+        window.lenis.raf(time);
+        requestAnimationFrame(raf);
       }
-    });
+      requestAnimationFrame(raf);
+      console.log('✅ Lenis готов');
+    }
+  } catch (e) {
+    console.error('❌ Ошибка Lenis:', e);
+  }
+
+  // 2. Запуск модулей с индивидуальной защитой
+  const modules = [
+    { name: 'Header', func: initHeaderScroll },
+    { name: 'Menu', func: initMobileMenu },
+    { name: 'Modal', func: initModalBooking },
+    { name: 'Booking', func: initBookingForm },
+    { name: 'Titles', func: initVibeTitles },
+    { name: 'Reviews', func: initReviews },
+    { name: 'Story', func: initStoryAnimations },
+    { name: 'Gallery', func: layoutGallery },
+  ];
+
+  modules.forEach(m => {
+    try {
+      if (typeof m.func === 'function') {
+        m.func();
+        console.log(`✅ ${m.name} ок`);
+      }
+    } catch (e) {
+      console.error(`❌ Ошибка в модуле ${m.name}:`, e);
+    }
   });
+
+  // Если всё ок, отменяем принудительный показ
+  clearTimeout(backupReveal);
 }
+
+document.addEventListener('DOMContentLoaded', initApp);

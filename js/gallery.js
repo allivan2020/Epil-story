@@ -2,7 +2,12 @@ export function layoutGallery() {
   const section = document.querySelector('.vibe-section');
   const grid = document.querySelector('.vibe-grid');
   const items = document.querySelectorAll('.vibe-item');
-  if (!grid || !section || items.length === 0) return;
+
+  // Если хоть одного элемента нет — выходим, чтобы не сломать сайт
+  if (!grid || !section || items.length === 0) {
+    console.log('Галерея vibe не найдена на этой странице.');
+    return;
+  }
 
   const isMobile = window.innerWidth <= 768;
   const containerWidth = grid.offsetWidth;

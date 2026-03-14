@@ -1,226 +1,212 @@
-.story {
-  position: relative;
-  height: 350vh;
-  background-color: var(--bg-color);
-}
-
-.story-sticky-wrapper {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.story-header {
-  margin-top: 80px;
-  margin-bottom: 30px;
-  z-index: 5;
-}
-
-.story-header h2 {
-  font-family: var(--font-main);
-  font-size: 42px;
-  color: var(--text-main);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin: 0;
-}
+/* --- СЕКЦИЯ STORY (ОБНОВЛЕННАЯ) --- */
 
 .story-content {
   position: relative;
   width: 95%;
-  max-width: 1000px;
-  height: 75vh;
+  max-width: 1100px;
+  min-height: 80vh;
   margin: 0 auto;
 }
 
+/* карточка */
 .story-card {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(40px) scale(0.95);
-  transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-  border-radius: 40px;
+  position: relative;
+  height: 100%;
   overflow: hidden;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-  z-index: 1;
+  pointer-events: none;
 }
 
 .story-card.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-  z-index: 10;
+  pointer-events: auto;
 }
 
+/* изображение карточки */
 .card-image {
   position: absolute;
   inset: 0;
   z-index: 1;
 }
 
-/* .card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 2s cubic-bezier(0.2, 0.8, 0.2, 1);
-} */
 .card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Фикс для тега picture, чтобы не ломалась анимация зума */
-.card-image .pic-safe-wrapper {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.story-card.active .card-image img {
-  transform: scale(1.1);
-}
-
+/* блок с контентом */
 .card-info {
   position: relative;
   z-index: 2;
-  height: 100%;
-  width: 100%;
+
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  padding: 60px 30px;
-  overflow-y: hidden !important;
-  scrollbar-width: none;
+
+  height: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
 }
 
+/* на десктопе скролл внутри карточки — крайний случай */
 .story-card.active .card-info {
-  overflow-y: auto !important;
+  overflow-y: auto;
 }
 
-.card-info::-webkit-scrollbar {
-  display: none;
-}
-
+/* стеклянные плашки */
 .card-info h3,
 .story-list {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 25px;
+
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  width: fit-content;
-  max-width: 85%;
+
+  width: 100%;
+  max-width: 900px;
 }
 
+/* заголовок */
 .card-info h3 {
   font-family: var(--font-main);
   font-size: 28px;
   font-weight: 600;
   text-transform: uppercase;
+
   color: var(--text-main);
-  padding: 15px 35px;
-  margin-bottom: 30px;
+
+  padding: 12px 30px;
+  margin-bottom: 20px;
+
   flex-shrink: 0;
+  width: fit-content;
 }
 
+/* две колонки */
 .story-list {
-  list-style: none;
-  padding: 20px !important;
-  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 60px;
+
+  padding: 30px 40px;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
+
+  box-sizing: border-box;
 }
 
 .story-list li {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.4;
-  white-space: nowrap;
-}
 
-.story-dots {
+  white-space: normal;
+  width: 100%;
+
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  z-index: 10;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+  padding-bottom: 4px;
 }
 
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #e9d5ca;
-  cursor: pointer;
-}
-
-.dot.active {
-  background: var(--accent-color);
-}
+/* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
 
 @media (max-width: 1023px) {
-  .story {
-    height: auto !important;
-    padding-bottom: 50px;
+  .story-list {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+    max-width: 100%;
   }
-  .story-sticky-wrapper {
-    position: relative !important;
-    height: auto !important;
-    overflow: visible !important;
-  }
-  .story-content {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 40px !important;
-    height: auto !important;
-    width: 90%;
-    overflow: visible !important;
-    padding: 20px 0 !important;
-  }
+
   .story-card {
-    position: relative !important;
-    width: 100% !important;
-    height: 600px !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-    margin-bottom: 20px;
+    height: auto;
+    min-height: 550px;
   }
+
   .card-info {
-    height: 100%;
-    overflow-y: auto !important;
-    background: rgba(0, 0, 0, 0.3);
+    padding: 30px 15px;
+    justify-content: flex-start;
   }
-  .story-dots {
-    display: none !important;
-  }
-  .story-header {
-    margin-top: 40px;
-    text-align: center;
-  }
-  .story-header h2 {
-    font-size: 32px;
-  }
-  .story-card {
-    opacity: 0 !important;
-    transform: translateY(50px) scale(0.9) !important;
-    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
-    visibility: visible !important;
-  }
-  .story-card.is-visible {
-    opacity: 1 !important;
-    transform: translateY(0) scale(1) !important;
-  }
+}
+
+/* затемнение изображения для читаемости текста */
+
+.card-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.15) 40%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+  z-index: 1;
+}
+
+/* контент выше затемнения */
+
+.card-info {
+  position: relative;
+  z-index: 2;
+}
+
+/* стеклянная карточка прайса */
+
+.story-list {
+  max-width: 720px;
+  backdrop-filter: blur(16px);
+}
+
+/* заголовок */
+
+.card-info h3 {
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(16px);
+  color: whitesmoke;
+}
+
+/* аккуратнее линии прайса */
+
+.story-list li {
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.35);
+  padding-bottom: 6px;
+  color: whitesmoke;
+}
+
+/* цена визуально сильнее */
+
+.story-list li span:last-child {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* легкий hover эффект */
+
+.story-list li:hover {
+  transform: translateX(4px);
+  transition: 0.3s;
+}
+
+/* анимация карточек */
+
+.story-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+}
+
+/* когда карточка активна */
+
+.story-card.active,
+.story-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }

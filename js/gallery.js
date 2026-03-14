@@ -9,8 +9,8 @@ export function layoutGallery() {
   const cols = isMobile ? 2 : 3;
   const rows = Math.ceil(items.length / cols);
 
-  const cellHeight = isMobile ? 240 : 380; // Чуть уменьшили высоту ячейки для мобилки
-  const itemW = isMobile ? 140 : 280; // Синхронизируем с CSS
+  const cellHeight = isMobile ? 240 : 380;
+  const itemW = isMobile ? 140 : 280;
 
   const topOffset = isMobile ? 40 : 120;
   const bottomBuffer = isMobile ? 50 : 80;
@@ -22,13 +22,14 @@ export function layoutGallery() {
     const col = index % cols;
     const cellWidth = containerWidth / cols;
 
-    // Считаем позиции
     const xPos =
-      col * cellWidth + (cellWidth - itemW) / 2 + (Math.random() - 0.5) * 20; // Уменьшили разброс по X
+      col * cellWidth + (cellWidth - itemW) / 2 + (Math.random() - 0.5) * 20;
     const yPos = row * cellHeight + topOffset + (Math.random() - 0.5) * 30;
 
     const rotate = (Math.random() - 0.5) * 10;
-    const depth = Math.random() * 0.12 + 0.05;
+
+    // Глубина параллакса. Чем больше разброс, тем сильнее разница в скорости
+    const depth = Math.random() * 0.15 + 0.05;
 
     item.style.setProperty('--base-x', `${Math.round(xPos)}px`);
     item.style.setProperty('--base-y', `${Math.round(yPos)}px`);
@@ -36,29 +37,31 @@ export function layoutGallery() {
     item.style.setProperty('--depth', depth.toString());
   });
 
-  // Мобильный параллакс: считаем скролл относительно самой секции!
-  if (isMobile) {
-    const handleScroll = () => {
-      const rect = section.getBoundingClientRect();
-      // Начинаем считать скролл, только когда секция появляется на экране
-      const scrollDelta = window.innerHeight - rect.top;
+  // --- ПРАВКА: ТЕПЕРЬ ПАРАЛЛАКС РАБОТАЕТ ВЕЗДЕ, А НЕ ТОЛЬКО НА МОБИЛКЕ ---
+  const handleScroll = () => {
+    const rect = section.getBoundingClientRect();
+    const scrollDelta = window.innerHeight - rect.top;
 
-      // Если секция еще ниже экрана, сбрасываем смещение
-      if (scrollDelta < 0) {
-        items.forEach(item => item.style.setProperty('--scroll-offset', `0px`));
-        return;
-      }
+    if (scrollDelta < 0) {
+      items.forEach(item => item.style.setProperty('--scroll-offset', `0px`));
+      return;
+    }
 
-      items.forEach(item => {
-        const depth = parseFloat(item.style.getPropertyValue('--depth'));
-        // Смягчаем эффект на 0.5, чтобы карточки не улетали в космос
-        const moveY = scrollDelta * (depth * 0.5);
-        item.style.setProperty('--scroll-offset', `${moveY}px`);
-      });
-    };
+    items.forEach(item => {
+      const depth = parseFloat(item.style.getPropertyValue('--depth'));
+      // Множитель 0.6 делает движение мягким и приятным
+      const moveY = scrollDelta * (depth * 0.6);
+      item.style.setProperty('--scroll-offset', `${moveY}px`);
+    });
+  };
 
-    window.removeEventListener('scroll', handleScroll);
+  // Если у нас подключен Lenis, вешаем на него для максимальной плавности
+  if (typeof lenis !== 'undefined') {
+    lenis.on('scroll', handleScroll);
+  } else {
+    // Резервный вариант, если Lenis вдруг не загрузился
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Вызываем сразу, чтобы расставить картинки при загрузке
   }
+
+  handleScroll(); // Вызов при старте
 }

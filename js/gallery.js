@@ -1,50 +1,64 @@
 export function layoutGallery() {
+  const section = document.querySelector('.vibe-section');
   const grid = document.querySelector('.vibe-grid');
   const items = document.querySelectorAll('.vibe-item');
-  if (!grid || items.length === 0) return;
+  if (!grid || !section || items.length === 0) return;
 
   const isMobile = window.innerWidth <= 768;
   const containerWidth = grid.offsetWidth;
-
-  // Настройки сетки
   const cols = isMobile ? 2 : 3;
   const rows = Math.ceil(items.length / cols);
 
-  // Высота ячейки (можно чуть увеличить, если фото длинные)
-  const cellHeight = isMobile ? 280 : 380;
+  const cellHeight = isMobile ? 240 : 380; // Чуть уменьшили высоту ячейки для мобилки
+  const itemW = isMobile ? 140 : 280; // Синхронизируем с CSS
 
-  // Устанавливаем высоту контейнера
-  grid.style.height = `${rows * cellHeight}px`;
+  const topOffset = isMobile ? 40 : 120;
+  const bottomBuffer = isMobile ? 50 : 80;
+
+  grid.style.height = `${rows * cellHeight + topOffset + bottomBuffer}px`;
 
   items.forEach((item, index) => {
     const row = Math.floor(index / cols);
     const col = index % cols;
-
     const cellWidth = containerWidth / cols;
 
-    // --- МАГИЯ ХАОСА ---
-    // Случайное смещение (jitter)
-    const randomX = (Math.random() - 0.5) * (cellWidth * 0.4);
-    const randomY = (Math.random() - 0.5) * (cellHeight * 0.3);
+    // Считаем позиции
+    const xPos =
+      col * cellWidth + (cellWidth - itemW) / 2 + (Math.random() - 0.5) * 20; // Уменьшили разброс по X
+    const yPos = row * cellHeight + topOffset + (Math.random() - 0.5) * 30;
 
-    // Случайный поворот
-    const randomRotate = (Math.random() - 0.5) * 15;
+    const rotate = (Math.random() - 0.5) * 10;
+    const depth = Math.random() * 0.12 + 0.05;
 
-    // Вычисляем координаты
-    // Используем фиксированную ширину из CSS (280px или 160px), чтобы не ждать загрузки картинок
-    const itemWidth = item.offsetWidth || (isMobile ? 160 : 280);
-    const itemHeight = item.offsetHeight || (isMobile ? 220 : 320);
-
-    const xPos = col * cellWidth + cellWidth / 2 - itemWidth / 2 + randomX;
-    const yPos = row * cellHeight + cellHeight / 2 - itemHeight / 2 + randomY;
-
-    // Ограничиваем, чтобы не вылетало за края слева/справа
-    const safeX = Math.max(0, Math.min(xPos, containerWidth - itemWidth));
-
-    // Применяем стили
-    item.style.left = `${safeX}px`;
-    item.style.top = `${yPos}px`;
-    item.style.transform = `rotate(${randomRotate}deg)`;
-    item.style.zIndex = Math.floor(Math.random() * 10);
+    item.style.setProperty('--base-x', `${Math.round(xPos)}px`);
+    item.style.setProperty('--base-y', `${Math.round(yPos)}px`);
+    item.style.setProperty('--base-rotate', `${rotate}deg`);
+    item.style.setProperty('--depth', depth.toString());
   });
+
+  // Мобильный параллакс: считаем скролл относительно самой секции!
+  if (isMobile) {
+    const handleScroll = () => {
+      const rect = section.getBoundingClientRect();
+      // Начинаем считать скролл, только когда секция появляется на экране
+      const scrollDelta = window.innerHeight - rect.top;
+
+      // Если секция еще ниже экрана, сбрасываем смещение
+      if (scrollDelta < 0) {
+        items.forEach(item => item.style.setProperty('--scroll-offset', `0px`));
+        return;
+      }
+
+      items.forEach(item => {
+        const depth = parseFloat(item.style.getPropertyValue('--depth'));
+        // Смягчаем эффект на 0.5, чтобы карточки не улетали в космос
+        const moveY = scrollDelta * (depth * 0.5);
+        item.style.setProperty('--scroll-offset', `${moveY}px`);
+      });
+    };
+
+    window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Вызываем сразу, чтобы расставить картинки при загрузке
+  }
 }

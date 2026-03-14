@@ -39,6 +39,25 @@
 .hero-content {
   flex: 1;
   z-index: 10;
+  --title-size: clamp(44px, 6vw, 76px);
+  --title-margin: 0 0 35px 0;
+}
+
+.hero-content .vibe-title {
+  text-align: left;
+  text-wrap: balance;
+  hyphens: none;
+}
+
+.hero-content .vibe-title {
+  text-align: left;
+
+  /* ПРАВКА: Включаем встроенную магию CSS для более красивого распределения строк */
+  text-wrap: balance;
+
+  /* ПРАВКА: Отключаем автоматический перенос слов по слогам (гифенацию), 
+     которая делала эти странные разрывы на твоих скриншотах */
+  hyphens: none;
 }
 
 .hero-tagline {
@@ -51,12 +70,13 @@
   opacity: 0.8;
 }
 
-.hero-title {
-  font-size: clamp(40px, 5vw, 70px);
-  line-height: 1.1;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 35px;
+.hero-text {
+  font-size: 17px;
+  color: var(--text-light);
+  max-width: 500px; /* Вернул 500px, чтобы текст не растягивался в бесконечную колбасу на широких экранах */
+  line-height: 1.8;
+  margin-bottom: 50px;
+  opacity: 0.9;
 }
 
 .hero-title span {
@@ -157,9 +177,6 @@
 }
 
 /* =========================================
-   МОБИЛЬНАЯ АДАПТАЦИЯ
-   ========================================= */
-/* =========================================
    МОБИЛЬНАЯ АДАПТАЦИЯ (ФИНАЛ)
    ========================================= */
 @media (max-width: 992px) {
@@ -205,6 +222,12 @@
     align-items: center;
     padding: 0 5% !important;
     width: 100%;
+
+    /* ПРАВКА: Уменьшаем заголовок специально для мобилок */
+    --title-size: clamp(36px, 8vw, 48px);
+  }
+  .hero-content .vibe-title {
+    text-align: center;
   }
 
   .hero-main-img {

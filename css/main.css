@@ -93,4 +93,77 @@
   background-size: 24px 6px;
   opacity: 0.6;
 }
-/* ------------------ */
+
+/* =========================================
+   ГЛОБАЛЬНЫЙ КОМПОНЕНТ ЗАГОЛОВКА
+   ========================================= */
+.vibe-title {
+  font-family: var(--font-accent);
+  font-size: var(--title-size, clamp(32px, 5vw, 56px));
+  margin: var(--title-margin, 0 0 20px 0);
+  font-weight: 300;
+  letter-spacing: normal; /* Убрали сжатие, пусть шрифт дышит */
+  line-height: 1.2;
+  text-align: var(
+    --title-align,
+    center
+  ); /* Выравнивание тоже вынесли в переменную */
+  color: var(--shadow);
+  text-wrap: balance; /* Браузер сам красиво распределит строки */
+}
+
+/* МАГИЯ №1: Контейнер для слова. Запрещаем разрыв слова на части! */
+.vibe-title .vibe-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* МАГИЯ №2: Буква. Убрали боковые отступы, чтобы не ломать слово */
+/* МАГИЯ №2: Буква */
+.vibe-title .vibe-char {
+  display: inline-block;
+
+  /* ПРАВКА: Раздуваем коробку буквы, чтобы дать место хвостикам и макушкам */
+  padding: 0.4em 0.29em;
+
+  /* ПРАВКА: Стягиваем буквы обратно, чтобы расстояние между ними осталось нормальным */
+  margin: -0.4em -0.25em;
+
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(20px);
+  will-change: opacity, filter, transform;
+
+  /* Градиент */
+  background: linear-gradient(120deg, #333 30%, #d4af37 50%, #333 70%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: shine 6s linear infinite;
+  transition:
+    opacity 0.8s ease,
+    filter 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Показ текста */
+.vibe-title.revealed .vibe-char,
+.no-js .vibe-title .vibe-char {
+  opacity: 1 !important;
+  filter: blur(0) !important;
+  transform: translateY(0) !important;
+}
+
+/* =========================================
+   АНИМАЦИЯ ЗОЛОТОГО БЛИКА
+   ========================================= */
+@keyframes shine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}

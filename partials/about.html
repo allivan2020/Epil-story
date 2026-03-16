@@ -3,15 +3,33 @@
 
         <figure class="about-images">
             <picture class="pic-main">
-                <div class="img-parallax-wrapper">
-                    <source srcset="./img/2026-02-08.webp" type="image/webp">
-                    <img src="./img/2026-02-08.jpg" alt="Майстер депіляції VelvetSkin" class="img-main">
-                </div>
+                <source srcset="/images/optimized/aftor-large.avif 1920w, 
+                        /images/optimized/aftor-medium.avif 1024w, 
+                        /images/optimized/aftor-small.avif 480w" type="image/avif"
+                    sizes="(max-width: 480px) 480px, (max-width: 1024px) 1024px, 1920px">
+
+                <source srcset="/images/optimized/aftor-large.webp 1920w, 
+                        /images/optimized/aftor-medium.webp 1024w, 
+                        /images/optimized/aftor-small.webp 480w" type="image/webp"
+                    sizes="(max-width: 480px) 480px, (max-width: 1024px) 1024px, 1920px">
+
+                <img src="/images/optimized/aftor-small.webp" class="img-main" alt="Пример работы после процедуры"
+                    loading="lazy" width="1920" height="1080" style="width: 100%; height: auto; object-fit: cover; ">
             </picture>
 
             <picture class="pic-sub">
-                <source srcset="./img/Bg-aftor.webp" type="image/webp">
-                <img src="./img/Bg-aftor.jpg" alt="Професійна косметика" class="img-sub">
+                <source srcset="/images/optimized/sert-large.avif 1920w, 
+                                        /images/optimized/sert-medium.avif 1024w, 
+                                        /images/optimized/sert-small.avif 480w" type="image/avif"
+                    sizes="(max-width: 480px) 480px, (max-width: 1024px) 1024px, 1920px">
+
+                <source srcset="/images/optimized/sert-large.webp 1920w, 
+                                        /images/optimized/sert-medium.webp 1024w, 
+                                        /images/optimized/sert-small.webp 480w" type="image/webp"
+                    sizes="(max-width: 480px) 480px, (max-width: 1024px) 1024px, 1920px">
+
+                <img src="/images/optimized/sert-small.webp" class="img-sub" alt="Пример работы после процедуры"
+                    loading="lazy" width="1920" height="1080" style="width: 100%; height: auto; object-fit: cover;">
             </picture>
         </figure>
 
@@ -27,6 +45,7 @@
             <div class="about-description">
                 <p>Ми віримо, що краса — це не лише зовнішній вигляд, а й внутрішнє відчуття впевненості.</p>
                 <p>Кожна процедура депіляції — це ритуал турботи про себе, виконаний з професіоналізмом.</p>
+                <p>Velvet<span>Skin</span> — коли турбота про себе стає красивим ритуалом.</p>
             </div>
 
             <ul class="about-features">
@@ -39,6 +58,9 @@
                     <span class="feature-text">Преміальна косметика</span>
                 </li>
             </ul>
+            <div class="header-actions about-btn">
+                <a href="#booking-modal" class="btn-book-header">Записатись</a>
+            </div>
         </article>
     </div>
 </section>

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "img": "node optimize.js"
   },
   "devDependencies": {
     "glob": "^11.0.0",
@@ -20,6 +21,7 @@
     "@vercel/analytics": "^2.0.0",
     "gsap": "^3.14.2",
     "normalize.css": "^8.0.1",
+    "sharp": "^0.34.5",
     "simple-parallax-js": "^6.3.3",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-html-inject": "^1.1.2"

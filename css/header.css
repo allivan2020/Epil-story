@@ -66,7 +66,9 @@
   font-size: 24px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--text-main);
+  /* color: var(--text-main); */
+  color: rgb(83, 83, 83);
+
   text-decoration: none;
   line-height: 1;
 }
@@ -90,7 +92,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--text-main);
+  color: rgb(252, 178, 94);
   text-decoration: none;
   position: relative;
   transition: color 0.3s ease;

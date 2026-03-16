@@ -1,40 +1,32 @@
 <section id="hero" class="hero">
+    <video class="hero-video desktop-video" autoplay muted loop playsinline poster="./img/hero-poster.web">
+        <source src="/img/hero-video.webm" type="video/webm">
+        <source src="/img/hero-video.mp4" type="video/mp4">
+    </video>
+
+    <video class="hero-video mobile-video" autoplay muted loop playsinline poster="./img/hero-poster.webp">
+        <source src="/img/hero-video-mobile.webm" type="video/webm">
+        <source src="/img/hero-video-mobile.mp4" type="video/mp4">
+    </video>
+
     <div class="container hero-container">
         <article class="hero-content">
             <p class="hero-tagline">Студія воскової депіляції VelvetSkin</p>
 
-
             <h1 class="vibe-title">
-                Воскова депіляція
-                чисте мистецтво
+                Воскова депіляція<br>
+                <span>чисте мистецтво</span>
             </h1>
 
             <p class="hero-text">
                 Відчуй ідеальну гладкість та преміальний догляд за шкірою у Запоріжжі.
                 Ми перетворили депіляцію на ритуал краси.
             </p>
-
-            <div class="hero-spacer"></div>
         </article>
-
-        <figure class="hero-visual">
-            <div class="hero-img-wrapper">
-                <picture>
-                    <source srcset="./img/Bg_image.webp" type="image/webp">
-
-                    <img src="./img/Bg_image.jpg" alt="Професійна воскова депіляція у Запоріжжі — студія VelvetSkin"
-                        class="hero-main-img" fetchpriority="high" loading="eager">
-                </picture>
-                <figcaption class="hero-glass-badge">
-                    Premium Quality
-                </figcaption>
-            </div>
-            <div class="hero-scroll-indicator" aria-hidden="true">
-                <div class="mouse"></div>
-                <span>Scroll</span>
-            </div>
-        </figure>
     </div>
 
-
+    <div class="hero-scroll-indicator" aria-hidden="true">
+        <div class="mouse"></div>
+        <span>Scroll</span>
+    </div>
 </section>

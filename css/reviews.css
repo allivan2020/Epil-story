@@ -1,66 +1,87 @@
-/* --- СЕКЦИЯ ОТЗЫВОВ --- */
+/* =========================================
+   СЕКЦИЯ ОТЗЫВОВ
+   ========================================= */
 .reviews-section {
+  position: relative;
   padding: 80px 0;
-  overflow: hidden; /* Важно, чтобы карусель не ломала верстку */
-  /* background: url(../img/sandra-filipe-BGHSroDaw6Y-unsplash.webp); */
-  /* background-color: rgba(253, 241, 227, 0.769); */
+  overflow: hidden;
+  z-index: 1;
+  background: transparent;
+}
+.reviews-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/sandra-filipe-BGHSroDaw6Y-unsplash.webp');
+  background-size: cover;
   background-position: center;
-  background-size: cover; /* Добавил cover, чтобы фон всегда заполнял секцию */
-  background-repeat: no-repeat;
+  filter: blur(10px);
+  transform: scale(1.1) translateZ(0); /* Форсируем GPU для размытия фона */
+  z-index: -1;
+  background-color: rgba(179, 176, 176, 0.7);
+  background-blend-mode: overlay;
+  will-change: transform;
 }
 
 .reviews-header {
   text-align: center;
   margin-bottom: 40px;
 }
-
 .reviews-subtitle {
-  color: var(--accent-color, #d4a373); /* Замени на свой акцентный цвет */
+  color: var(--accent-color);
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 2px;
 }
-
 .reviews-title {
   font-size: 32px;
   margin-top: 10px;
   color: var(--shadow);
 }
 
-/* Нативная карусель с примагничиванием */
 .reviews-carousel {
   display: flex;
   gap: 24px;
   overflow-x: auto;
   padding: 20px;
-  margin: 0 -20px; /* Компенсируем паддинг контейнера на мобилках */
+  margin: 0 -20px;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  /* Скрываем скроллбар */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
 .reviews-carousel::-webkit-scrollbar {
   display: none;
 }
 
-/* Карточка Apple Glassmorphism */
 .review-glass-card {
-  flex: 0 0 320px; /* Фиксированная ширина карточки */
-  scroll-snap-align: center; /* Магнит по центру */
-
-  /* Магическое стекло */
-  background: rgba(255, 255, 255, 0.08); /* Чуть белый полупрозрачный фон */
+  flex: 0 0 320px;
+  scroll-snap-align: center;
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
-
   padding: 24px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+  /* Аппаратное ускорение для карточек карусели */
+  will-change: transform, opacity;
+  transform: translateZ(0) scale(0.9);
+
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.6;
+  filter: grayscale(
+    20%
+  ); /* Убрал blur() из карточек для производительности Android */
+}
+.review-glass-card.is-focused {
+  opacity: 1;
+  filter: grayscale(0);
+  transform: translateZ(0) scale(1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .review-card-top {
@@ -69,19 +90,15 @@
   align-items: flex-start;
   margin-bottom: 16px;
 }
-
 .reviewer-name {
   font-size: 18px;
   font-weight: 600;
   margin: 0 0 4px 0;
 }
-
 .stars {
   font-size: 14px;
   letter-spacing: 2px;
 }
-
-/* Кнопка "Оригинал" */
 .proof-btn {
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -90,135 +107,54 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: inherit;
   font-size: 12px;
-  cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .proof-btn:hover {
   background: rgba(255, 255, 255, 0.3);
 }
-
-.proof-btn svg {
-  width: 14px;
-  height: 14px;
-}
-
 .review-text {
   font-size: 15px;
   line-height: 1.6;
-  flex-grow: 1; /* Чтобы дата всегда была внизу, если тексты разной длины */
+  flex-grow: 1;
   margin-bottom: 20px;
   font-style: italic;
   opacity: 0.9;
 }
-
 .review-date {
   font-size: 12px;
   opacity: 0.5;
 }
 
-/* Адаптив для десктопа (показываем больше карточек) */
 @media (min-width: 768px) {
   .review-glass-card {
     flex: 0 0 350px;
   }
 }
 
-/* Базовое состояние: карточка полупрозрачная и сильно размыта */
-.review-glass-card {
-  flex: 0 0 320px;
-  scroll-snap-align: center;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Плавный переход */
-
-  opacity: 0.6; /* Полупрозрачность */
-  filter: blur(4px) grayscale(20%); /* Размытие */
-  transform: scale(0.9); /* Чуть меньше в размере */
-}
-
-/* Состояние фокуса: когда карточка по центру */
-.review-glass-card.is-focused {
-  opacity: 1;
-  filter: blur(0) grayscale(0);
-  transform: scale(1);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.4); /* Подсвечиваем границы */
-}
-
-/* Контейнер для стрелок (добавь в reviews.html) */
 .reviews-nav {
   display: flex;
   justify-content: center;
   gap: 20px;
   margin-top: 30px;
 }
-
 .nav-btn {
-  /* Меняем прозрачность на более плотную */
   background: rgba(0, 0, 0, 0.05);
-  /* Цвет иконок/текста делаем темным или акцентным (если фон светлый) */
   color: #333;
   border: 1px solid rgba(0, 0, 0, 0.1);
-
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-
-  /* Чтобы кнопки всегда были поверх всего */
   position: relative;
   z-index: 10;
 }
-
 .nav-btn:hover {
-  background: var(--accent-color, #d4a373);
+  background: var(--accent-color);
   color: white;
-  border-color: var(--accent-color, #d4a373);
+  border-color: var(--accent-color);
   transform: translateY(-2px);
-}
-/* --- СЕКЦІЯ ВІДГУКІВ --- */
-.reviews-section {
-  position: relative; /* Обов'язково для позиціонування фону */
-  padding: 80px 0;
-  overflow: hidden; /* Ховаємо розмиті краї фону */
-  z-index: 1; /* Створюємо контекст накладання для контенту */
-
-  /* Прибираємо фон звідси, він переїжджает в ::before */
-  background: transparent;
-}
-
-/* Створюємо "скляний" шар поверх фону */
-.reviews-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  /* Використовуємо твою основну картинку */
-  background-image: url('../img/sandra-filipe-BGHSroDaw6Y-unsplash.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  /* Ефект розмиття */
-  filter: blur(10px); /* Налаштуй силу під себе */
-
-  /* Масштабуємо, щоб прибрати білі "засвіти" блюру по краях */
-  transform: scale(1.1);
-
-  /* Шар фону — під контентом */
-  z-index: -1;
-
-  /* Додаємо легке затемнення, щоб контент краще читався */
-  background-color: rgba(179, 176, 176, 0.7);
-  background-blend-mode: overlay;
 }

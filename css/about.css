@@ -1,42 +1,43 @@
 /* =========================================
-   СЕКЦІЯ ABOUT — ТЕХНІЧНИЙ ТА СТИЛЬОВИЙ ФІКС
+   ABOUT
    ========================================= */
 .about-section {
   padding: clamp(60px, 10vw, 120px) 0;
   background-color: var(--bg-color);
   overflow: hidden;
 }
-
 .about-container {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(40px, 8vw, 100px); /* Відступ між фото та текстом адаптується */
+  gap: clamp(40px, 8vw, 100px);
   padding: 0 5%;
 }
 
-/* --- КОМПОЗИЦІЯ ЗОБРАЖЕНЬ --- */
 .about-images {
   flex: 1;
   position: relative;
   display: block;
-  max-width: 500px; /* Обмежуємо максимальний розмір */
+  max-width: 500px;
 }
-
+.pic-main,
+.pic-sub {
+  display: block;
+  overflow: visible;
+}
 .pic-main {
   width: 100%;
-  display: block;
-  aspect-ratio: 4 / 5; /* Тримаємо пропорції арки */
+  aspect-ratio: 4 / 5;
 }
-
 .img-main {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 200px 200px 0 0;
   box-shadow: 0 20px 50px rgba(74, 58, 53, 0.08);
+  display: block;
 }
 
 .pic-sub {
@@ -47,7 +48,6 @@
   aspect-ratio: 1 / 1.2;
   z-index: 2;
 }
-
 .img-sub {
   width: 100%;
   height: 100%;
@@ -55,13 +55,12 @@
   border-radius: 15px;
   border: 8px solid #fff;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  display: block;
 }
 
-/* --- ТЕКСТ ТА ТИПОГРАФІКА (СИНХРОНІЗАЦІЯ) --- */
 .about-content {
   flex: 1.2;
 }
-
 .about-subtitle {
   font-family: var(--font-main);
   font-size: 13px;
@@ -71,24 +70,20 @@
   margin-bottom: 20px;
   font-weight: 600;
 }
-
 .about-title {
-  font-family: var(--font-accent); /* Використовуємо твій акцентний шрифт */
+  font-family: var(--font-accent);
   font-size: clamp(36px, 5vw, 56px);
   color: var(--text-main);
   line-height: 1.15;
   margin-bottom: 30px;
   font-weight: 400;
 }
-
 .about-description {
-  border-left: 1px solid rgba(166, 139, 129, 0.3); /* Ніжна лінія зліва */
+  border-left: 1px solid rgba(166, 139, 129, 0.3);
   padding-left: 30px;
   margin-bottom: 40px;
 }
-
 .about-description p {
-  font-family: var(--font-main);
   font-size: 17px;
   line-height: 1.8;
   color: var(--text-light);
@@ -96,30 +91,23 @@
   max-width: 480px;
 }
 
-/* --- ПЕРЕВАГИ --- */
 .about-features {
   display: flex;
   gap: 40px;
-  list-style: none;
   padding: 0;
 }
-
 .feature-item {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
-
 .feature-num {
-  font-family: var(--font-main);
   font-size: 24px;
   font-weight: 300;
   color: var(--accent-color);
   opacity: 0.8;
 }
-
 .feature-text {
-  font-family: var(--font-main);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -127,59 +115,27 @@
   font-weight: 600;
 }
 
-/* --- МОБІЛЬНА АДАПТАЦІЯ --- */
 @media (max-width: 992px) {
   .about-container {
     flex-direction: column;
     text-align: center;
     gap: 60px;
   }
-
   .about-images {
     width: 80%;
     margin-bottom: 20px;
   }
-
   .about-description {
     border-left: none;
     border-top: 1px solid rgba(166, 139, 129, 0.2);
     padding: 25px 0 0 0;
     max-width: 100%;
   }
-
   .about-description p {
     margin-left: auto;
     margin-right: auto;
   }
-
   .about-features {
     justify-content: center;
   }
-}
-
-/* Добавь это в начало своего блока со стилями изображений */
-.pic-main,
-.pic-sub {
-  display: block; /* picture по умолчанию inline, это может ломать размеры */
-  overflow: visible; /* Чтобы тени от маленькой картинки не обрезались */
-}
-
-/* Эти стили у тебя уже есть, теперь они просто "подцепятся" к картинкам */
-.img-main {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 200px 200px 0 0; /* Та самая арка */
-  box-shadow: 0 20px 50px rgba(74, 58, 53, 0.08);
-  display: block;
-}
-
-.img-sub {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 15px;
-  border: 8px solid #fff;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  display: block;
 }

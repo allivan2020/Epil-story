@@ -136,6 +136,9 @@ export function layoutGallery() {
   const handleScroll = ({ scroll }) => {
     if (!isVisible) return;
 
+    // Если это телефон — не делаем тяжелую математику параллакса при скролле
+    if (window.innerWidth <= 768) return;
+
     const vh = window.innerHeight;
     const scrollDelta = scroll - sectionTop + vh;
 

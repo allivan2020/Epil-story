@@ -1,13 +1,15 @@
-/* --- ГАЛЕРЕЯ MOODBOARD: ВЕРСИЯ 2026 --- */
-
+/* =========================================
+   ГАЛЕРЕЯ VIBE / MOODBOARD (ОПТИМИЗИРОВАНО)
+   ========================================= */
 .vibe-section {
   position: relative;
   padding: 120px 5%;
   background-color: var(--bg-color);
   overflow: hidden;
+  --title-size: clamp(42px, 8vw, 84px);
+  --title-margin: 0;
 }
 
-/* Слой цифрового шума */
 .vibe-section::before {
   content: '';
   position: absolute;
@@ -26,92 +28,32 @@
   position: relative;
   z-index: 1;
 }
-
 .vibe-header {
   text-align: center;
   margin-bottom: 80px;
 }
-
-/* --- ТИТУЛ: Базовые стили с фиксом видимости --- */
-.vibe-title {
-  font-family: var(--font-accent);
-  font-size: clamp(32px, 6vw, 68px);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin: 0;
-  text-align: center;
-  position: relative;
-
-  /* Резервируем цвет на случай, если градиент не подгрузится */
-  color: var(--shadow);
-}
-
-.vibe-title span,
-.vibe-subtitle span {
-  display: inline-block;
-  vertical-align: middle; /* Выравнивание */
-
-  /* ПРАВКА: Даем запас пространства вокруг буквы */
-  padding: 0.2em 0.25em;
-  margin-top: -0.2em;
-  margin-bottom: -0.2em;
-
-  line-height: 1.4; /* Увеличиваем высоту строки внутри спана */
-
-  opacity: 0;
-  filter: blur(10px);
-  transform: translateY(20px);
-  will-change: opacity, filter, transform;
-
-  /* Градиент */
-  background: linear-gradient(120deg, #333 30%, #d4af37 50%, #333 70%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: shine 6s linear infinite;
-  transition:
-    opacity 1s ease,
-    filter 1s ease,
-    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Когда класс .revealed добавлен через JS */
-.vibe-title.revealed span,
-.vibe-subtitle.revealed span,
-.reveal-text.revealed span {
-  opacity: 1 !important; /* Принудительно показываем */
-  filter: blur(0) !important;
-  transform: translateY(0) !important;
-}
-
-/* Страховка: если у пользователя отключен JS, текст должен быть виден */
-.no-js .vibe-title span,
-.no-js .vibe-subtitle span {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(0);
-}
-/* --- СЕТКА И КАРТОЧКИ (Очищенная версия) --- */
 .vibe-grid {
-  position: relative;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  contain: paint;
 }
 
+/* УНИФИЦИРОВАННАЯ КАРТОЧКА ГАЛЕРЕИ */
 .vibe-item {
   position: absolute;
   top: 0;
   left: 0;
   width: 280px;
   background: var(--white);
-  will-change: transform;
-
   z-index: 1;
   --scroll-offset: 0px;
+
+  /* Аппаратное ускорение (GPU) для плавности */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
 
   transform: translate3d(
       var(--base-x, 0),
@@ -119,11 +61,12 @@
       0
     )
     rotate(var(--base-rotate, 0deg)) scale(1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  /* Анимация только для hover, чтобы не лагало при скролле */
   transition:
-    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
     box-shadow 0.4s ease,
     z-index 0s;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .vibe-item img {
@@ -133,127 +76,38 @@
   object-fit: cover;
 }
 
-.vibe-item:hover {
-  transform: translate3d(
-      var(--base-x),
-      calc(var(--base-y) - var(--scroll-offset)),
-      0
-    )
-    rotate(0deg) scale(1.1);
-  z-index: 10;
-  box-shadow: 0 30px 60px rgba(74, 58, 53, 0.25);
+/* Desktop hover */
+@media (min-width: 769px) {
+  .vibe-item {
+    transition:
+      transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 0.4s ease,
+      z-index 0s;
+  }
+  .vibe-item:hover {
+    transform: translate3d(
+        var(--base-x),
+        calc(var(--base-y) - var(--scroll-offset)),
+        20px
+      )
+      rotate(0deg) scale(1.1);
+    z-index: 10;
+    box-shadow: 0 30px 60px rgba(74, 58, 53, 0.25);
+  }
 }
 
-/* Мобильная адаптация */
+/* Mobile Vibe Item */
 @media (max-width: 768px) {
-  .vibe-item {
-    width: 140px; /* Делаем чуть уже, чтобы не сбивались в кучу */
-    padding: 6px 6px 20px 6px;
-    transition: none; /* Убираем ховер-переходы для плавного скролла */
+  .vibe-section {
+    padding: 60px 5%;
   }
   .vibe-header {
     margin-bottom: 40px;
   }
-}
-
-@media (max-width: 768px) {
-  .vibe-item {
-    width: 165px;
-    padding: 6px 6px 22px 6px;
-  }
-  .vibe-header {
-    margin-bottom: 40px;
-  }
-}
-
-.vibe-item {
-  position: absolute;
-  top: 0; /* Сбрасываем старые значения */
-  left: 0; /* Сбрасываем старые значения */
-  will-change: transform; /* Подсказываем браузеру вынести карточки на видеокарту */
-
-  /* Убираем тяжелые тени на мобилках или делаем их проще */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-
-  /* Плавность для ховера (но не для скролла!) */
-  transition:
-    box-shadow 0.3s ease,
-    z-index 0s;
-}
-
-@media (max-width: 768px) {
-  .vibe-item {
-    /* На мобилках лучше отключить сложные переходы при скролле */
-    transition: none;
-  }
-}
-@media (max-width: 768px) {
-  .vibe-grid {
-    padding-top: 60px; /* Меньше отступ на мобилках */
-  }
-  .vibe-item {
-    width: 160px; /* Фиксируем ширину для мобилок */
-    padding: 8px 8px 25px 8px;
-  }
-}
-
-.vibe-item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 280px;
-  background: var(--white);
-  will-change: transform;
-
-  /* ПРАВКА: Базовый z-index и переменная для скролла на мобильных */
-  z-index: 1;
-  --scroll-offset: 0px;
-
-  /* ПРАВКА: Вся логика трансформации теперь здесь. Порядок: translate -> rotate -> scale */
-  transform: translate3d(
-      var(--base-x, 0),
-      calc(var(--base-y, 0px) - var(--scroll-offset)),
-      0
-    )
-    rotate(var(--base-rotate, 0deg)) scale(1);
-
-  /* Мягкая и приятная анимация на 0.4 секунды */
-  transition:
-    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-    box-shadow 0.4s ease,
-    z-index 0s;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.vibe-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
-
-.vibe-item:hover {
-  /* ПРАВКА: Порядок СТРОГО совпадает с базовым! Меняем только градусы и масштаб */
-  transform: translate3d(
-      var(--base-x),
-      calc(var(--base-y) - var(--scroll-offset)),
-      0
-    )
-    rotate(0deg) scale(1.1);
-  z-index: 10;
-  box-shadow: 0 30px 60px rgba(74, 58, 53, 0.25);
-}
-
-@media (max-width: 768px) {
   .vibe-item {
     width: 160px;
     padding: 8px 8px 25px 8px;
-    /* На мобилках hover-анимация не нужна, оставляем только скролл */
-    transition: none;
+    transition: none; /* Убиваем лаги на мобилках */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Легкая тень для Android */
   }
-}
-/* 1. Секция галереи (Огромный заголовок) */
-.vibe-section {
-  --title-size: clamp(42px, 8vw, 84px);
-  --title-margin: 0; /* В галерее у нас был margin: 0 */
 }

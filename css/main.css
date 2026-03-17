@@ -1,7 +1,5 @@
 @import 'normalize.css';
-@import 'variables.css';
 @import 'base.css';
-@import 'container.css';
 @import 'header.css';
 @import 'hero.css';
 @import 'about.css';
@@ -9,7 +7,6 @@
 @import 'vibe.css';
 @import 'contacts.css';
 @import 'footer.css';
-@import 'modal.css';
 @import 'lightbox.css';
 @import './faq.css';
 @import './reviews.css';

@@ -1,43 +1,26 @@
-/* Переменные для премиального Glassmorphism */
-:root {
-  --text-dark: #2c2c2c;
-  --text-muted: rgba(44, 44, 44, 0.75);
-  --glass-bg: rgba(255, 255, 255, 0.35);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  --glass-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
-}
-
-/* 1. Секция: Позиционирование и Фон */
+/* =========================================
+   FAQ
+   ========================================= */
 .faq-section {
   position: relative;
   padding: 100px 20px;
-  /* Оптимизировали путь и формат фонового изображения */
-  background: url(../img/sandra-filipe-BGHSroDaw6Y-unsplash.webp);
-  background-position: center;
-  background-size: cover; /* Добавил cover, чтобы фон всегда заполнял секцию */
-  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   overflow: hidden;
+  background: url(../img/sandra-filipe-BGHSroDaw6Y-unsplash.webp) center/cover
+    no-repeat;
 }
-
-/* Визуальные элементы фона для эффекта стекла */
 .faq-background-visual {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
 }
-
 .visual-blob {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
   opacity: 0.6;
 }
-
 .visual-blob-1 {
   width: 300px;
   height: 300px;
@@ -45,7 +28,6 @@
   right: -5%;
   background: radial-gradient(#e1ccb9, rgba(255, 255, 255, 0));
 }
-
 .visual-blob-2 {
   width: 400px;
   height: 400px;
@@ -54,7 +36,6 @@
   background: radial-gradient(#eaddcf, rgba(255, 255, 255, 0));
 }
 
-/* 2. Контейнер */
 .faq-container {
   max-width: 580px;
   width: 100%;
@@ -62,65 +43,45 @@
   display: flex;
   flex-direction: column;
 }
-
 .faq-heading {
   text-align: center;
-  color: var(--text-dark);
-  font-family: var(
-    --font-accent
-  ); /* Добавил твой акцентный шрифт, чтобы было в едином стиле */
+  font-family: var(--font-accent);
   font-size: 48px;
-  /* margin-bottom: 40px; */
 }
-
-/* 3. Обертка всего списка */
 .faq-glass-overlay {
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 24px;
-  box-shadow: var(--glass-shadow);
+  box-shadow: var(--shadow-premium);
   padding: 8px 0;
 }
-
-/* 4. Карточка (Вопрос) */
 .faq-item {
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
   transition: background 0.3s ease;
 }
-
 .faq-item:last-child {
   border-bottom: none;
 }
-
 .faq-item:hover {
   background: rgba(255, 255, 255, 0.45);
 }
-
 .faq-item[open] .faq-icon {
   transform: rotate(45deg);
 }
-
 .faq-item[open] .faq-content-wrapper {
   grid-template-rows: 1fr;
 }
-
 .faq-item[open] .faq-content p {
   opacity: 1;
   transform: translateY(0);
 }
 
-.faq-title-tex {
-  max-width: 550px;
-}
-/* 5. Заголовок (Summary) */
 .faq-title {
   padding: 28px;
-  font-family: var(--font-main);
   font-size: 18px;
   font-weight: 500;
-  color: var(--text-dark);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -128,37 +89,26 @@
   list-style: none;
   user-select: none;
 }
-
 .faq-title::-webkit-details-marker {
   display: none;
 }
-
 .faq-icon {
   width: 24px;
   height: 24px;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
-  color: var(--text-dark);
 }
-
-/* 6. Плавная анимация контента */
 .faq-content-wrapper {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .faq-content {
   overflow: hidden;
 }
-
 .faq-content p {
-  font-family: var(--font-main);
   padding: 0 28px 28px 28px;
-  margin: 0;
-  color: var(--text-muted);
-  line-height: 1.6;
-  font-size: 16px;
+  color: rgba(44, 44, 44, 0.75);
   opacity: 0;
   transform: translateY(-8px);
   transition:
@@ -166,33 +116,26 @@
     transform 0.4s ease 0.3s;
 }
 
-/* --- АДАПТИВ: МОБИЛЬНАЯ ВЕРСИЯ --- */
 @media (max-width: 768px) {
   .faq-section {
     padding: 60px 16px;
   }
-
   .faq-heading {
     font-size: 38px;
     margin-bottom: 30px;
   }
-
   .faq-glass-overlay {
     border-radius: 20px;
   }
-
   .faq-title {
     padding: 22px 20px;
     font-size: 16px;
   }
-
-  .faq-icon {
-    width: 20px;
-    height: 20px;
-  }
-
   .faq-content p {
     padding: 0 20px 20px 20px;
     font-size: 14px;
   }
+  .visual-blob {
+    display: none;
+  } /* Оптимизация Android: отключаем градиенты на фоне */
 }

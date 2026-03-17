@@ -13,14 +13,34 @@ export function initPhotoLightbox() {
 
   // 1. Открытие и сбор массива картинок
   vibeImages.forEach((img, index) => {
-    imagesArray.push(img.src);
+    // Берем большую картинку из data-src, а если ее нет — берем обычный src
+    const fullImageUrl = img.getAttribute('data-src') || img.src;
+    imagesArray.push(fullImageUrl);
+
     img.style.cursor = 'zoom-in';
 
-    img.addEventListener('click', () => {
+    // Создаем отдельную функцию для открытия, чтобы вызывать её и по клику, и по кнопке
+    const openThisImage = () => {
       currentIndex = index;
       lightboxImg.src = imagesArray[currentIndex];
       lightbox.classList.add('is-open');
       document.body.style.overflow = 'hidden';
+    };
+
+    // Открытие по клику мыши
+    img.addEventListener('click', openThisImage);
+
+    // Открытие с клавиатуры (Enter, Return Mac, Пробел)
+    img.addEventListener('keydown', e => {
+      if (
+        e.key === 'Enter' ||
+        e.keyCode === 13 ||
+        e.key === ' ' ||
+        e.code === 'Space'
+      ) {
+        e.preventDefault(); // Предотвращаем прокрутку страницы вниз при нажатии пробела
+        openThisImage();
+      }
     });
   });
 
